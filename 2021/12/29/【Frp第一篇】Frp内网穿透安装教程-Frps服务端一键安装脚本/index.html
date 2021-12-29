@@ -24,17 +24,17 @@
     var CONFIG = {"hostname":"i.sugood.xyz","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="系统：CentOS7 内存：1G CPU：单核1G  客户端安装教程：注意事项：记得给使用的端口开放防火墙，开放防火墙，开放防火墙Frps服务端一键配置脚本地址：https:&#x2F;&#x2F;github.com&#x2F;MvsCode&#x2F;frps-onekey 脚本有两个源，国外VPS可以用Github的源，国内的VPS建议使用Aliyun的源，要不可能很慢。本教程使用的就是Aliyun的源 下载脚本wget htt">
+  <meta name="description" content="系统：CentOS7 内存：1G CPU：单核1G  客户端安装教程：注意事项：记得给使用的端口开放防火墙，开放防火墙，开放防火墙Frps服务端一键配置脚本地址：https:&#x2F;&#x2F;github.com&#x2F;MvsCode&#x2F;frps-onekey 脚本有两个源，国外VPS可以用Github的源，国内的VPS建议使用Aliyun的源，要不可能很慢。本教程使用的就是Aliyun的源">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Frp第一篇】Frp内网穿透安装教程#Frps服务端一键安装脚本#">
 <meta property="og:url" content="https://i.sugood.xyz/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%B8%80%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frps%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC/index.html">
 <meta property="og:site_name" content="Sugood">
-<meta property="og:description" content="系统：CentOS7 内存：1G CPU：单核1G  客户端安装教程：注意事项：记得给使用的端口开放防火墙，开放防火墙，开放防火墙Frps服务端一键配置脚本地址：https:&#x2F;&#x2F;github.com&#x2F;MvsCode&#x2F;frps-onekey 脚本有两个源，国外VPS可以用Github的源，国内的VPS建议使用Aliyun的源，要不可能很慢。本教程使用的就是Aliyun的源 下载脚本wget htt">
+<meta property="og:description" content="系统：CentOS7 内存：1G CPU：单核1G  客户端安装教程：注意事项：记得给使用的端口开放防火墙，开放防火墙，开放防火墙Frps服务端一键配置脚本地址：https:&#x2F;&#x2F;github.com&#x2F;MvsCode&#x2F;frps-onekey 脚本有两个源，国外VPS可以用Github的源，国内的VPS建议使用Aliyun的源，要不可能很慢。本教程使用的就是Aliyun的源">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://imgs.sugood.xyz/1640766571503why2jrws.png?imageslim">
 <meta property="og:image" content="http://imgs.sugood.xyz/1640766607763w1pp4smt.png?imageslim">
 <meta property="article:published_time" content="2021-12-29T08:09:54.000Z">
-<meta property="article:modified_time" content="2021-12-29T08:30:13.107Z">
+<meta property="article:modified_time" content="2021-12-29T10:14:03.867Z">
 <meta property="article:author" content="sugood">
 <meta property="article:tag" content="Android,iOS,Flutter,程序员,移动开发,软件开发,技术文章">
 <meta name="twitter:card" content="summary">
@@ -266,7 +266,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-12-29 16:09:54 / 修改时间：16:30:13" itemprop="dateCreated datePublished" datetime="2021-12-29T16:09:54+08:00">2021-12-29</time>
+      <time title="创建时间：2021-12-29 16:09:54 / 修改时间：18:14:03" itemprop="dateCreated datePublished" datetime="2021-12-29T16:09:54+08:00">2021-12-29</time>
     </span>
 
   
@@ -314,6 +314,7 @@
 </ul>
 <h1 id="客户端安装教程："><a href="#客户端安装教程：" class="headerlink" title="客户端安装教程："></a>客户端安装教程：</h1><h3 id="注意事项：记得给使用的端口开放防火墙，开放防火墙，开放防火墙"><a href="#注意事项：记得给使用的端口开放防火墙，开放防火墙，开放防火墙" class="headerlink" title="注意事项：记得给使用的端口开放防火墙，开放防火墙，开放防火墙"></a>注意事项：记得给使用的端口开放防火墙，开放防火墙，开放防火墙</h3><p>Frps服务端一键配置脚本地址：<a target="_blank" rel="noopener" href="https://github.com/MvsCode/frps-onekey">https://github.com/MvsCode/frps-onekey</a></p>
 <p>脚本有两个源，国外VPS可以用Github的源，国内的VPS建议使用Aliyun的源，要不可能很慢。本教程使用的就是Aliyun的源</p>
+<span id="more"></span>
 <h3 id="下载脚本"><a href="#下载脚本" class="headerlink" title="下载脚本"></a>下载脚本</h3><p>wget <a target="_blank" rel="noopener" href="https://code.aliyun.com/MvsCode/frps-onekey/raw/master/install-frps.sh">https://code.aliyun.com/MvsCode/frps-onekey/raw/master/install-frps.sh</a> -O ./install-frps.sh</p>
 <h3 id="设置脚本运行权限"><a href="#设置脚本运行权限" class="headerlink" title="设置脚本运行权限"></a>设置脚本运行权限</h3><p>chmod 700 ./install-frps.sh</p>
 <h3 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a>执行脚本</h3><p>./install-frps.sh install</p>
