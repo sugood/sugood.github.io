@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//unpkg.zhimg.com/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//unpkg.zhimg.com/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"i.sugood.xyz","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="@TOC 系统说明系统版本：macOS 10.15.7 Hammerspoon介绍Hammerspoon是OS X的桌面自动化工具。它将各种系统级API桥接到Lua脚本引擎中，从而允许您通过编写Lua脚本对系统产生强大的影响。 Hammerspoon安装与脚本介绍我把一些常用的脚本整合在一起。这些脚本都是我用了好几年的。不仅稳定而且还实用。所以，才安利给大家。部分功能是参考别人的，部分是自己写的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【MacOS】Mac使用技巧-Hammerspoon自动化功能#实现多屏快速切换，窗口缩放,自定义应用启动快捷键，添加片段和备忘录">
+<meta property="og:url" content="https://i.sugood.xyz/2021/12/29/%E3%80%90MacOS%E3%80%91Mac%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7-Hammerspoon%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8A%9F%E8%83%BD-%E5%AE%9E%E7%8E%B0%E5%A4%9A%E5%B1%8F%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%EF%BC%8C%E7%AA%97%E5%8F%A3%E7%BC%A9%E6%94%BE-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8C%E6%B7%BB%E5%8A%A0%E7%89%87%E6%AE%B5%E5%92%8C%E5%A4%87%E5%BF%98%E5%BD%95/index.html">
+<meta property="og:site_name" content="Sugood">
+<meta property="og:description" content="@TOC 系统说明系统版本：macOS 10.15.7 Hammerspoon介绍Hammerspoon是OS X的桌面自动化工具。它将各种系统级API桥接到Lua脚本引擎中，从而允许您通过编写Lua脚本对系统产生强大的影响。 Hammerspoon安装与脚本介绍我把一些常用的脚本整合在一起。这些脚本都是我用了好几年的。不仅稳定而且还实用。所以，才安利给大家。部分功能是参考别人的，部分是自己写的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201009192343243.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201009192636404.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201009192828764.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2021-12-29T08:05:07.000Z">
+<meta property="article:modified_time" content="2021-12-29T08:05:18.806Z">
+<meta property="article:author" content="sugood">
+<meta property="article:tag" content="Android,iOS,Flutter,程序员,移动开发,软件开发,技术文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201009192343243.png#pic_center">
+
+
+<link rel="canonical" href="https://i.sugood.xyz/2021/12/29/%E3%80%90MacOS%E3%80%91Mac%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7-Hammerspoon%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8A%9F%E8%83%BD-%E5%AE%9E%E7%8E%B0%E5%A4%9A%E5%B1%8F%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%EF%BC%8C%E7%AA%97%E5%8F%A3%E7%BC%A9%E6%94%BE-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8C%E6%B7%BB%E5%8A%A0%E7%89%87%E6%AE%B5%E5%92%8C%E5%A4%87%E5%BF%98%E5%BD%95/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【MacOS】Mac使用技巧-Hammerspoon自动化功能#实现多屏快速切换，窗口缩放,自定义应用启动快捷键，添加片段和备忘录 | Sugood</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?125e718c08b661e0c3ceec32d67c1ce5";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Sugood</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">系统说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hammerspoon%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">Hammerspoon介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hammerspoon%E5%AE%89%E8%A3%85%E4%B8%8E%E8%84%9A%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">Hammerspoon安装与脚本介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">3.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD"><span class="nav-number">3.2.</span> <span class="nav-text">功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86"><span class="nav-number">3.2.1.</span> <span class="nav-text">窗口管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-%E5%B1%8F%E5%B9%95"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">1&#x2F;2 屏幕</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-%E5%B1%8F%E5%B9%95"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">1&#x2F;4 屏幕</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AA%E6%98%BE%E7%A4%BA%E5%99%A8"><span class="nav-number">3.2.1.3.</span> <span class="nav-text">多个显示器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E5%85%89%E6%A0%87"><span class="nav-number">3.2.1.3.1.</span> <span class="nav-text">移动光标</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E7%AA%97%E5%8F%A3"><span class="nav-number">3.2.1.3.2.</span> <span class="nav-text">移动窗口</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E5%AE%83"><span class="nav-number">3.2.1.4.</span> <span class="nav-text">其它</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%B7%A5%E5%85%B7"><span class="nav-number">3.2.2.</span> <span class="nav-text">系统工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E5%90%AF%E5%8A%A8"><span class="nav-number">3.2.3.</span> <span class="nav-text">快速启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%87%E6%AE%B5%E5%92%8C%E5%A4%87%E5%BF%98%E5%BD%95"><span class="nav-number">3.2.4.</span> <span class="nav-text">片段和备忘录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0%E7%89%87%E6%AE%B5"><span class="nav-number">3.2.4.1.</span> <span class="nav-text">如何添加片段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E7%89%87%E6%AE%B5"><span class="nav-number">3.2.4.2.</span> <span class="nav-text">如何使用片段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%A0%E9%99%A4%E6%88%96%E8%80%85%E7%BC%96%E8%BE%91%E7%89%87%E6%AE%B5"><span class="nav-number">3.2.4.3.</span> <span class="nav-text">如何删除或者编辑片段</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sugood</p>
+  <div class="site-description" itemprop="description">这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://i.sugood.xyz/2021/12/29/%E3%80%90MacOS%E3%80%91Mac%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7-Hammerspoon%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8A%9F%E8%83%BD-%E5%AE%9E%E7%8E%B0%E5%A4%9A%E5%B1%8F%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%EF%BC%8C%E7%AA%97%E5%8F%A3%E7%BC%A9%E6%94%BE-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8C%E6%B7%BB%E5%8A%A0%E7%89%87%E6%AE%B5%E5%92%8C%E5%A4%87%E5%BF%98%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sugood">
+      <meta itemprop="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugood">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【MacOS】Mac使用技巧-Hammerspoon自动化功能#实现多屏快速切换，窗口缩放,自定义应用启动快捷键，添加片段和备忘录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-12-29 16:05:07 / 修改时间：16:05:18" itemprop="dateCreated datePublished" datetime="2021-12-29T16:05:07+08:00">2021-12-29</time>
+    </span>
+
+  
+    <span id="/2021/12/29/%E3%80%90MacOS%E3%80%91Mac%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7-Hammerspoon%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8A%9F%E8%83%BD-%E5%AE%9E%E7%8E%B0%E5%A4%9A%E5%B1%8F%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%EF%BC%8C%E7%AA%97%E5%8F%A3%E7%BC%A9%E6%94%BE-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8C%E6%B7%BB%E5%8A%A0%E7%89%87%E6%AE%B5%E5%92%8C%E5%A4%87%E5%BF%98%E5%BD%95/" class="post-meta-item leancloud_visitors" data-flag-title="【MacOS】Mac使用技巧-Hammerspoon自动化功能#实现多屏快速切换，窗口缩放,自定义应用启动快捷键，添加片段和备忘录" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/12/29/%E3%80%90MacOS%E3%80%91Mac%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7-Hammerspoon%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8A%9F%E8%83%BD-%E5%AE%9E%E7%8E%B0%E5%A4%9A%E5%B1%8F%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%EF%BC%8C%E7%AA%97%E5%8F%A3%E7%BC%A9%E6%94%BE-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8C%E6%B7%BB%E5%8A%A0%E7%89%87%E6%AE%B5%E5%92%8C%E5%A4%87%E5%BF%98%E5%BD%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/29/%E3%80%90MacOS%E3%80%91Mac%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7-Hammerspoon%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8A%9F%E8%83%BD-%E5%AE%9E%E7%8E%B0%E5%A4%9A%E5%B1%8F%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%EF%BC%8C%E7%AA%97%E5%8F%A3%E7%BC%A9%E6%94%BE-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8C%E6%B7%BB%E5%8A%A0%E7%89%87%E6%AE%B5%E5%92%8C%E5%A4%87%E5%BF%98%E5%BD%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>@<a href="Hammerspoon%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8A%9F%E8%83%BD#%E5%AE%9E%E7%8E%B0%E5%A4%9A%E5%B1%8F%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%EF%BC%8C%E7%AA%97%E5%8F%A3%E7%BC%A9%E6%94%BE,%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8C%E6%B7%BB%E5%8A%A0%E7%89%87%E6%AE%B5%E5%92%8C%E5%A4%87%E5%BF%98%E5%BD%95">TOC</a></p>
+<h1 id="系统说明"><a href="#系统说明" class="headerlink" title="系统说明"></a>系统说明</h1><p>系统版本：macOS 10.15.7</p>
+<h1 id="Hammerspoon介绍"><a href="#Hammerspoon介绍" class="headerlink" title="Hammerspoon介绍"></a>Hammerspoon介绍</h1><p>Hammerspoon是OS X的桌面自动化工具。它将各种系统级API桥接到Lua脚本引擎中，从而允许您通过编写Lua脚本对系统产生强大的影响。</p>
+<h1 id="Hammerspoon安装与脚本介绍"><a href="#Hammerspoon安装与脚本介绍" class="headerlink" title="Hammerspoon安装与脚本介绍"></a>Hammerspoon安装与脚本介绍</h1><p>我把一些常用的脚本整合在一起。这些脚本都是我用了好几年的。不仅稳定而且还实用。所以，才安利给大家。部分功能是参考别人的，部分是自己写的。如果有什么问题大家可以直接评论告诉我，喜欢的话可以在<a target="_blank" rel="noopener" href="https://github.com/sugood/hammerspoon">github</a>上star一下。以后还会不断更新。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li>安装 <a target="_blank" rel="noopener" href="http://www.hammerspoon.org/">Hammerspoon</a></li>
+<li>下载脚本 git clone <a target="_blank" rel="noopener" href="https://github.com/sugood/hammerspoon.git">https://github.com/sugood/hammerspoon.git</a> ~/.hammerspoon</li>
+</ol>
+<h2 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h2><h3 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h3><h4 id="1-2-屏幕"><a href="#1-2-屏幕" class="headerlink" title="1/2 屏幕"></a>1/2 屏幕</h4><ul>
+<li><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd> + <kbd>←</kbd> 将当前窗口移动到左半屏</li>
+<li><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd> + <kbd>→</kbd> 将当前窗口移动到右半屏</li>
+<li><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd> + <kbd>↑</kbd> 将当前窗口移动到上半屏</li>
+<li><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd> + <kbd>↓</kbd>    将当前窗口移动到下半屏</li>
+</ul>
+<h4 id="1-4-屏幕"><a href="#1-4-屏幕" class="headerlink" title="1/4 屏幕"></a>1/4 屏幕</h4><ul>
+<li><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⇧</kbd> + <kbd>←</kbd> 将当前窗口移动到左上 1/4 屏</li>
+<li><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⇧</kbd> + <kbd>→</kbd> 将当前窗口移动到右下 1/4 屏</li>
+<li><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⇧</kbd> + <kbd>↑</kbd> 将当前窗口移动到右上 1/4 屏</li>
+<li><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⇧</kbd> + <kbd>↓</kbd> 将当前窗口移动到左下 1/4 屏</li>
+</ul>
+<h4 id="多个显示器"><a href="#多个显示器" class="headerlink" title="多个显示器"></a>多个显示器</h4><h5 id="移动光标"><a href="#移动光标" class="headerlink" title="移动光标"></a>移动光标</h5><ul>
+<li><kbd>⌃</kbd><kbd>⌥</kbd> + <kbd>←</kbd> 把光标移动到下一个显示器</li>
+<li><kbd>⌃</kbd><kbd>⌥</kbd> + <kbd>→</kbd> 把光标移动到上一个显示器</li>
+</ul>
+<h5 id="移动窗口"><a href="#移动窗口" class="headerlink" title="移动窗口"></a>移动窗口</h5><ul>
+<li><kbd>⇧</kbd><kbd>⌥</kbd> + <kbd>←</kbd> 将当前活动窗口移动到上一个显示器</li>
+<li><kbd>⇧</kbd><kbd>⌥</kbd> + <kbd>→</kbd> 将当前活动窗口移动到下一个显示器</li>
+<li><kbd>⇧</kbd><kbd>⌥</kbd> + <kbd>1</kbd> 将当前活动窗口移动到第一个显示器并窗口最大化</li>
+<li><kbd>⇧</kbd><kbd>⌥</kbd> + <kbd>2</kbd> 将当前活动窗口移动到第二个显示器并窗口最大化</li>
+</ul>
+<h4 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h4><ul>
+<li><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd> + <kbd>F</kbd> 全屏</li>
+<li><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd> + <kbd>M</kbd> 最大化窗口</li>
+<li><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd> + <kbd>C</kbd> 将窗口放到中间</li>
+<li><kbd>⇧</kbd><kbd>⌥</kbd> + <kbd>H</kbd>  切换活动窗口</li>
+<li><kbd>⇧</kbd><kbd>⌥</kbd> + <kbd>/</kbd>  显示窗口切换的快捷键</li>
+</ul>
+<h3 id="系统工具"><a href="#系统工具" class="headerlink" title="系统工具"></a>系统工具</h3><ul>
+<li><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd> + <kbd>L</kbd> 锁屏</li>
+</ul>
+<h3 id="快速启动"><a href="#快速启动" class="headerlink" title="快速启动"></a>快速启动</h3><ul>
+<li><kbd>⌃</kbd><kbd>⇧</kbd> + <kbd>I</kbd> <code>IntelliJ IDEA</code></li>
+<li><kbd>⌃</kbd><kbd>⇧</kbd> + <kbd>T</kbd> <code>Terminal</code></li>
+<li><kbd>⌃</kbd><kbd>⇧</kbd> + <kbd>Z</kbd> <code>Calculator</code></li>
+<li><kbd>⌃</kbd><kbd>⇧</kbd> + <kbd>D</kbd> <code>Finder</code></li>
+<li><kbd>⌃</kbd><kbd>⇧</kbd> + <kbd>Q</kbd> <code>Activity Monitor</code></li>
+<li><kbd>⌃</kbd><kbd>⇧</kbd> + <kbd>S</kbd> <code>System Preferences</code></li>
+<li><kbd>⌃</kbd><kbd>⇧</kbd> + <kbd>C</kbd> <code>Google Chrome</code></li>
+<li><kbd>⌃</kbd><kbd>⇧</kbd> + <kbd>A</kbd> <code>Launchpad</code></li>
+</ul>
+<h3 id="片段和备忘录"><a href="#片段和备忘录" class="headerlink" title="片段和备忘录"></a>片段和备忘录</h3><ul>
+<li><kbd>⌃</kbd><kbd>⌘</kbd> + <kbd>A</kbd> 添加一个片段或者备忘</li>
+<li><kbd>⌃</kbd><kbd>⌘</kbd> + <kbd>V</kbd> 列出片段或备忘录并使用</li>
+</ul>
+<h4 id="如何添加片段"><a href="#如何添加片段" class="headerlink" title="如何添加片段"></a>如何添加片段</h4><ol>
+<li>选中需要添加的文本，参考如下格式，当然不参考也行:-)<br>格式：<strong>内容| 关键字|示例|说明</strong></li>
+</ol>
+<ul>
+<li>内容：具体要保存到片段中的文本，一般是一段指令或者一段代码片段。</li>
+<li>关键字：用于索引的，能快速的找到对应的片段</li>
+<li>示例：例如片段是“cp”这个指令，那么示例可以写 cp file1 file2。</li>
+<li>说明：就是说明这个片段的作用是什么，<br>例子：cp|cmd|cp file1 file2|复制文件或目录</li>
+</ul>
+<ol start="2">
+<li>按下快捷键control+command+A 添加后的结果如下<br><img src="https://img-blog.csdnimg.cn/20201009192343243.png#pic_center" alt="在这里插入图片描述"><h4 id="如何使用片段"><a href="#如何使用片段" class="headerlink" title="如何使用片段"></a>如何使用片段</h4></li>
+<li>按下快捷键control+command+V 调出片段列表。如下图，点击对应的片段就能直接粘贴出来。<br><img src="https://img-blog.csdnimg.cn/20201009192636404.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><h4 id="如何删除或者编辑片段"><a href="#如何删除或者编辑片段" class="headerlink" title="如何删除或者编辑片段"></a>如何删除或者编辑片段</h4></li>
+<li>按下快捷键control+command+V 调出片段列表。然后右键调出菜单就能删除或编辑单个片段<br><img src="https://img-blog.csdnimg.cn/20201009192828764.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></li>
+<li><em>批量操作：直接打开~/.hammerspoon/history.json。编辑json文件就可以了。</em></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/29/%E3%80%90MacOS%E3%80%91Lua-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E5%B9%B6%E5%AE%8C%E6%88%90%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8EHammerspoon%E7%9A%84%E5%A4%87%E5%BF%98%E5%BD%95%E9%A1%B9%E7%9B%AE/" rel="prev" title="【MacOS】Lua 快速入门并完成一个基于Hammerspoon的备忘录项目">
+                  <i class="fa fa-chevron-left"></i> 【MacOS】Lua 快速入门并完成一个基于Hammerspoon的备忘录项目
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/12/29/%E3%80%90MacOS%E3%80%91Mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE-%E5%AE%89%E8%A3%85Java%E5%B9%B6%E6%9F%A5%E7%9C%8Bjava%E9%BB%98%E8%AE%A4%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/" rel="next" title="【MacOS】Mac环境配置-安装Java并查看java默认安装路径">
+                  【MacOS】Mac环境配置-安装Java并查看java默认安装路径 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">ICP备19070416号-3号 </a>
+  </div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sugood</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+<div class="cdn">
+  Powerful CDN service provided by
+  <span class="post-meta-divider">|</span>
+  <a target="_blank" rel="noopener" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">
+    <img src="/images/upyun_logo.png" style="display:inline-block;text-decoration:none;height:30px;" />
+  </a>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//unpkg.zhimg.com/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/utils.js"></script><script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/motion.js"></script><script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","app_key":"r26uvBWOfgqwX3flwdJo0G2M","server_url":"nt1d1lor.api.lncldglobal.com","security":false};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//unpkg.zhimg.com/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","appKey":"r26uvBWOfgqwX3flwdJo0G2M","serverURLs":null,"placeholder":"免费的评论不发一条吗~","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":false,"enableQQ":true,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/2021/12/29/%E3%80%90MacOS%E3%80%91Mac%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7-Hammerspoon%E8%87%AA%E5%8A%A8%E5%8C%96%E5%8A%9F%E8%83%BD-%E5%AE%9E%E7%8E%B0%E5%A4%9A%E5%B1%8F%E5%BF%AB%E9%80%9F%E5%88%87%E6%8D%A2%EF%BC%8C%E7%AA%97%E5%8F%A3%E7%BC%A9%E6%94%BE-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%8C%E6%B7%BB%E5%8A%A0%E7%89%87%E6%AE%B5%E5%92%8C%E5%A4%87%E5%BF%98%E5%BD%95/",
+      serverURLs: "https://nt1d1lor.api.lncldglobal.com"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

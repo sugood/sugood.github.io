@@ -24,19 +24,21 @@
     var CONFIG = {"hostname":"i.sugood.xyz","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sugood">
-<meta property="og:url" content="https://i.sugood.xyz/archives/2021/11/index.html">
+  <meta name="description" content="系统：CentOS7 内存：1G CPU：单核1G  客户端安装教程：注意事项：记得给使用的端口开放防火墙，开放防火墙，开放防火墙Frps服务端一键配置脚本地址：https:&#x2F;&#x2F;github.com&#x2F;MvsCode&#x2F;frps-onekey 脚本有两个源，国外VPS可以用Github的源，国内的VPS建议使用Aliyun的源，要不可能很慢。本教程使用的就是Aliyun的源 下载脚本wget htt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Frp第一篇】Frp内网穿透安装教程#Frps服务端一键安装脚本#">
+<meta property="og:url" content="https://i.sugood.xyz/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%B8%80%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frps%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC/index.html">
 <meta property="og:site_name" content="Sugood">
-<meta property="og:description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
+<meta property="og:description" content="系统：CentOS7 内存：1G CPU：单核1G  客户端安装教程：注意事项：记得给使用的端口开放防火墙，开放防火墙，开放防火墙Frps服务端一键配置脚本地址：https:&#x2F;&#x2F;github.com&#x2F;MvsCode&#x2F;frps-onekey 脚本有两个源，国外VPS可以用Github的源，国内的VPS建议使用Aliyun的源，要不可能很慢。本教程使用的就是Aliyun的源 下载脚本wget htt">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-29T08:09:54.000Z">
+<meta property="article:modified_time" content="2021-12-29T08:14:04.621Z">
 <meta property="article:author" content="sugood">
 <meta property="article:tag" content="Android,iOS,Flutter,程序员,移动开发,软件开发,技术文章">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://i.sugood.xyz/archives/2021/11/">
+<link rel="canonical" href="https://i.sugood.xyz/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%B8%80%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frps%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC/">
 
 
 <script class="page-configurations">
@@ -44,12 +46,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>归档 | Sugood</title>
+  <title>【Frp第一篇】Frp内网穿透安装教程#Frps服务端一键安装脚本# | Sugood</title>
   
 
 
@@ -168,7 +170,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -181,6 +183,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">客户端安装教程：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9%EF%BC%9A%E8%AE%B0%E5%BE%97%E7%BB%99%E4%BD%BF%E7%94%A8%E7%9A%84%E7%AB%AF%E5%8F%A3%E5%BC%80%E6%94%BE%E9%98%B2%E7%81%AB%E5%A2%99%EF%BC%8C%E5%BC%80%E6%94%BE%E9%98%B2%E7%81%AB%E5%A2%99%EF%BC%8C%E5%BC%80%E6%94%BE%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-number">1.0.1.</span> <span class="nav-text">注意事项：记得给使用的端口开放防火墙，开放防火墙，开放防火墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E8%84%9A%E6%9C%AC"><span class="nav-number">1.0.2.</span> <span class="nav-text">下载脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E8%84%9A%E6%9C%AC%E8%BF%90%E8%A1%8C%E6%9D%83%E9%99%90"><span class="nav-number">1.0.3.</span> <span class="nav-text">设置脚本运行权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC"><span class="nav-number">1.0.4.</span> <span class="nav-text">执行脚本</span></a></li></ol></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -222,57 +225,143 @@
 </noscript>
 
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
       
 
       
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 17 篇日志。 继续努力。</span>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://i.sugood.xyz/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%B8%80%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frps%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sugood">
+      <meta itemprop="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugood">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Frp第一篇】Frp内网穿透安装教程#Frps服务端一键安装脚本#
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+
+      <time title="创建时间：2021-12-29 16:09:54 / 修改时间：16:14:04" itemprop="dateCreated datePublished" datetime="2021-12-29T16:09:54+08:00">2021-12-29</time>
+    </span>
+
+  
+    <span id="/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%B8%80%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frps%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC/" class="post-meta-item leancloud_visitors" data-flag-title="【Frp第一篇】Frp内网穿透安装教程#Frps服务端一键安装脚本#" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%B8%80%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frps%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%B8%80%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frps%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <ul>
+<li>系统：CentOS7</li>
+<li>内存：1G</li>
+<li>CPU：单核1G</li>
+</ul>
+<h1 id="客户端安装教程："><a href="#客户端安装教程：" class="headerlink" title="客户端安装教程："></a>客户端安装教程：</h1><h3 id="注意事项：记得给使用的端口开放防火墙，开放防火墙，开放防火墙"><a href="#注意事项：记得给使用的端口开放防火墙，开放防火墙，开放防火墙" class="headerlink" title="注意事项：记得给使用的端口开放防火墙，开放防火墙，开放防火墙"></a>注意事项：记得给使用的端口开放防火墙，开放防火墙，开放防火墙</h3><p>Frps服务端一键配置脚本地址：<a target="_blank" rel="noopener" href="https://github.com/MvsCode/frps-onekey">https://github.com/MvsCode/frps-onekey</a></p>
+<p>脚本有两个源，国外VPS可以用Github的源，国内的VPS建议使用Aliyun的源，要不可能很慢。本教程使用的就是Aliyun的源</p>
+<h3 id="下载脚本"><a href="#下载脚本" class="headerlink" title="下载脚本"></a>下载脚本</h3><p>wget <a target="_blank" rel="noopener" href="https://code.aliyun.com/MvsCode/frps-onekey/raw/master/install-frps.sh">https://code.aliyun.com/MvsCode/frps-onekey/raw/master/install-frps.sh</a> -O ./install-frps.sh</p>
+<h3 id="设置脚本运行权限"><a href="#设置脚本运行权限" class="headerlink" title="设置脚本运行权限"></a>设置脚本运行权限</h3><p>chmod 700 ./install-frps.sh</p>
+<h3 id="执行脚本"><a href="#执行脚本" class="headerlink" title="执行脚本"></a>执行脚本</h3><p>./install-frps.sh install</p>
+<ol>
+<li>选择源，1是Aliyun，2是Github。我们选1</li>
+<li>选择服务端口。默认是5443。这个端口的作用是在客户端连接服务端时是通过这个端口连接的。可以不用修改</li>
+<li>设置http连接的端口。默认80，没有被占用就默认</li>
+<li>设置https连接的端口。默认443，没有被占用就默认</li>
+<li>设置面板的端口。直接用默认端口6443</li>
+<li>设置登录面板的用户名和密码,根据个人喜好设置</li>
+<li>设置token。客户端需要填写的</li>
+<li>设置域名，如果有就填写，没有就默认IP</li>
+</ol>
+<p>其他的配置就默认就好</p>
+<p>安装好之后可以通过 frps config 指令修改或者查看配置。所以忘记了不怕</p>
+<p>9.启动服务</p>
+<p>frps start</p>
+<p>最后，在浏览器中输入 <a href="http://ip:6443。如果打不开，请看看是不是VPS的防火墙没有开放6443端口。">http://ip:6443。如果打不开，请看看是不是VPS的防火墙没有开放6443端口。</a></p>
+<p>如果成功就能看到如下的界面</p>
+<p>​</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-11-30T16:08:00+08:00"
-              content="2021-11-30">
-          11-30
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/11/30/HEXO&HEXO_ADMIN/" itemprop="url">
-            <span itemprop="name">HEXO&HEXO ADMIN-2021年免费博客还能怎么玩</span>
-          </a>
-      </div>
+    <footer class="post-footer">
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/29/%E3%80%90MacOS%E3%80%91Mac-10-15-%E4%BD%BF%E7%94%A8brew%E5%AE%89%E8%A3%85mysql%E6%95%99%E7%A8%8B/" rel="prev" title="【MacOS】Mac 10.15 使用brew安装mysql教程">
+                  <i class="fa fa-chevron-left"></i> 【MacOS】Mac 10.15 使用brew安装mysql教程
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
 
-    </div>
-  </div>
-  
-  
-  
 
-  
 
 
 
       
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -478,7 +567,7 @@ NexT.utils.loadComments('#valine-comments', () => {
   NexT.utils.getScript('//unpkg.zhimg.com/valine@1.4.14/dist/Valine.min.js', () => {
     new Valine(Object.assign({"enable":true,"appId":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","appKey":"r26uvBWOfgqwX3flwdJo0G2M","serverURLs":null,"placeholder":"免费的评论不发一条吗~","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":false,"enableQQ":true,"requiredFields":[]}, {
       el: '#valine-comments',
-      path: "/archives/2021/11/",
+      path: "/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%B8%80%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frps%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC/",
       serverURLs: "https://nt1d1lor.api.lncldglobal.com"
     }));
   }, window.Valine);
