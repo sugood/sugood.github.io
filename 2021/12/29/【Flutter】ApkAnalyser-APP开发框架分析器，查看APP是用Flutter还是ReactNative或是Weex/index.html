@@ -1,0 +1,2137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//unpkg.zhimg.com/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//unpkg.zhimg.com/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"i.sugood.xyz","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="ApkAnalyser-APP开发框架分析器通过apkanalyser脚本对apk包进行解析，查看使用的开发框架。如：Flutter, ReactNative, Weex; 目前只分析三个主流的跨平台技术，以后可能会增加其他技术的分析  以后再也不用问以下问题了   ReactNative&#x2F;Flutter有什么公司在使用？ Flutter&#x2F;ReactNative有没有前景？ Flutter&#x2F;Rea">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Flutter】ApkAnalyser-APP开发框架分析器，查看APP是用Flutter还是ReactNative或是Weex">
+<meta property="og:url" content="https://i.sugood.xyz/2021/12/29/%E3%80%90Flutter%E3%80%91ApkAnalyser-APP%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90%E5%99%A8%EF%BC%8C%E6%9F%A5%E7%9C%8BAPP%E6%98%AF%E7%94%A8Flutter%E8%BF%98%E6%98%AFReactNative%E6%88%96%E6%98%AFWeex/index.html">
+<meta property="og:site_name" content="Sugood">
+<meta property="og:description" content="ApkAnalyser-APP开发框架分析器通过apkanalyser脚本对apk包进行解析，查看使用的开发框架。如：Flutter, ReactNative, Weex; 目前只分析三个主流的跨平台技术，以后可能会增加其他技术的分析  以后再也不用问以下问题了   ReactNative&#x2F;Flutter有什么公司在使用？ Flutter&#x2F;ReactNative有没有前景？ Flutter&#x2F;Rea">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-29T07:38:54.000Z">
+<meta property="article:modified_time" content="2021-12-29T07:39:07.650Z">
+<meta property="article:author" content="sugood">
+<meta property="article:tag" content="Android,iOS,Flutter,程序员,移动开发,软件开发,技术文章">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://i.sugood.xyz/2021/12/29/%E3%80%90Flutter%E3%80%91ApkAnalyser-APP%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90%E5%99%A8%EF%BC%8C%E6%9F%A5%E7%9C%8BAPP%E6%98%AF%E7%94%A8Flutter%E8%BF%98%E6%98%AFReactNative%E6%88%96%E6%98%AFWeex/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【Flutter】ApkAnalyser-APP开发框架分析器，查看APP是用Flutter还是ReactNative或是Weex | Sugood</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?125e718c08b661e0c3ceec32d67c1ce5";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Sugood</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ApkAnalyser-APP%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">ApkAnalyser-APP开发框架分析器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%88%86%E6%9E%90%E5%85%B6%E4%BB%96APK"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要分析其他APK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%8A%8A%E5%88%86%E6%9E%90%E5%99%A8%E5%81%9A%E6%88%90%E8%84%9A%E6%9C%AC"><span class="nav-number">1.2.</span> <span class="nav-text">为什么要把分析器做成脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">分析器的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E6%96%B0%E5%88%86%E6%9E%90%E7%9A%84%E7%BB%9F%E8%AE%A1"><span class="nav-number">1.4.</span> <span class="nav-text">最新分析的统计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%88%E8%AE%A1%E5%BA%94%E7%94%A8%EF%BC%9A171%E4%B8%AA"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">合计应用：171个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%ABFlutter-55%E4%B8%AA"><span class="nav-number">1.4.0.2.</span> <span class="nav-text">含Flutter: 55个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%ABReactNative-39%E4%B8%AA"><span class="nav-number">1.4.0.3.</span> <span class="nav-text">含ReactNative: 39个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%ABWeex-19%E4%B8%AA"><span class="nav-number">1.4.0.4.</span> <span class="nav-text">含Weex: 19个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E4%B8%89%E7%A7%8D%E6%8A%80%E6%9C%AF%EF%BC%9A1%E4%B8%AA"><span class="nav-number">1.4.0.5.</span> <span class="nav-text">同时三种技术：1个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E4%B8%A4%E7%A7%8D%E6%8A%80%E6%9C%AF-21%E4%B8%AA"><span class="nav-number">1.4.0.6.</span> <span class="nav-text">同时两种技术: 21个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%AF%E5%8E%9F%E7%94%9F%E5%BC%80%E5%8F%91-83%E4%B8%AA"><span class="nav-number">1.4.0.7.</span> <span class="nav-text">纯原生开发:83个</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2021%E5%B9%B47%E6%9C%8825%E6%97%A5%E6%9B%B4%E6%96%B0"><span class="nav-number">1.5.</span> <span class="nav-text">2021年7月25日更新</span></a></li></ol></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sugood</p>
+  <div class="site-description" itemprop="description">这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://i.sugood.xyz/2021/12/29/%E3%80%90Flutter%E3%80%91ApkAnalyser-APP%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90%E5%99%A8%EF%BC%8C%E6%9F%A5%E7%9C%8BAPP%E6%98%AF%E7%94%A8Flutter%E8%BF%98%E6%98%AFReactNative%E6%88%96%E6%98%AFWeex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sugood">
+      <meta itemprop="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugood">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Flutter】ApkAnalyser-APP开发框架分析器，查看APP是用Flutter还是ReactNative或是Weex
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-12-29 15:38:54 / 修改时间：15:39:07" itemprop="dateCreated datePublished" datetime="2021-12-29T15:38:54+08:00">2021-12-29</time>
+    </span>
+
+  
+    <span id="/2021/12/29/%E3%80%90Flutter%E3%80%91ApkAnalyser-APP%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90%E5%99%A8%EF%BC%8C%E6%9F%A5%E7%9C%8BAPP%E6%98%AF%E7%94%A8Flutter%E8%BF%98%E6%98%AFReactNative%E6%88%96%E6%98%AFWeex/" class="post-meta-item leancloud_visitors" data-flag-title="【Flutter】ApkAnalyser-APP开发框架分析器，查看APP是用Flutter还是ReactNative或是Weex" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/12/29/%E3%80%90Flutter%E3%80%91ApkAnalyser-APP%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90%E5%99%A8%EF%BC%8C%E6%9F%A5%E7%9C%8BAPP%E6%98%AF%E7%94%A8Flutter%E8%BF%98%E6%98%AFReactNative%E6%88%96%E6%98%AFWeex/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/29/%E3%80%90Flutter%E3%80%91ApkAnalyser-APP%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90%E5%99%A8%EF%BC%8C%E6%9F%A5%E7%9C%8BAPP%E6%98%AF%E7%94%A8Flutter%E8%BF%98%E6%98%AFReactNative%E6%88%96%E6%98%AFWeex/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="ApkAnalyser-APP开发框架分析器"><a href="#ApkAnalyser-APP开发框架分析器" class="headerlink" title="ApkAnalyser-APP开发框架分析器"></a>ApkAnalyser-APP开发框架分析器</h1><p>通过apkanalyser脚本对apk包进行解析，查看使用的开发框架。如：Flutter, ReactNative, Weex; 目前只分析三个主流的跨平台技术，以后可能会增加其他技术的分析</p>
+<ul>
+<li>以后再也不用问以下问题了</li>
+</ul>
+<ol>
+<li>ReactNative/Flutter有什么公司在使用？</li>
+<li>Flutter/ReactNative有没有前景？</li>
+<li>Flutter/ReactNative/Weex到底哪个好？</li>
+</ol>
+<h2 id="为什么要分析其他APK"><a href="#为什么要分析其他APK" class="headerlink" title="为什么要分析其他APK"></a>为什么要分析其他APK</h2><p>现在的APP开发，可选择的技术太多，本以为是一件很幸福的事。可是正是因为选择太多了，所以导致我们在面对新技术的时候总是很纠结。想在网上看看大家对不同技术的评价嘛，可是网上对各种技术的评价又褒贬不一，有时候甚至恶意抹黑，或者无脑捧。所以，本着实事求是的道理，我决定把市面上热门的APK都解包出来分析下。正所谓货比三家，那我们就多比一比看看究竟那个技术用的多，那个技术没人用，这样选择的时候就简单明了了。</p>
+<h2 id="为什么要把分析器做成脚本"><a href="#为什么要把分析器做成脚本" class="headerlink" title="为什么要把分析器做成脚本"></a>为什么要把分析器做成脚本</h2><p>其实，完全可以写个APP来分析，你们安装好自己查看就好（市面上有）。不过考虑到要分析的APP的数量太多了。如果都安装到手机上又不太合理。所以，还是电脑上分析比较好。而且这种东西，平时用不上，搞个APP有点小题大做了。况且各位大佬贵人事忙，还是让小的分析好。列出来给你们查阅就好。不过本着互联网开源（tou lan）的思想，我还是花了点时间写了个脚本。同时，如果各位觉得我分析的APP不够多（you mao ni），可以自己下载APK来分析。<br>以后我会不定时的更新这个分析列表，还会不断的增加新的应用。因为通过对比不同时期的数据才能更好的掌握趋势。所以，希望大家能收藏、关注、star、点赞（ 一键三连 ），让我们一起学习成长~</p>
+<p><em>（大家如果觉得脚本有什么问题的欢迎私信我）</em></p>
+<h2 id="分析器的使用"><a href="#分析器的使用" class="headerlink" title="分析器的使用"></a>分析器的使用</h2><p><a target="_blank" rel="noopener" href="https://github.com/sugood/apkanalyser">ApyAnalyser Github地址</a></p>
+<ol>
+<li>创建一个文件夹，将下载好的apkanalyser.sh 文件放入文件夹根目录</li>
+<li>在应用宝中下载你想要分析的apk到刚刚创建的目录中。文件命名格式要求如下，下划线（_）为分隔符。</li>
+</ol>
+<p><em>（之所以在应用宝中下载，一来是因为比较可靠和方便，二来是因为应用宝下载下来就已经串好包名_版本号_build版本.apk了。我们只要把app名称添加上去就可以了）</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">名称_包名_版本号_build版本.apk</span><br><span class="line"></span><br><span class="line">如：微信_com.tencent.mm_8.0.9_1920.apk</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>在终端中执行 apkanalyser.sh ,结果会直接打印出来。</li>
+</ol>
+<hr>
+<h2 id="最新分析的统计"><a href="#最新分析的统计" class="headerlink" title="最新分析的统计"></a>最新分析的统计</h2><h4 id="合计应用：171个"><a href="#合计应用：171个" class="headerlink" title="合计应用：171个"></a>合计应用：171个</h4><h4 id="含Flutter-55个"><a href="#含Flutter-55个" class="headerlink" title="含Flutter: 55个"></a>含Flutter: 55个</h4><h4 id="含ReactNative-39个"><a href="#含ReactNative-39个" class="headerlink" title="含ReactNative: 39个"></a>含ReactNative: 39个</h4><h4 id="含Weex-19个"><a href="#含Weex-19个" class="headerlink" title="含Weex: 19个"></a>含Weex: 19个</h4><h4 id="同时三种技术：1个"><a href="#同时三种技术：1个" class="headerlink" title="同时三种技术：1个"></a>同时三种技术：1个</h4><h4 id="同时两种技术-21个"><a href="#同时两种技术-21个" class="headerlink" title="同时两种技术: 21个"></a>同时两种技术: 21个</h4><h4 id="纯原生开发-83个"><a href="#纯原生开发-83个" class="headerlink" title="纯原生开发:83个"></a>纯原生开发:83个</h4><hr>
+<h2 id="2021年7月25日更新"><a href="#2021年7月25日更新" class="headerlink" title="2021年7月25日更新"></a>2021年7月25日更新</h2><blockquote>
+<p>APK统一在应用宝上下载，保证可靠性。参考应用宝Top100和华为应用榜来下载的。</p>
+</blockquote>
+<ul>
+<li>✅ 包含</li>
+<li>❌ 不包含</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>包名</th>
+<th>版本号</th>
+<th>build版本</th>
+<th>Flutter</th>
+<th>RN</th>
+<th>Weex</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>58同城</td>
+<td>com.wuba</td>
+<td>10.18.1</td>
+<td>101801</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>AcFun</td>
+<td>tv.acfundanmaku.video</td>
+<td>6.50.0.1175</td>
+<td>1175</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Boss直聘</td>
+<td>com.hpbr.bosszhipin</td>
+<td>9.080</td>
+<td>908010</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Keep</td>
+<td>com.gotokeep.keep</td>
+<td>7.6.0</td>
+<td>29383</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>QQ</td>
+<td>com.tencent.mobileqq</td>
+<td>8.8.12</td>
+<td>1900</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>QQ阅读</td>
+<td>com.qq.reader</td>
+<td>7.6.5.888</td>
+<td>193</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>QQ邮箱</td>
+<td>com.tencent.androidqqmail</td>
+<td>6.2.1</td>
+<td>10149355</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>QQ音乐</td>
+<td>com.tencent.qqmusic</td>
+<td>10.15.5.10</td>
+<td>2229</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>QQ浏览器</td>
+<td>com.tencent.mtt</td>
+<td>11.7.6.6064</td>
+<td>11766500</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>QQ同步助手</td>
+<td>com.tencent.qqpim</td>
+<td>7.1.10</td>
+<td>2900</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>Soul</td>
+<td>cn.soulapp.android</td>
+<td>3.91.0</td>
+<td>21071304</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>T3出行</td>
+<td>com.t3go.passenger</td>
+<td>2.1.18.1</td>
+<td>250</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>TT语音</td>
+<td>com.yiyou.ga</td>
+<td>5.5.11-15058</td>
+<td>15058</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>UC浏览器</td>
+<td>com.UCMobile</td>
+<td>13.4.5.1125</td>
+<td>1125</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>WIFI万能钥匙</td>
+<td>com.snda.wifilocating</td>
+<td>4.6.81</td>
+<td>210723</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>WPS</td>
+<td>cn.wps.moffice_eng</td>
+<td>13.11.0</td>
+<td>1170</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>YY</td>
+<td>com.duowan.mobile</td>
+<td>7.49.11</td>
+<td>107339</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>交管12123</td>
+<td>com.tmri.app.main</td>
+<td>2.6.8</td>
+<td>20608</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>铁路12306</td>
+<td>com.MobileTicket</td>
+<td>5.3.8</td>
+<td>245</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>豆瓣FM</td>
+<td>com.douban.radio</td>
+<td>6.0.13</td>
+<td>496</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>全民K歌</td>
+<td>com.tencent.karaoke</td>
+<td>7.22.38.278</td>
+<td>2150</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>韩剧TV</td>
+<td>com.babycloud.hanju</td>
+<td>5.8.5</td>
+<td>5850</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>芒果TV</td>
+<td>com.hunantv.imgo.activity</td>
+<td>6.8.12</td>
+<td>6812100</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>斗鱼</td>
+<td>air.tv.douyu.android</td>
+<td>7.1.0</td>
+<td>10710001</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>最右</td>
+<td>cn.xiaochuankeji.tieba</td>
+<td>5.7.16</td>
+<td>507160</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>钉钉</td>
+<td>com.alibaba.android.rimet</td>
+<td>6.0.22</td>
+<td>908</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>拉钩</td>
+<td>com.alpha.lagouapk</td>
+<td>7.74.0</td>
+<td>77400</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>农行</td>
+<td>com.android.bankabc</td>
+<td>6.3.1</td>
+<td>74</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>百度</td>
+<td>com.baidu.searchbox</td>
+<td>12.20.5.11</td>
+<td>105928064</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>菜鸟</td>
+<td>com.cainiao.wireless</td>
+<td>6.14.7</td>
+<td>258</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>逗拍</td>
+<td>com.dou_pai.DouPai</td>
+<td>11.7.10</td>
+<td>1107100000</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>豆瓣</td>
+<td>com.douban.frodo</td>
+<td>7.10.0</td>
+<td>217</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>链家</td>
+<td>com.homelink.android</td>
+<td>9.42.0</td>
+<td>9420200</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>陌陌</td>
+<td>com.immomo.momo</td>
+<td>8.33</td>
+<td>7555</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>京东</td>
+<td>com.jingdong.app.mall</td>
+<td>10.0.8</td>
+<td>89053</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>微店</td>
+<td>com.koudai.weidian.buyer</td>
+<td>6.4.7</td>
+<td>6040700</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>快对</td>
+<td>com.kuaiduizuoye.scan</td>
+<td>4.6.0</td>
+<td>392</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>快看</td>
+<td>com.kuaikan.comic</td>
+<td>6.2.0</td>
+<td>602000</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>快影</td>
+<td>com.kwai.videoeditor</td>
+<td>5.38.1.538100</td>
+<td>538100</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>剪映</td>
+<td>com.lemon.lv</td>
+<td>5.9.0</td>
+<td>59012</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>贝壳</td>
+<td>com.lianjia.beike</td>
+<td>2.60.0</td>
+<td>2600300</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>猎聘</td>
+<td>com.lietou.mishu</td>
+<td>5.10.0</td>
+<td>11820</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>美柚</td>
+<td>com.lingan.seeyou</td>
+<td>8.1.1</td>
+<td>197</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>探探</td>
+<td>com.p1.mobile.putong</td>
+<td>4.7.5.1</td>
+<td>2475110</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>朴朴</td>
+<td>com.pupumall.customer</td>
+<td>3.3.3</td>
+<td>300303</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>夸克</td>
+<td>com.quark.browser</td>
+<td>5.1.8.184</td>
+<td>184</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>美团</td>
+<td>com.sankuai.meituan</td>
+<td>11.11.203</td>
+<td>1100110203</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>得物</td>
+<td>com.shizhuang.duapp</td>
+<td>4.73.0</td>
+<td>360</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>还呗</td>
+<td>com.shuhekeji</td>
+<td>5.9.18</td>
+<td>1050918</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>书旗</td>
+<td>com.shuqi.controller</td>
+<td>11.4.4.142</td>
+<td>222</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>微博</td>
+<td>com.sina.weibo</td>
+<td>11.7.2</td>
+<td>5098</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>快手</td>
+<td>com.smile.gifmaker</td>
+<td>9.6.20.20685</td>
+<td>20685</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>抖音</td>
+<td>com.ss.android.ugc.aweme</td>
+<td>16.9.1</td>
+<td>160902</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>一淘</td>
+<td>com.taobao.etao</td>
+<td>9.5.3</td>
+<td>755</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>闲鱼</td>
+<td>com.taobao.idlefish</td>
+<td>7.1.20</td>
+<td>234</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>淘宝</td>
+<td>com.taobao.taobao</td>
+<td>10.2.10</td>
+<td>379</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>微信</td>
+<td>com.tencent.mm</td>
+<td>8.0.9</td>
+<td>1920</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>天猫</td>
+<td>com.tmall.wireless</td>
+<td>10.10.0</td>
+<td>1897</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>转转</td>
+<td>com.wuba.zhuanzhuan</td>
+<td>8.17.22</td>
+<td>8017022</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>盒马</td>
+<td>com.wudaokou.hippo</td>
+<td>5.19.0</td>
+<td>181</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>米家</td>
+<td>com.xiaomi.smarthome</td>
+<td>6.7.700</td>
+<td>64211</td>
+<td>❌</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>雪球</td>
+<td>com.xueqiu.android</td>
+<td>12.39</td>
+<td>318</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>迅雷</td>
+<td>com.xunlei.downloadprovider</td>
+<td>7.25.0.7566</td>
+<td>13566</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>易车</td>
+<td>com.yiche.autoeasy</td>
+<td>10.56.1</td>
+<td>192</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>优酷</td>
+<td>com.youku.phone</td>
+<td>10.0.4</td>
+<td>434</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>连信</td>
+<td>com.zenmen.palmchat</td>
+<td>5.0.11.2</td>
+<td>210703</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>知乎</td>
+<td>com.zhihu.android</td>
+<td>7.21.0</td>
+<td>6024</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>去哪儿</td>
+<td>com.Qunar</td>
+<td>10.0.12</td>
+<td>245</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>唯品会</td>
+<td>com.achievo.vipshop</td>
+<td>7.49.7</td>
+<td>74907</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>爱彼迎</td>
+<td>com.airbnb.android</td>
+<td>21.28.1.china</td>
+<td>24003260</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>安居客</td>
+<td>com.anjuke.android.app</td>
+<td>15.19.5</td>
+<td>322096</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>作业帮</td>
+<td>com.baidu.homework</td>
+<td>13.19.0</td>
+<td>1015</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>买单吧</td>
+<td>com.bankcomm.maidanba</td>
+<td>5.1.0</td>
+<td>108</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>央视频</td>
+<td>com.cctv.yangshipin.app.androidp</td>
+<td>2.2.0.51588</td>
+<td>202000</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>支付宝</td>
+<td>com.eg.android.AlipayGphone</td>
+<td>10.2.28.7000</td>
+<td>420</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>赶集网</td>
+<td>com.ganji.android</td>
+<td>10.14.0</td>
+<td>101400</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>同花顺</td>
+<td>com.hexin.plat.android</td>
+<td>10.34.03</td>
+<td>4585</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>花小猪</td>
+<td>com.huaxiaozhu.rider</td>
+<td>1.3.4</td>
+<td>152</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>货拉拉</td>
+<td>com.lalamove.huolala.client</td>
+<td>6.5.39</td>
+<td>6539</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>流利说</td>
+<td>com.liulishuo.engzo</td>
+<td>8.27.0</td>
+<td>2425</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>蘑菇街</td>
+<td>com.mogujie</td>
+<td>15.4.1.23324</td>
+<td>1541000</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>爱奇艺</td>
+<td>com.qiyi.video</td>
+<td>12.7.0</td>
+<td>800120750</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>懂车帝</td>
+<td>com.ss.android.auto</td>
+<td>6.4.7</td>
+<td>647</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>皮皮虾</td>
+<td>com.sup.android.superb</td>
+<td>3.5.2</td>
+<td>352</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>天眼查</td>
+<td>com.tianyancha.skyeye</td>
+<td>12.34.0</td>
+<td>386</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>云闪付</td>
+<td>com.unionpay</td>
+<td>9.0.1</td>
+<td>274</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>下厨房</td>
+<td>com.xiachufang</td>
+<td>7.9.7</td>
+<td>662</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>小红书</td>
+<td>com.xingin.xhs</td>
+<td>7.1.0</td>
+<td>7010138</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>拼多多</td>
+<td>com.xunmeng.pinduoduo</td>
+<td>5.72.0</td>
+<td>57200</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>肯德基</td>
+<td>com.yek.android.kfc.activitys</td>
+<td>5.0.6</td>
+<td>5060</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>车来了</td>
+<td>com.ygkj.chelaile.standard</td>
+<td>4.12.2</td>
+<td>236</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>猿辅导</td>
+<td>com.yuantiku.tutor</td>
+<td>7.34.2</td>
+<td>7340200</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>万年历</td>
+<td>com.zixuan.calendar</td>
+<td>1.1</td>
+<td>2</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>饿了么</td>
+<td>me.ele</td>
+<td>10.0.7</td>
+<td>647</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>懒人畅听</td>
+<td>bubei.tingshu</td>
+<td>7.0.5.0</td>
+<td>21705</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>曹操出行</td>
+<td>cn.caocaokeji.user</td>
+<td>5.1.6</td>
+<td>51055</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>酷我音乐</td>
+<td>cn.kuwo.player</td>
+<td>9.4.4.0</td>
+<td>9440</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>每日优选</td>
+<td>cn.missfresh.application</td>
+<td>9.9.44</td>
+<td>9094402</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>皮皮搞笑</td>
+<td>cn.xiaochuankeji.zuiyouLite</td>
+<td>2.7.1</td>
+<td>270100</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>阿里巴巴</td>
+<td>com.alibaba.wireless</td>
+<td>10.6.0.1</td>
+<td>2131071902</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>高德地图</td>
+<td>com.autonavi.minimap</td>
+<td>11.00.1.2755</td>
+<td>110001</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>百度地图</td>
+<td>com.baidu.BaiduMap</td>
+<td>15.8.0</td>
+<td>1080</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>百度翻译</td>
+<td>com.baidu.baidutranslate</td>
+<td>9.3.0</td>
+<td>142</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>百度网盘</td>
+<td>com.baidu.netdisk</td>
+<td>11.11.4</td>
+<td>1505</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>百度贴吧</td>
+<td>com.baidu.tieba</td>
+<td>12.7.1.1</td>
+<td>201785369</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>咪咕视频</td>
+<td>com.cmcc.cmvideo</td>
+<td>5.9.3.00</td>
+<td>25000598</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>汽车之家</td>
+<td>com.cubic.autohome</td>
+<td>11.2.1</td>
+<td>11021</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>大众点评</td>
+<td>com.dianping.v1</td>
+<td>10.48.2</td>
+<td>104801</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>嘀嗒出行</td>
+<td>com.didapinche.booking</td>
+<td>8.10.86</td>
+<td>2021072001</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>虎牙直播</td>
+<td>com.duowan.kiwi</td>
+<td>9.3.21</td>
+<td>50294</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>天天基金</td>
+<td>com.eastmoney.android.fund</td>
+<td>6.4.6</td>
+<td>64603</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>小猿口算</td>
+<td>com.fenbi.android.leo</td>
+<td>3.17.2</td>
+<td>3170299</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>轻颜相机</td>
+<td>com.gorgeous.lite</td>
+<td>3.4.2</td>
+<td>459</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>中国移动</td>
+<td>com.greenpoint.android.mc10086.activity</td>
+<td>7.1.5</td>
+<td>71500</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>驾考宝典</td>
+<td>com.handsgo.jiakao.android</td>
+<td>8.2.8</td>
+<td>500080208</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>凤凰新闻</td>
+<td>com.ifeng.news2</td>
+<td>7.28.0</td>
+<td>8180</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>京东金融</td>
+<td>com.jd.jrapp</td>
+<td>6.1.90</td>
+<td>410</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>京东到家</td>
+<td>com.jingdong.pdj</td>
+<td>8.10.0</td>
+<td>810001</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>酷狗音乐</td>
+<td>com.kugou.android</td>
+<td>10.7.5</td>
+<td>10759</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>一甜相机</td>
+<td>com.kwai.m2u</td>
+<td>2.5.8.20580</td>
+<td>20580</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>影视大全</td>
+<td>com.le123.ysdq</td>
+<td>4.1.7</td>
+<td>1127</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>墨迹天气</td>
+<td>com.moji.mjweather</td>
+<td>9.0004.02</td>
+<td>9000402</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>美图秀秀</td>
+<td>com.mt.mtxx.mtxx</td>
+<td>9.2.5.0</td>
+<td>9250</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>网易新闻</td>
+<td>com.netease.newsreader.activity</td>
+<td>81.1</td>
+<td>1387</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>美团外卖</td>
+<td>com.sankuai.meituan.takeoutnew</td>
+<td>7.63.3</td>
+<td>76303</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>美团优选</td>
+<td>com.sankuai.youxuan</td>
+<td>6.15.10</td>
+<td>615010</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>鲨鱼记账</td>
+<td>com.shark.jizhang</td>
+<td>3.49.2</td>
+<td>229</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>铃声多多</td>
+<td>com.shoujiduoduo.ringtone</td>
+<td>8.8.58.0</td>
+<td>60088580</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>新浪新闻</td>
+<td>com.sina.news</td>
+<td>7.64.7</td>
+<td>847</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>中国联通</td>
+<td>com.sinovatech.unicom.ui</td>
+<td>8.8.1</td>
+<td>115</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>搜狐新闻</td>
+<td>com.sohu.newsclient</td>
+<td>6.6.2</td>
+<td>777</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>搜狐视频</td>
+<td>com.sohu.sohuvideo</td>
+<td>8.9.2</td>
+<td>8009002</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>今日头条</td>
+<td>com.ss.android.article.news</td>
+<td>8.3.5</td>
+<td>8350</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>西瓜视频</td>
+<td>com.ss.android.article.video</td>
+<td>5.8.6</td>
+<td>586</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>飞猪旅行</td>
+<td>com.taobao.trip</td>
+<td>9.8.4.103</td>
+<td>8100203</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>腾讯先游</td>
+<td>com.tencent.gamereva</td>
+<td>4.0.0.1979305</td>
+<td>1979305</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>腾讯地图</td>
+<td>com.tencent.map</td>
+<td>9.13.0</td>
+<td>1079</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>腾讯新闻</td>
+<td>com.tencent.news</td>
+<td>6.5.64</td>
+<td>6564</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>腾讯视频</td>
+<td>com.tencent.qqlive</td>
+<td>8.4.11.26069</td>
+<td>26069</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>腾讯会议</td>
+<td>com.tencent.wemeet.app</td>
+<td>2.15.3.400</td>
+<td>2021071324</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>微信读书</td>
+<td>com.tencent.weread</td>
+<td>5.5.2</td>
+<td>10150655</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>知识星球</td>
+<td>com.unnoo.quan</td>
+<td>4.27.11</td>
+<td>291</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>喜马拉雅</td>
+<td>com.ximalaya.ting.android</td>
+<td>8.3.18.3</td>
+<td>355</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>邮储银行</td>
+<td>com.yitong.mbank.psbc</td>
+<td>6.0.6</td>
+<td>69</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>有道词典</td>
+<td>com.youdao.dict</td>
+<td>9.0.38</td>
+<td>9003800</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>新氧医美</td>
+<td>com.youxiang.soyoungapp</td>
+<td>8.29.0</td>
+<td>376</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>智联招聘</td>
+<td>com.zhaopin.social</td>
+<td>8.2.7</td>
+<td>8087</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>携程旅行</td>
+<td>ctrip.android.view</td>
+<td>8.38.2</td>
+<td>1400</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>哔哩哔哩</td>
+<td>tv.danmaku.bili</td>
+<td>6.34.0</td>
+<td>6340400</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>中华万年历</td>
+<td>cn.etouch.ecalendar</td>
+<td>8.2.0</td>
+<td>849</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>个人所得税</td>
+<td>cn.gov.tax.its</td>
+<td>1.6.8</td>
+<td>10608</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>妈妈网孕育</td>
+<td>cn.mama.pregnant</td>
+<td>11.6.0</td>
+<td>145</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>谷歌浏览器</td>
+<td>com.android.chrome</td>
+<td>78.0.3904.96</td>
+<td>390409607</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>百度输入法</td>
+<td>com.baidu.input</td>
+<td>10.5.6.8</td>
+<td>470</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>电信营业厅</td>
+<td>com.ct.client</td>
+<td>9.0.0</td>
+<td>9000</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>瓜子二手车</td>
+<td>com.ganji.android.haoche_c</td>
+<td>8.3.0.6</td>
+<td>8306</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>讯飞输入法</td>
+<td>com.iflytek.inputmethod</td>
+<td>10.0.21</td>
+<td>10021</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>马蜂窝旅游</td>
+<td>com.mfw.roadbook</td>
+<td>10.5.0</td>
+<td>943</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>网易云音乐</td>
+<td>com.netease.cloudmusic</td>
+<td>8.2.61</td>
+<td>8002061</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>平安金管家</td>
+<td>com.pingan.lifeinsurance</td>
+<td>7.07.01</td>
+<td>70701</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>搜狗输入法</td>
+<td>com.sohu.inputmethod.sogou</td>
+<td>10.31</td>
+<td>1490</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>萤石云视频</td>
+<td>com.videogo</td>
+<td>6.0.2.210717</td>
+<td>137</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>有道云笔记</td>
+<td>com.youdao.note</td>
+<td>7.1.5</td>
+<td>156</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>有道翻译官</td>
+<td>com.youdao.translator</td>
+<td>3.10.24</td>
+<td>20210521</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>中国建设银行</td>
+<td>com.chinamworld.main</td>
+<td>5.5.1</td>
+<td>786</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>番茄免费小说</td>
+<td>com.dragon.read</td>
+<td>4.8.0.32</td>
+<td>480</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>国家反诈中心</td>
+<td>com.hicorenational.antifraud</td>
+<td>1.1.10</td>
+<td>51</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>中国工商银行</td>
+<td>com.icbc</td>
+<td>6.1.0.6.0</td>
+<td>610600</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>七猫免费小说</td>
+<td>com.kmxs.reader</td>
+<td>6.0</td>
+<td>60000</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>中国银行手机银行</td>
+<td>com.chinamworld.bocmbci</td>
+<td>7.0.1</td>
+<td>20000</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>招商银行掌上生活</td>
+<td>com.cmbchina.ccd.pluto.cmbActivity</td>
+<td>8.5.5</td>
+<td>123</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/29/%E3%80%90Flutter%E3%80%91%E4%BD%BF%E7%94%A8%E6%96%B0%E6%AC%BEM1%E8%8A%AF%E7%89%87Mac%E5%BC%80%E5%8F%91Flutter%E6%80%BB%E7%BB%93-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E4%B8%8E%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" rel="prev" title="【Flutter】使用新款M1芯片Mac开发Flutter总结 - 常见问题与解决办法">
+                  <i class="fa fa-chevron-left"></i> 【Flutter】使用新款M1芯片Mac开发Flutter总结 - 常见问题与解决办法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/12/29/%E3%80%90%E5%BF%83%E8%B7%AF%E5%8E%86%E7%A8%8B%E3%80%91%E5%88%9B%E4%B8%9A%E5%BC%80%E8%8A%B1%E5%BA%97%E4%B8%80%E5%B9%B4%E5%A4%9A%E7%9A%84%E6%84%9F%E6%83%B3-%E9%80%90%E6%AD%A5%E5%AE%8C%E6%88%90%E4%BA%86%E4%B8%80%E5%A5%97%E5%AE%8C%E6%95%B4%E7%9A%84%E9%B2%9C%E8%8A%B1%E5%95%86%E5%9F%8E%E7%B3%BB%E7%BB%9F%EF%BC%8C%E5%8C%85%E5%90%AB%E5%89%8D%E7%AB%AF%E3%80%81%E5%90%8E%E7%AB%AF%E3%80%81%E7%A7%BB%E5%8A%A8%E7%AB%AF%E3%80%81%E5%B0%8F%E7%A8%8B%E5%BA%8F%E3%80%81%E5%85%AC%E4%BC%97%E5%8F%B7/" rel="next" title="【心路历程】创业开花店一年多的感想-逐步完成了一套完整的鲜花商城系统，包含前端、后端、移动端、小程序、公众号">
+                  【心路历程】创业开花店一年多的感想-逐步完成了一套完整的鲜花商城系统，包含前端、后端、移动端、小程序、公众号 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">ICP备19070416号-3号 </a>
+  </div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sugood</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+<div class="cdn">
+  Powerful CDN service provided by
+  <span class="post-meta-divider">|</span>
+  <a target="_blank" rel="noopener" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">
+    <img src="/images/upyun_logo.png" style="display:inline-block;text-decoration:none;height:30px;" />
+  </a>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//unpkg.zhimg.com/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/utils.js"></script><script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/motion.js"></script><script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","app_key":"r26uvBWOfgqwX3flwdJo0G2M","server_url":"nt1d1lor.api.lncldglobal.com","security":false};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//unpkg.zhimg.com/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","appKey":"r26uvBWOfgqwX3flwdJo0G2M","serverURLs":null,"placeholder":"免费的评论不发一条吗~","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":false,"enableQQ":true,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/2021/12/29/%E3%80%90Flutter%E3%80%91ApkAnalyser-APP%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6%E5%88%86%E6%9E%90%E5%99%A8%EF%BC%8C%E6%9F%A5%E7%9C%8BAPP%E6%98%AF%E7%94%A8Flutter%E8%BF%98%E6%98%AFReactNative%E6%88%96%E6%98%AFWeex/",
+      serverURLs: "https://nt1d1lor.api.lncldglobal.com"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
