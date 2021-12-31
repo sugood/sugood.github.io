@@ -26,21 +26,28 @@
     var CONFIG = {"hostname":"i.sugood.xyz","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="@[TOC](Mac 10.15 使用brew安装mysql教程) mysql安装步骤系统说明系统：macOS Catalina 10.15.7内存：16GCPU:  I3-6100Homebrew 2.5.2">
+  <meta name="description" content="系统：OpenWrt R20.6.18 路由型号：网件R7800  注意事项：在OpenWrt环境下，一定要先安装frpc客户端再安装图形操作界面 luci-app-frpc，要不就会出问题。不要问我怎么知道的，反正按着我的步骤装就好。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【MacOS】Mac 10.15 使用brew安装mysql教程">
-<meta property="og:url" content="https://i.sugood.xyz/2021/12/29/%E3%80%90MacOS%E3%80%91Mac-10-15-%E4%BD%BF%E7%94%A8brew%E5%AE%89%E8%A3%85mysql%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:title" content="【Frp第二篇】Frp内网穿透安装教程#Frpc OpenWrt客户端安装#图形化管理">
+<meta property="og:url" content="https://i.sugood.xyz/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%BA%8C%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frpc-OpenWrt%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85-%E5%9B%BE%E5%BD%A2%E5%8C%96%E7%AE%A1%E7%90%86/post/undefined.html">
 <meta property="og:site_name" content="Sugood">
-<meta property="og:description" content="@[TOC](Mac 10.15 使用brew安装mysql教程) mysql安装步骤系统说明系统：macOS Catalina 10.15.7内存：16GCPU:  I3-6100Homebrew 2.5.2">
+<meta property="og:description" content="系统：OpenWrt R20.6.18 路由型号：网件R7800  注意事项：在OpenWrt环境下，一定要先安装frpc客户端再安装图形操作界面 luci-app-frpc，要不就会出问题。不要问我怎么知道的，反正按着我的步骤装就好。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-12-29T08:07:00.000Z">
-<meta property="article:modified_time" content="2021-12-30T10:22:39.018Z">
+<meta property="og:image" content="http://imgs.sugood.xyz/1640766274238ao7z8lx2.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1640766321167kgqnxtxu.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1640766400033wam8oiy3.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1640766426790foids6iy.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1640766460698furxbc1c.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1640766480148kfriecow.png?imageslim">
+<meta property="article:published_time" content="2021-12-29T08:22:00.000Z">
+<meta property="article:modified_time" content="2021-12-30T10:20:41.960Z">
 <meta property="article:author" content="sugood">
-<meta property="article:tag" content="MacOS">
+<meta property="article:tag" content="Frp">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://imgs.sugood.xyz/1640766274238ao7z8lx2.png?imageslim">
 
 
-<link rel="canonical" href="https://i.sugood.xyz/2021/12/29/%E3%80%90MacOS%E3%80%91Mac-10-15-%E4%BD%BF%E7%94%A8brew%E5%AE%89%E8%A3%85mysql%E6%95%99%E7%A8%8B/">
+<link rel="canonical" href="https://i.sugood.xyz/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%BA%8C%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frpc-OpenWrt%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85-%E5%9B%BE%E5%BD%A2%E5%8C%96%E7%AE%A1%E7%90%86/post/undefined.html">
 
 
 <script class="page-configurations">
@@ -53,7 +60,7 @@
   };
 </script>
 
-  <title>【MacOS】Mac 10.15 使用brew安装mysql教程 | Sugood</title>
+  <title>【Frp第二篇】Frp内网穿透安装教程#Frpc OpenWrt客户端安装#图形化管理 | Sugood</title>
   
 
 
@@ -172,7 +179,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -185,7 +192,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.</span> <span class="nav-text">mysql安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%AF%B4%E6%98%8E"><span class="nav-number">1.1.</span> <span class="nav-text">系统说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85mysql"><span class="nav-number">1.2.</span> <span class="nav-text">安装mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8mysql"><span class="nav-number">1.3.</span> <span class="nav-text">启动mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.4.</span> <span class="nav-text">初始化设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8mysql%E6%8C%87%E4%BB%A4"><span class="nav-number">1.5.</span> <span class="nav-text">其他常用mysql指令</span></a></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -252,7 +258,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://i.sugood.xyz/2021/12/29/%E3%80%90MacOS%E3%80%91Mac-10-15-%E4%BD%BF%E7%94%A8brew%E5%AE%89%E8%A3%85mysql%E6%95%99%E7%A8%8B/">
+    <link itemprop="mainEntityOfPage" href="https://i.sugood.xyz/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%BA%8C%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frpc-OpenWrt%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85-%E5%9B%BE%E5%BD%A2%E5%8C%96%E7%AE%A1%E7%90%86/post/undefined.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -265,7 +271,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【MacOS】Mac 10.15 使用brew安装mysql教程
+          【Frp第二篇】Frp内网穿透安装教程#Frpc OpenWrt客户端安装#图形化管理
         </h1>
 
         <div class="post-meta-container">
@@ -276,14 +282,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2021-12-29 16:07:00" itemprop="dateCreated datePublished" datetime="2021-12-29T16:07:00+08:00">2021-12-29</time>
+      <time title="创建时间：2021-12-29 16:22:00" itemprop="dateCreated datePublished" datetime="2021-12-29T16:22:00+08:00">2021-12-29</time>
     </span>
       <span class="post-meta-item">
         <span class="post-meta-item-icon">
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-12-30 18:22:39" itemprop="dateModified" datetime="2021-12-30T18:22:39+08:00">2021-12-30</time>
+        <time title="修改时间：2021-12-30 18:20:41" itemprop="dateModified" datetime="2021-12-30T18:20:41+08:00">2021-12-30</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -291,12 +297,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/MacOS/" itemprop="url" rel="index"><span itemprop="name">MacOS</span></a>
+          <a href="/categories/Frp/" itemprop="url" rel="index"><span itemprop="name">Frp</span></a>
         </span>
     </span>
 
   
-    <span id="/2021/12/29/%E3%80%90MacOS%E3%80%91Mac-10-15-%E4%BD%BF%E7%94%A8brew%E5%AE%89%E8%A3%85mysql%E6%95%99%E7%A8%8B/" class="post-meta-item leancloud_visitors" data-flag-title="【MacOS】Mac 10.15 使用brew安装mysql教程" title="阅读次数">
+    <span id="/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%BA%8C%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frpc-OpenWrt%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85-%E5%9B%BE%E5%BD%A2%E5%8C%96%E7%AE%A1%E7%90%86/post/undefined.html" class="post-meta-item leancloud_visitors" data-flag-title="【Frp第二篇】Frp内网穿透安装教程#Frpc OpenWrt客户端安装#图形化管理" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -318,8 +324,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/12/29/%E3%80%90MacOS%E3%80%91Mac-10-15-%E4%BD%BF%E7%94%A8brew%E5%AE%89%E8%A3%85mysql%E6%95%99%E7%A8%8B/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/29/%E3%80%90MacOS%E3%80%91Mac-10-15-%E4%BD%BF%E7%94%A8brew%E5%AE%89%E8%A3%85mysql%E6%95%99%E7%A8%8B/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%BA%8C%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frpc-OpenWrt%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85-%E5%9B%BE%E5%BD%A2%E5%8C%96%E7%AE%A1%E7%90%86/post/undefined.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%BA%8C%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frpc-OpenWrt%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85-%E5%9B%BE%E5%BD%A2%E5%8C%96%E7%AE%A1%E7%90%86/post/undefined.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -333,23 +339,21 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>@[TOC](Mac 10.15 使用brew安装mysql教程)</p>
-<h1 id="mysql安装步骤"><a href="#mysql安装步骤" class="headerlink" title="mysql安装步骤"></a>mysql安装步骤</h1><h2 id="系统说明"><a href="#系统说明" class="headerlink" title="系统说明"></a>系统说明</h2><p>系统：macOS Catalina 10.15.7<br>内存：16G<br>CPU:  I3-6100<br>Homebrew 2.5.2</p>
+        <ul>
+<li>系统：OpenWrt R20.6.18</li>
+<li>路由型号：网件R7800</li>
+</ul>
+<p>注意事项：在OpenWrt环境下，一定要先安装frpc客户端再安装图形操作界面 luci-app-frpc，要不就会出问题。不要问我怎么知道的，反正按着我的步骤装就好。</p>
 <span id="more"></span>
-<h2 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h2><p>打开终端输入以下命令。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">安装mysql</span></span><br><span class="line">brew install mysql</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">设置mysql为开机启动项目</span></span><br><span class="line">ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">设置权限</span></span><br><span class="line">sudo chmod -R 777 /usr/local/var/mysql/</span><br></pre></td></tr></table></figure>
 
-<h2 id="启动mysql"><a href="#启动mysql" class="headerlink" title="启动mysql"></a>启动mysql</h2><p>终端输入启动指令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql.server start</span><br></pre></td></tr></table></figure>
+<p>一、路由器安装Frp客户端Frpc，按下面的操作步骤。目前最新版本是0.33.0-1<img src="http://imgs.sugood.xyz/1640766274238ao7z8lx2.png?imageslim" alt="paste image"><br>二、路由器安装Frp图形操作界面 luci-app-frpc</p>
+<p>1、通过ssh 登录路由器后台。并下载文件到路由器中</p>
+<p>项目下载地址：<a target="_blank" rel="noopener" href="https://github.com/kuoruan/luci-app-frpc/releases">https://github.com/kuoruan/luci-app-frpc/releases</a><br><img src="http://imgs.sugood.xyz/1640766321167kgqnxtxu.png?imageslim" alt="paste image"><br>2、安装软件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#安装 luci-app-frpc</span><br><span class="line">opkg install luci-app-frpc_1.2.1-1_all.ipk</span><br><span class="line">#安装中文语言包</span><br><span class="line">opkg install luci-i18n-frpc-zh-cn_1.2.1-1_all.ipk</span><br></pre></td></tr></table></figure>
 
-<h2 id="初始化设置"><a href="#初始化设置" class="headerlink" title="初始化设置"></a>初始化设置</h2><p>运行初始化设置命令（设置密码等）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql_secure_installation</span><br></pre></td></tr></table></figure>
-<p>运行mysql_secure_installation会执行几个设置：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1、为root用户设置密码</span><br><span class="line"></span><br><span class="line">2、删除匿名账号</span><br><span class="line"></span><br><span class="line">3、取消root用户远程登录</span><br><span class="line"></span><br><span class="line">4、删除test库和对test库的访问权限</span><br><span class="line"></span><br><span class="line">5、刷新授权表使修改生效</span><br></pre></td></tr></table></figure>
+<p>3、安装成功后Frpc图形管理界面就能在路由器的管理界面看到了。位置：路由器管理界面 -&gt; 服务 -&gt; Frpc<img src="http://imgs.sugood.xyz/1640766400033wam8oiy3.png?imageslim" alt="paste image"></p>
+<p>4、设置frp服务端配置<br><img src="http://imgs.sugood.xyz/1640766426790foids6iy.png?imageslim" alt="paste image"><br>5、常规设置，按照如下配置即可。<br><img src="http://imgs.sugood.xyz/1640766460698furxbc1c.png?imageslim" alt="paste image"><br>6、最后设置内网穿透的规则即可。贴个我自己的配置，如果累心是http或者是https就不需要配置远程端口，因为在配置服务端的时候就指定好了。如果类型是TCP或UDP就要设置远程端口。<br><img src="http://imgs.sugood.xyz/1640766480148kfriecow.png?imageslim" alt="paste image"></p>
 
-<p>执行代码如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">var sugood$ mysql_secure_installation</span><br><span class="line"></span><br><span class="line">Securing the MySQL server deployment.</span><br><span class="line"></span><br><span class="line">Connecting to MySQL using a blank password.</span><br><span class="line"></span><br><span class="line">VALIDATE PASSWORD COMPONENT can be used to test passwords</span><br><span class="line">and improve security. It checks the strength of password</span><br><span class="line">and allows the users to set only those passwords which are</span><br><span class="line">secure enough. Would you like to setup VALIDATE PASSWORD component?</span><br><span class="line"><span class="meta">#</span><span class="bash">是否设置密码，输入y设置</span></span><br><span class="line">Press y|Y for Yes, any other key for No: y</span><br><span class="line"></span><br><span class="line">There are three levels of password validation policy:</span><br><span class="line"><span class="meta">#</span><span class="bash">有三种级别的密码验证策略:</span></span><br><span class="line">LOW    Length &gt;= 8</span><br><span class="line">MEDIUM Length &gt;= 8, numeric, mixed case, and special characters</span><br><span class="line">STRONG Length &gt;= 8, numeric, mixed case, special characters and dictionary                  file</span><br><span class="line"><span class="meta">#</span><span class="bash">看自己的配置要求，这里我们设置为0</span></span><br><span class="line">Please enter 0 = LOW, 1 = MEDIUM and 2 = STRONG: 0</span><br><span class="line">Please set the password for root here.</span><br><span class="line"></span><br><span class="line">New password: </span><br><span class="line"></span><br><span class="line">Re-enter new password: </span><br><span class="line"></span><br><span class="line">Estimated strength of the password: 50 </span><br><span class="line">Do you wish to continue with the password provided?(Press y|Y for Yes, any other key for No) : y</span><br><span class="line">By default, a MySQL installation has an anonymous user,</span><br><span class="line">allowing anyone to log into MySQL without having to have</span><br><span class="line">a user account created for them. This is intended only for</span><br><span class="line">testing, and to make the installation go a bit smoother.</span><br><span class="line">You should remove them before moving into a production</span><br><span class="line">environment.</span><br><span class="line"><span class="meta">#</span><span class="bash">是否删除匿名用户：（生产环境建议删除，输入y删除）</span></span><br><span class="line">Remove anonymous users? (Press y|Y for Yes, any other key for No) : y</span><br><span class="line">Success.</span><br><span class="line"></span><br><span class="line">Normally, root should only be allowed to connect from</span><br><span class="line">&#x27;localhost&#x27;. This ensures that someone cannot guess at</span><br><span class="line">the root password from the network.</span><br><span class="line"><span class="meta">#</span><span class="bash">是否禁止root远程登录,根据自己的需求选择Y/n并回车,建议禁止</span></span><br><span class="line">Disallow root login remotely? (Press y|Y for Yes, any other key for No) : y</span><br><span class="line">Success.</span><br><span class="line"></span><br><span class="line">By default, MySQL comes with a database named &#x27;test&#x27; that</span><br><span class="line">anyone can access. This is also intended only for testing,</span><br><span class="line">and should be removed before moving into a production</span><br><span class="line">environment.</span><br><span class="line"><span class="meta">#</span><span class="bash">是否删除<span class="built_in">test</span>数据库，输入y删除</span></span><br><span class="line">Remove test database and access to it? (Press y|Y for Yes, any other key for No) : </span><br><span class="line"></span><br><span class="line"> ... skipping.</span><br><span class="line">Reloading the privilege tables will ensure that all changes</span><br><span class="line">made so far will take effect immediately.</span><br><span class="line"><span class="meta">#</span><span class="bash">是否重新加载权限表，输入y删除</span></span><br><span class="line">Reload privilege tables now? (Press y|Y for Yes, any other key for No) : </span><br><span class="line"></span><br><span class="line"> ... skipping.</span><br><span class="line">All done! </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="其他常用mysql指令"><a href="#其他常用mysql指令" class="headerlink" title="其他常用mysql指令"></a>其他常用mysql指令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">进入Mysql</span></span><br><span class="line">mysql -u[填写用户名] -p[填写密码]</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">重启Mysql</span></span><br><span class="line">mysql.server restart</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">停止Mysql</span></span><br><span class="line">mysql.server stop</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash">查看运行状态</span></span><br><span class="line">mysql.server status</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -358,20 +362,20 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/MacOS/" rel="tag"># MacOS</a>
+              <a href="/tags/Frp/" rel="tag"># Frp</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/12/29/%E3%80%90MacOS%E3%80%91Mac%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE-%E5%AE%89%E8%A3%85Java%E5%B9%B6%E6%9F%A5%E7%9C%8Bjava%E9%BB%98%E8%AE%A4%E5%AE%89%E8%A3%85%E8%B7%AF%E5%BE%84/" rel="prev" title="【MacOS】Mac环境配置-安装Java并查看java默认安装路径">
-                  <i class="fa fa-chevron-left"></i> 【MacOS】Mac环境配置-安装Java并查看java默认安装路径
+                <a href="/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%B8%80%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frps%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC/post/undefined.html" rel="prev" title="【Frp第一篇】Frp内网穿透安装教程#Frps服务端一键安装脚本#">
+                  <i class="fa fa-chevron-left"></i> 【Frp第一篇】Frp内网穿透安装教程#Frps服务端一键安装脚本#
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%B8%80%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frps%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85%E8%84%9A%E6%9C%AC/" rel="next" title="【Frp第一篇】Frp内网穿透安装教程#Frps服务端一键安装脚本#">
-                  【Frp第一篇】Frp内网穿透安装教程#Frps服务端一键安装脚本# <i class="fa fa-chevron-right"></i>
+                <a href="/2021/12/29/%E3%80%90MacOS%E3%80%911024%E9%80%81%E7%BB%99%E5%B9%BF%E5%A4%A7%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%84%E7%A4%BC%E7%89%A9-mac%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7Hammerspoon-%E6%B7%B1%E5%BA%A6%E4%BD%BF%E7%94%A8%E8%84%9A%E6%9C%AC-%E6%9B%B4%E6%96%B0v0-1-2/post/undefined.html" rel="next" title="【MacOS】1024送给广大程序员的礼物-mac提高效率工具Hammerspoon,深度使用脚本-更新v0.1.2">
+                  【MacOS】1024送给广大程序员的礼物-mac提高效率工具Hammerspoon,深度使用脚本-更新v0.1.2 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -591,7 +595,7 @@ NexT.utils.loadComments('#valine-comments', () => {
   NexT.utils.getScript('//unpkg.zhimg.com/valine@1.4.14/dist/Valine.min.js', () => {
     new Valine(Object.assign({"enable":true,"appId":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","appKey":"r26uvBWOfgqwX3flwdJo0G2M","serverURLs":null,"placeholder":"免费的评论不发一条吗~","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":false,"enableQQ":true,"requiredFields":[]}, {
       el: '#valine-comments',
-      path: "/2021/12/29/%E3%80%90MacOS%E3%80%91Mac-10-15-%E4%BD%BF%E7%94%A8brew%E5%AE%89%E8%A3%85mysql%E6%95%99%E7%A8%8B/",
+      path: "/2021/12/29/%E3%80%90Frp%E7%AC%AC%E4%BA%8C%E7%AF%87%E3%80%91Frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B-Frpc-OpenWrt%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85-%E5%9B%BE%E5%BD%A2%E5%8C%96%E7%AE%A1%E7%90%86/post/undefined.html",
       serverURLs: "https://nt1d1lor.api.lncldglobal.com"
     }));
   }, window.Valine);
