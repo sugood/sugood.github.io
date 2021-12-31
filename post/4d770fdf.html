@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<meta name="baidu-site-verification" content="code-wJEQq36kpK" />
+<meta name="google-site-verification" content="XOX3FCdQJrpQZ-CjiyZCtp_4vkOPWZ0AZbl5DEPby78" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//unpkg.zhimg.com/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//unpkg.zhimg.com/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"i.sugood.xyz","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="@[TOC](Lua 快速入门并完成一个基于Hammerspoon的备忘录项目) 环境说明系统版本：macOS 10.15.7Hammerspoon版本：0.9.81Lua版本：5.4.0 需求整理需求由来   用了一段时间的macOS后发现。有很多终端的指令需要记。常用的指令一般都不会忘。但是，一些不常用的指令，例如scp指令。所以就想要一个功能帮我记录这些常用指令的。后来引申到了想要记录一些常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【MacOS】Lua 快速入门并完成一个基于Hammerspoon的备忘录项目">
+<meta property="og:url" content="https://i.sugood.xyz/post/4d770fdf.html">
+<meta property="og:site_name" content="Sugood">
+<meta property="og:description" content="@[TOC](Lua 快速入门并完成一个基于Hammerspoon的备忘录项目) 环境说明系统版本：macOS 10.15.7Hammerspoon版本：0.9.81Lua版本：5.4.0 需求整理需求由来   用了一段时间的macOS后发现。有很多终端的指令需要记。常用的指令一般都不会忘。但是，一些不常用的指令，例如scp指令。所以就想要一个功能帮我记录这些常用指令的。后来引申到了想要记录一些常">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-29T08:04:00.000Z">
+<meta property="article:modified_time" content="2021-12-30T10:23:45.724Z">
+<meta property="article:author" content="sugood">
+<meta property="article:tag" content="MacOS">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://i.sugood.xyz/post/4d770fdf.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【MacOS】Lua 快速入门并完成一个基于Hammerspoon的备忘录项目 | Sugood</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?125e718c08b661e0c3ceec32d67c1ce5";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Sugood</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">环境说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E6%95%B4%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">需求整理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E7%94%B1%E6%9D%A5"><span class="nav-number">2.1.</span> <span class="nav-text">需求由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E6%95%B4%E7%90%86-1"><span class="nav-number">2.2.</span> <span class="nav-text">需求整理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="nav-number">3.</span> <span class="nav-text">项目地址</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">目录结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%87%E5%BF%98%E5%BD%95%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="nav-number">4.</span> <span class="nav-text">备忘录实现步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%AF%BC%E5%85%A5%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6"><span class="nav-number">4.1.</span> <span class="nav-text">1、导入脚本文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E7%BB%91%E5%AE%9A%E6%B7%BB%E5%8A%A0%E5%A4%87%E5%BF%98%E5%92%8C%E6%98%BE%E7%A4%BA%E5%A4%87%E5%BF%98%E5%88%97%E8%A1%A8%E7%9A%84%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="nav-number">4.2.</span> <span class="nav-text">2、绑定添加备忘和显示备忘列表的快捷键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E6%B7%BB%E5%8A%A0%E5%A4%87%E5%BF%98"><span class="nav-number">4.3.</span> <span class="nav-text">3、添加备忘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E6%98%BE%E7%A4%BA%E5%A4%87%E5%BF%98%E5%88%97%E8%A1%A8"><span class="nav-number">4.4.</span> <span class="nav-text">4、显示备忘列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E6%9C%80%E5%90%8E%E8%AE%B0%E5%BE%97-Reload-Config"><span class="nav-number">4.5.</span> <span class="nav-text">5、最后记得 Reload Config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81%E5%A6%82%E4%BD%95%E5%90%8C%E6%AD%A5%E4%B8%8D%E5%90%8C%E7%94%B5%E8%84%91%E4%B8%8A%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">4.6.</span> <span class="nav-text">6、如何同步不同电脑上的配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8Hammerspoon%E8%84%9A%E6%9C%AC%E5%BC%80%E5%8F%91"><span class="nav-number">5.</span> <span class="nav-text">快速入门Hammerspoon脚本开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">5.1.</span> <span class="nav-text">参考文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lua%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8E"><span class="nav-number">5.2.</span> <span class="nav-text">Lua语法说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hammerspoon-Api%E8%AF%B4%E6%98%8E"><span class="nav-number">5.3.</span> <span class="nav-text">Hammerspoon Api说明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sugood</p>
+  <div class="site-description" itemprop="description">这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://i.sugood.xyz/post/4d770fdf.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sugood">
+      <meta itemprop="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugood">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【MacOS】Lua 快速入门并完成一个基于Hammerspoon的备忘录项目
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-29 16:04:00" itemprop="dateCreated datePublished" datetime="2021-12-29T16:04:00+08:00">2021-12-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-12-30 18:23:45" itemprop="dateModified" datetime="2021-12-30T18:23:45+08:00">2021-12-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MacOS/" itemprop="url" rel="index"><span itemprop="name">MacOS</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/post/4d770fdf.html" class="post-meta-item leancloud_visitors" data-flag-title="【MacOS】Lua 快速入门并完成一个基于Hammerspoon的备忘录项目" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/4d770fdf.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/4d770fdf.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>@[TOC](Lua 快速入门并完成一个基于Hammerspoon的备忘录项目)</p>
+<h1 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h1><p>系统版本：macOS 10.15.7<br>Hammerspoon版本：0.9.81<br>Lua版本：5.4.0</p>
+<h1 id="需求整理"><a href="#需求整理" class="headerlink" title="需求整理"></a>需求整理</h1><h2 id="需求由来"><a href="#需求由来" class="headerlink" title="需求由来"></a>需求由来</h2><p>   用了一段时间的macOS后发现。有很多终端的指令需要记。常用的指令一般都不会忘。但是，一些不常用的指令，例如scp指令。所以就想要一个功能帮我记录这些常用指令的。后来引申到了想要记录一些常用的注释代码片段。<br>    当然，我是知道这些备忘完全可以随便记录在macOS提供的备忘录中或者是写在博客里，但是，操作了一段时间后就发现了一个很大的弊端：记录、查找、修改备忘都要先打开某个应用后才能操作，往往要经过很多步骤。同时我在用的另外一个macOS神级应用Alfred里也有一个片段功能。似乎也能满足我的需求。但是，我不满意的地方是新增修改删除备忘的时候，不是很方便。需要进入设置界面才能操作。第二个问题是多台mac数据同步的问题，官方推荐Dropbox，网络问题就不说了，真心不想装多一个没用的软件。理论上是能通过git来同步配置文件的，不过不想试了，就想自己手动写一个:-)。控制权在自己手上，想怎么改就怎么改。<br>    <span id="more"></span></p>
+<h2 id="需求整理-1"><a href="#需求整理-1" class="headerlink" title="需求整理"></a>需求整理</h2><ul>
+<li>快速的操作备忘，最好使用快捷键，不要太多的鼠标操作</li>
+<li>能够通过快捷键添加备忘</li>
+<li>能够使用快捷键调出备忘列表</li>
+<li>能够快速的应用选中的备忘内容</li>
+<li>能够编辑备忘内容</li>
+<li>能够删除备忘内容</li>
+<li>能够本地保存备忘数据</li>
+</ul>
+<h1 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h1><p><a target="_blank" rel="noopener" href="https://github.com/sugood/hammerspoon">https://github.com/sugood/hammerspoon</a></p>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>│  history.json<br>│  init.lua<br>│  README.md<br>│  README_zh-CN.md<br>└─modules<br>│ hotkey.lua<br>——│ launcher.lua<br>——│ reload.lua<br>——│ snippet.lua<br>——│ system.lua<br>——│ windows.lua</p>
+<h1 id="备忘录实现步骤"><a href="#备忘录实现步骤" class="headerlink" title="备忘录实现步骤"></a>备忘录实现步骤</h1><h2 id="1、导入脚本文件"><a href="#1、导入脚本文件" class="headerlink" title="1、导入脚本文件"></a>1、导入脚本文件</h2><p> 在init.lua文件中插入以下代码<br> <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require &quot;modules/snippet&quot;</span><br></pre></td></tr></table></figure></p>
+<h2 id="2、绑定添加备忘和显示备忘列表的快捷键"><a href="#2、绑定添加备忘和显示备忘列表的快捷键" class="headerlink" title="2、绑定添加备忘和显示备忘列表的快捷键"></a>2、绑定添加备忘和显示备忘列表的快捷键</h2><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 添加片段（按下快捷键时做一个复制操作，并记录复制的内容到片段列表中）</span></span><br><span class="line">hs.hotkey.bind(&#123;<span class="string">&quot;ctrl&quot;</span>, <span class="string">&quot;cmd&quot;</span>&#125;, <span class="string">&quot;A&quot;</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line"><span class="comment">-- TODO</span></span><br><span class="line"><span class="keyword">end</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 选取片段内容（按下快捷键时显示片段列表，点击选中的快捷键将自动粘贴）</span></span><br><span class="line">hs.hotkey.bind(&#123; <span class="string">&quot;ctrl&quot;</span>, <span class="string">&quot;cmd&quot;</span> &#125;, <span class="string">&quot;V&quot;</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line"><span class="comment">--TODO</span></span><br><span class="line"><span class="keyword">end</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="3、添加备忘"><a href="#3、添加备忘" class="headerlink" title="3、添加备忘"></a>3、添加备忘</h2><ol>
+<li>发送复制粘贴的快捷键将选中的内容复制到剪贴板中（官方文档没有找到直接获取电脑上选中内容的api）<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hs.eventtap.keyStroke(&#123; <span class="string">&quot;cmd&quot;</span> &#125;, <span class="string">&quot;C&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>将剪贴板上的最后一条文本插入备忘录列表中。并保存到本地文件history.json中，实际代码中还需要做重复判断还有排序<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 将备忘插入备忘录列表中</span></span><br><span class="line"><span class="built_in">table</span>.<span class="built_in">insert</span>(history, <span class="number">1</span>, item)</span><br><span class="line"><span class="comment">-- 将备忘列表保存到json文件中</span></span><br><span class="line">hs.json.<span class="built_in">write</span>(history,historyPath, <span class="literal">true</span>, <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="4、显示备忘列表"><a href="#4、显示备忘列表" class="headerlink" title="4、显示备忘列表"></a>4、显示备忘列表</h2></li>
+<li>创建一个选择器，并绑定选中完成的处理方法。这个处理方法主要作用是，将我们选中的备忘录内容插入剪贴板中。然后发送粘贴的消息，将该内容粘贴出去。<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建一个选择器</span></span><br><span class="line">hs.chooser.new(completionFn)</span><br><span class="line">    :choices(history)</span><br><span class="line">    :rightClickCallback(menuFn)</span><br><span class="line">    :searchSubText(<span class="literal">true</span>)</span><br><span class="line">    :show()</span><br><span class="line"><span class="comment">-- 粘贴选中的片段</span></span><br><span class="line"><span class="keyword">local</span> completionFn = <span class="function"><span class="keyword">function</span><span class="params">(result)</span></span></span><br><span class="line">    <span class="keyword">if</span> result <span class="keyword">then</span></span><br><span class="line">        hs.pasteboard.setContents(result.text)</span><br><span class="line">        hs.eventtap.keyStroke(&#123; <span class="string">&quot;cmd&quot;</span> &#125;, <span class="string">&quot;V&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;keywords:&quot;</span>..result.text)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></li>
+<li>监听鼠标右键事件。判断到有右键的操作时，将列表的index传递到绑定的方法中。然后就能处理。删除还有修改的操作了。<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 右键弹出菜单</span></span><br><span class="line"><span class="keyword">local</span> menuFn = <span class="function"><span class="keyword">function</span><span class="params">(index)</span></span></span><br><span class="line">menubar = hs.menubar.new(<span class="literal">false</span>)</span><br><span class="line">        menubar:setTitle(<span class="string">&quot;Hidden Menu&quot;</span>)</span><br><span class="line">        menubar:setMenu( &#123;</span><br><span class="line">            &#123; title = <span class="string">&quot;菜单&quot;</span>, fn = <span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="built_in">print</span>(<span class="string">&quot;you clicked my menu item!&quot;</span>) <span class="keyword">end</span> &#125;,</span><br><span class="line">            &#123; title = <span class="string">&quot;-&quot;</span> &#125;,</span><br><span class="line">            &#123; title = <span class="string">&quot;修改片段内容&quot;</span>, fn = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">                result,text = hs.dialog.textPrompt(<span class="string">&quot;修改片段内容&quot;</span>, <span class="string">&quot;请输入新的内容&quot;</span>, history[index].text, <span class="string">&quot;确定&quot;</span>, <span class="string">&quot;取消&quot;</span>)</span><br><span class="line">                <span class="keyword">if</span> result == <span class="string">&quot;确定&quot;</span> <span class="keyword">then</span></span><br><span class="line">                    modifyHistory(text,history[index].subText,<span class="literal">true</span>,index)</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">end</span> &#125;,</span><br><span class="line">            &#123; title = <span class="string">&quot;修改片段说明&quot;</span>, fn = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">                result,subText = hs.dialog.textPrompt(<span class="string">&quot;修改片段说明&quot;</span>, <span class="string">&quot;请输入新的说明&quot;</span>, history[index].subText, <span class="string">&quot;确定&quot;</span>, <span class="string">&quot;取消&quot;</span>)</span><br><span class="line">                <span class="keyword">if</span> result == <span class="string">&quot;确定&quot;</span> <span class="keyword">then</span></span><br><span class="line">                    modifyHistory(history[index].text,subText,<span class="literal">false</span>,index)</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">end</span> &#125;,</span><br><span class="line">            &#123; title = <span class="string">&quot;-&quot;</span> &#125;,</span><br><span class="line">            &#123; title = <span class="string">&quot;删除当前片段&quot;</span>, fn = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></span><br><span class="line">                <span class="keyword">if</span> hs.dialog.blockAlert(<span class="string">&quot;确定删除以下片段？&quot;</span>,history[index].text,<span class="string">&quot;确定&quot;</span>,<span class="string">&quot;取消&quot;</span>,<span class="string">&quot;informational&quot;</span>) == <span class="string">&quot;确定&quot;</span> <span class="keyword">then</span></span><br><span class="line">                    <span class="built_in">table</span>.<span class="built_in">remove</span>(history,index)</span><br><span class="line">                    hs.json.<span class="built_in">write</span>(history,historyPath, <span class="literal">true</span>, <span class="literal">true</span>)</span><br><span class="line">                    hs.alert.show(<span class="string">&quot;成功删除片段&quot;</span>)</span><br><span class="line">                <span class="keyword">end</span></span><br><span class="line">            <span class="keyword">end</span> &#125;,</span><br><span class="line">        &#125;)</span><br><span class="line">        menubar:popupMenu(hs.mouse.getAbsolutePosition(), <span class="literal">true</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="5、最后记得-Reload-Config"><a href="#5、最后记得-Reload-Config" class="headerlink" title="5、最后记得 Reload Config"></a>5、最后记得 Reload Config</h2><h2 id="6、如何同步不同电脑上的配置"><a href="#6、如何同步不同电脑上的配置" class="headerlink" title="6、如何同步不同电脑上的配置"></a>6、如何同步不同电脑上的配置</h2>使用github或者是gitee。具体的操作就不详细说了。</li>
+</ol>
+<h1 id="快速入门Hammerspoon脚本开发"><a href="#快速入门Hammerspoon脚本开发" class="headerlink" title="快速入门Hammerspoon脚本开发"></a>快速入门Hammerspoon脚本开发</h1><p>我把快速入门放最后，主要的原因就是，编程学习主要还是要多写多练。基础语法这些只要知道个大概就可以了。特别是脚本语言，本身设计的时候都已经简化了很多语法，只要有一定的编程基础，基本拿来就能用了。不懂的地方再查资料就好。当然，如果你要做个大项目，请一定要打好基础。咱们快速入门就直接开干就好。<br>因为Hammerspoon 使用Lua脚本。所以，我们一部分是介绍Lua脚本的一些语法，一部分是介绍Hammerspoon API的。</p>
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><p>Hammerspoon API文档：<a target="_blank" rel="noopener" href="https://www.hammerspoon.org/docs/index.html">https://www.hammerspoon.org/docs/index.html</a></p>
+<p>Lua 参考文档：<a target="_blank" rel="noopener" href="http://www.lua.org/manual/5.4/">http://www.lua.org/manual/5.4/</a><br>如果使用的Hammerspoon和我的版本不同，可能Lua的版本也不同。那你可能要找对应的Lua版本的文档来看。在脚本中通过以下指令可以打印出Lua版本</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">_VERSION</span>) </span><br></pre></td></tr></table></figure>
+<h2 id="Lua语法说明"><a href="#Lua语法说明" class="headerlink" title="Lua语法说明"></a>Lua语法说明</h2><p>基础语法大家可以看文档，这里只说一些文档没有写的，或者是我觉得比较实用的。</p>
+<p>Lua是一种动态类型语言，因此语言中没有类型的定义，不需要声明变量类型，每个变量自己保存了类型。有8种基本类型：nil、布尔值（boolean）、数字体（number）、字符串型（string）、用户自定义类型（userdata）、函数（function）、线程（thread）和表（table）。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="built_in">type</span>(<span class="literal">nil</span>))                    <span class="comment">-- 输出 nil</span></span><br><span class="line">   <span class="built_in">print</span>(<span class="built_in">type</span>(<span class="number">99.7</span>+<span class="number">12</span>*<span class="number">9</span>))              <span class="comment">-- 输出 number</span></span><br><span class="line">   <span class="built_in">print</span>(<span class="built_in">type</span>(<span class="literal">true</span>))                   <span class="comment">-- 输出 boolean</span></span><br><span class="line">   <span class="built_in">print</span>(<span class="built_in">type</span>(<span class="string">&quot;Hello Wikipedia&quot;</span>))      <span class="comment">-- 输出 string</span></span><br><span class="line">   <span class="built_in">print</span>(<span class="built_in">type</span>(<span class="built_in">print</span>))                  <span class="comment">-- 输出 function</span></span><br><span class="line">   <span class="built_in">print</span>(<span class="built_in">type</span>&#123;<span class="number">1</span>, <span class="number">2</span>, test = <span class="string">&quot;test&quot;</span>&#125;)    <span class="comment">-- 输出 table</span></span><br></pre></td></tr></table></figure>
+<p>我们用的比较多的类型是 nil 、 string 、 table</p>
+<ul>
+<li><p>nil 和java中的null差不多的概念。在使用一些变量前需要是要做非空判断，要不会报错</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> str == <span class="literal">nil</span> <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;字符串为nil&quot;</span>)</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;字符串不为nil&quot;</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></li>
+<li><p>string 字符串类型。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 字符串拼接，使用..</span></span><br><span class="line">str = <span class="string">&quot;Hello&quot;</span>..<span class="string">&quot; World&quot;</span></span><br><span class="line"><span class="built_in">print</span>(str) <span class="comment">-- 输出的结果就是 Hello World</span></span><br><span class="line"><span class="comment">-- 查看字符串长度使用 #</span></span><br><span class="line">str = <span class="string">&quot;Hello World&quot;</span></span><br><span class="line"><span class="built_in">print</span>(#str) <span class="comment">--输出11</span></span><br><span class="line"><span class="comment">--字符串判空，所谓的空字符串一般是指字符串是nil或者字符串没有内容，所以我们可以封装成一个方法</span></span><br><span class="line"><span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">isEmpty</span><span class="params">(s)</span></span></span><br><span class="line">  <span class="keyword">return</span> s == <span class="literal">nil</span> <span class="keyword">or</span> s == <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> isEmpty(s) <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;字符串为空&quot;</span>)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></li>
+<li><p>table 就是表，其实是一个”关联数组”（associative arrays）<br>我们说下多维表的操作，包含增删改查和排序。表的格式如下</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> history = &#123;</span><br><span class="line"> &#123;</span><br><span class="line">  [<span class="string">&quot;text&quot;</span>] = <span class="string">&quot;First Choice&quot;</span>,</span><br><span class="line">  [<span class="string">&quot;subText&quot;</span>] = <span class="string">&quot;This is the subtext of the first choice&quot;</span></span><br><span class="line"> &#125;,</span><br><span class="line"> &#123; [<span class="string">&quot;text&quot;</span>] = <span class="string">&quot;Second Choice&quot;</span>,</span><br><span class="line">   [<span class="string">&quot;subText&quot;</span>] = <span class="string">&quot;This is the subtext of the second choice&quot;</span></span><br><span class="line"> &#125;,</span><br><span class="line"> &#123; [<span class="string">&quot;text&quot;</span>] = <span class="string">&quot;three Choice&quot;</span>,</span><br><span class="line">   [<span class="string">&quot;subText&quot;</span>] = <span class="string">&quot;This is the subtext of the three choice&quot;</span></span><br><span class="line"> &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">--插入一条数据</span></span><br><span class="line"><span class="keyword">local</span> item = &#123;&#125;</span><br><span class="line">item.text = <span class="string">&quot;Fourth Choice&quot;</span></span><br><span class="line">item.subText = <span class="string">&quot;This is the subtext of the fourth choice&quot;</span></span><br><span class="line"><span class="built_in">table</span>.<span class="built_in">insert</span>(history, <span class="number">1</span>, item)</span><br><span class="line"><span class="comment">--删除第一条数据，table索引是从1开始的</span></span><br><span class="line"><span class="built_in">table</span>.<span class="built_in">remove</span>(history,<span class="number">1</span>)</span><br><span class="line"><span class="comment">--修改第一条数据</span></span><br><span class="line">history[index].text = <span class="string">&quot;First Choice change&quot;</span></span><br><span class="line">history[index].subText = <span class="string">&quot;This is the subtext of the first choice change&quot;</span></span><br><span class="line"><span class="comment">--查看第一条的数据</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;text:&quot;</span>..history[<span class="number">1</span>].text)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;subText:&quot;</span>..history[<span class="number">1</span>].subText)</span><br><span class="line"><span class="comment">-- 排序,手动选择一个子项来排序，这里选择subText</span></span><br><span class="line"><span class="built_in">table</span>.<span class="built_in">sort</span>(history,<span class="function"><span class="keyword">function</span><span class="params">(a,b)</span></span> <span class="keyword">return</span> a.subText&lt;b.subText <span class="keyword">end</span> )</span><br><span class="line"><span class="comment">--查看table的长度，也使用#这个符号</span></span><br><span class="line"><span class="built_in">print</span>(#history)</span><br></pre></td></tr></table></figure></li>
+<li><p>function 函数的使用<br>跟其他编程语言的也差不多，可以传入参数，能返回值。就是调用函数前必须先定义好函数，函数体要写在调用代码的上面。</p>
+</li>
+</ul>
+<h2 id="Hammerspoon-Api说明"><a href="#Hammerspoon-Api说明" class="headerlink" title="Hammerspoon Api说明"></a>Hammerspoon Api说明</h2><ul>
+<li><p>快捷键绑定并打开应用</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hs.hotkey.bind(&#123; <span class="string">&quot;ctrl&quot;</span>, <span class="string">&quot;shift&quot;</span> &#125;, <span class="string">&quot;T&quot;</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span></span></span><br><span class="line">	hs.application.launchOrFocus(<span class="string">&#x27;Terminal&#x27;</span>)</span><br><span class="line"><span class="keyword">end</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>触发键盘事件</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 触发复制事件</span></span><br><span class="line">hs.eventtap.keyStroke(&#123; <span class="string">&quot;cmd&quot;</span> &#125;, <span class="string">&quot;C&quot;</span>)</span><br><span class="line"><span class="comment">-- 触发粘贴事件</span></span><br><span class="line">hs.eventtap.keyStroke(&#123; <span class="string">&quot;cmd&quot;</span> &#125;, <span class="string">&quot;V&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>本地json文件操作</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> historyPath= <span class="string">&quot;~/.hammerspoon/history.json&quot;</span></span><br><span class="line"><span class="comment">-- 读取本地文件</span></span><br><span class="line">history = hs.json.<span class="built_in">read</span>(historyPath)</span><br><span class="line"><span class="comment">-- 写入本地文件</span></span><br><span class="line">hs.json.<span class="built_in">write</span>(history,historyPath, <span class="literal">true</span>, <span class="literal">true</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>弹出菜单栏</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 最好配合rightClickCallback 监听右键，鼠标右键时才弹出菜单</span></span><br><span class="line"> menubar = hs.menubar.new(<span class="literal">false</span>)</span><br><span class="line">        menubar:setTitle(<span class="string">&quot;Hidden Menu&quot;</span>)</span><br><span class="line">        menubar:setMenu( &#123;</span><br><span class="line">            &#123; title = <span class="string">&quot;菜单&quot;</span>, fn = <span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="built_in">print</span>(<span class="string">&quot;you clicked my menu item!&quot;</span>) <span class="keyword">end</span> &#125;,</span><br><span class="line">            &#123; title = <span class="string">&quot;-&quot;</span> &#125;,</span><br><span class="line">        menubar:popupMenu(hs.mouse.getAbsolutePosition(), <span class="literal">true</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>写这篇文章就是自己做个总结。同时推荐下Hammerspoon，真的很好用:-)</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MacOS/" rel="tag"># MacOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/d4a07c58.html" rel="prev" title="【MacOS】网页自动化教程（下）- PySeTest网站自动登录到下单测试手脚架#Python3 + Selenium3+ HTMLTestRunner#工欲善其事">
+                  <i class="fa fa-chevron-left"></i> 【MacOS】网页自动化教程（下）- PySeTest网站自动登录到下单测试手脚架#Python3 + Selenium3+ HTMLTestRunner#工欲善其事
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/8c9a01a9.html" rel="next" title="【MacOS】Mac使用技巧-Hammerspoon自动化功能#实现多屏快速切换，窗口缩放,自定义应用启动快捷键，添加片段和备忘录">
+                  【MacOS】Mac使用技巧-Hammerspoon自动化功能#实现多屏快速切换，窗口缩放,自定义应用启动快捷键，添加片段和备忘录 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">ICP备19070416号-3号 </a>
+  </div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sugood</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+<div class="cdn">
+  Powerful CDN service provided by
+  <span class="post-meta-divider">|</span>
+  <a target="_blank" rel="noopener" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">
+    <img src="/images/upyun_logo.png" style="display:inline-block;text-decoration:none;height:30px;" />
+  </a>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//unpkg.zhimg.com/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/utils.js"></script><script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/motion.js"></script><script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","app_key":"r26uvBWOfgqwX3flwdJo0G2M","server_url":"nt1d1lor.api.lncldglobal.com","security":false};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//unpkg.zhimg.com/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","appKey":"r26uvBWOfgqwX3flwdJo0G2M","serverURLs":null,"placeholder":"免费的评论不发一条吗~","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":false,"enableQQ":true,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/post/4d770fdf.html",
+      serverURLs: "https://nt1d1lor.api.lncldglobal.com"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

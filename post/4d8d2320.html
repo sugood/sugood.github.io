@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<meta name="baidu-site-verification" content="code-wJEQq36kpK" />
+<meta name="google-site-verification" content="XOX3FCdQJrpQZ-CjiyZCtp_4vkOPWZ0AZbl5DEPby78" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//unpkg.zhimg.com/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//unpkg.zhimg.com/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"i.sugood.xyz","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="实际效果 硬件配置与价格表配置与价格 2016年升级前的配置表   CPU:  i3-6100 ——————————————————————- 799元 主板：技嘉（GIGABYTE）Z170M-D3H主板 ————————— 899元 内存：芝奇(G.Skill) Ripjaws 4系列 DDR4 2400频率 8G*2条 ——- 478元 硬盘：影驰（Galaxy）铁甲战将系列 240G SA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【MacOS】黑苹果使用心得和安装思路，完美三屏">
+<meta property="og:url" content="https://i.sugood.xyz/post/4d8d2320.html">
+<meta property="og:site_name" content="Sugood">
+<meta property="og:description" content="实际效果 硬件配置与价格表配置与价格 2016年升级前的配置表   CPU:  i3-6100 ——————————————————————- 799元 主板：技嘉（GIGABYTE）Z170M-D3H主板 ————————— 899元 内存：芝奇(G.Skill) Ripjaws 4系列 DDR4 2400频率 8G*2条 ——- 478元 硬盘：影驰（Galaxy）铁甲战将系列 240G SA">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201109173706832.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020110917373314.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020110717030689.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201107171756610.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201107171900636.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201107201915814.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2021-12-29T07:55:10.000Z">
+<meta property="article:modified_time" content="2021-12-29T10:17:49.900Z">
+<meta property="article:author" content="sugood">
+<meta property="article:tag" content="Android,iOS,Flutter,程序员,移动开发,软件开发,技术文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201109173706832.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+
+
+<link rel="canonical" href="https://i.sugood.xyz/post/4d8d2320.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【MacOS】黑苹果使用心得和安装思路，完美三屏 | Sugood</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?125e718c08b661e0c3ceec32d67c1ce5";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Sugood</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E6%95%88%E6%9E%9C"><span class="nav-number">1.</span> <span class="nav-text">实际效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BB%B7%E6%A0%BC%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">硬件配置与价格表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BB%B7%E6%A0%BC"><span class="nav-number">2.1.</span> <span class="nav-text">配置与价格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E8%B4%AD%E4%B9%B0%E8%AE%A2%E5%8D%95%E6%88%AA%E5%9B%BE"><span class="nav-number">2.2.</span> <span class="nav-text">硬件购买订单截图</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A3%85%E9%BB%91%E8%8B%B9%E6%9E%9C%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">3.</span> <span class="nav-text">装黑苹果的原因</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%91%E8%8B%B9%E6%9E%9C%E7%9B%B8%E5%AF%B9%E7%99%BD%E8%8B%B9%E6%9E%9C%E7%9A%84%E7%A1%AC%E4%BB%B6%E6%89%A9%E5%B1%95%E6%80%A7%E5%A5%BD"><span class="nav-number">3.1.</span> <span class="nav-text">黑苹果相对白苹果的硬件扩展性好</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E5%B0%9D%E9%B2%9C%E6%88%96%E8%80%85%E5%BC%80%E5%8F%91%E8%8B%B9%E6%9E%9C%E8%BD%AF%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">需要尝鲜或者开发苹果软件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8D%E8%A3%85%E9%BB%91%E8%8B%B9%E6%9E%9C%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">4.</span> <span class="nav-text">不装黑苹果的原因</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A3%85%E9%BB%91%E8%8B%B9%E6%9E%9C%E6%8A%98%E8%85%BE%E8%80%97%E6%97%B6%E4%B9%9F%E8%80%97%E9%92%B1"><span class="nav-number">4.1.</span> <span class="nav-text">装黑苹果折腾耗时也耗钱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%80%E8%A6%81%E6%89%BF%E6%8B%85%E7%B3%BB%E7%BB%9F%E5%8D%87%E7%BA%A7%E7%9A%84%E9%A3%8E%E9%99%A9"><span class="nav-number">4.2.</span> <span class="nav-text">需要承担系统升级的风险</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E9%9D%A0%E6%80%A7%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.3.</span> <span class="nav-text">可靠性的问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85%E9%BB%91%E8%8B%B9%E6%9E%9C"><span class="nav-number">5.</span> <span class="nav-text">如何安装黑苹果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86"><span class="nav-number">5.1.</span> <span class="nav-text">一些基本知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#EFI%E6%96%87%E4%BB%B6"><span class="nav-number">5.1.1.</span> <span class="nav-text">EFI文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A6%96%E5%85%88%EF%BC%8C%E7%A1%AE%E4%BF%9D%E7%A1%AC%E4%BB%B6%E7%9A%84%E5%85%BC%E5%AE%B9"><span class="nav-number">5.2.</span> <span class="nav-text">首先，确保硬件的兼容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E9%80%89%E6%8B%A9"><span class="nav-number">5.2.1.</span> <span class="nav-text">硬件选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85"><span class="nav-number">5.2.2.</span> <span class="nav-text">系统安装</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E5%B0%8F%E6%8A%80%E5%B7%A7%E5%92%8C%E8%AF%B4%E6%98%8E"><span class="nav-number">6.</span> <span class="nav-text">一些小技巧和说明</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sugood</p>
+  <div class="site-description" itemprop="description">这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://i.sugood.xyz/post/4d8d2320.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sugood">
+      <meta itemprop="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugood">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【MacOS】黑苹果使用心得和安装思路，完美三屏
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-12-29 15:55:10 / 修改时间：18:17:49" itemprop="dateCreated datePublished" datetime="2021-12-29T15:55:10+08:00">2021-12-29</time>
+    </span>
+
+  
+    <span id="/post/4d8d2320.html" class="post-meta-item leancloud_visitors" data-flag-title="【MacOS】黑苹果使用心得和安装思路，完美三屏" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/4d8d2320.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/4d8d2320.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="实际效果"><a href="#实际效果" class="headerlink" title="实际效果"></a>实际效果</h1><p><img src="https://img-blog.csdnimg.cn/20201109173706832.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020110917373314.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="硬件配置与价格表"><a href="#硬件配置与价格表" class="headerlink" title="硬件配置与价格表"></a>硬件配置与价格表</h1><h2 id="配置与价格"><a href="#配置与价格" class="headerlink" title="配置与价格"></a>配置与价格</h2><ol>
+<li>2016年升级前的配置表</li>
+</ol>
+<ul>
+<li>CPU:  i3-6100 ——————————————————————- 799元</li>
+<li>主板：技嘉（GIGABYTE）Z170M-D3H主板 ————————— 899元</li>
+<li>内存：芝奇(G.Skill) Ripjaws 4系列 DDR4 2400频率 8G*2条 ——- 478元</li>
+<li>硬盘：影驰（Galaxy）铁甲战将系列 240G SATA3 固态硬盘 ——- 399元</li>
+<li>CPU风扇：九州风神（DEEPCOOL） 玄冰400 ————————- 99元</li>
+<li>无线网卡与蓝牙：黑苹果BCM94360cd 802.22AC双频 ————— 188元</li>
+<li>小计 ——————————————————————————————- 2862元</li>
+</ul>
+<ol start="2">
+<li>2020年升级后的增加的配置表</li>
+</ol>
+<ul>
+<li>内存：阿斯加特3000频率 DDR4 台式机内存条 8GB*2条————- 358元</li>
+<li>显卡：迪兰（Dataland）RX 560D4G X-Serial战神4G ————— 485元</li>
+<li>小计 ——————————————————————————————- 843元</li>
+<li>合计 ——————————————————————————————- 3705元<span id="more"></span></li>
+</ul>
+<h2 id="硬件购买订单截图"><a href="#硬件购买订单截图" class="headerlink" title="硬件购买订单截图"></a>硬件购买订单截图</h2><p>2016年订单列表截图，网卡是淘宝买的找不到订单了，就不贴了<br><img src="https://img-blog.csdnimg.cn/2020110717030689.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>2020年升级独立显卡订单截图<br><img src="https://img-blog.csdnimg.cn/20201107171756610.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>2020年升级内存订单截图<br><img src="https://img-blog.csdnimg.cn/20201107171900636.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="装黑苹果的原因"><a href="#装黑苹果的原因" class="headerlink" title="装黑苹果的原因"></a>装黑苹果的原因</h1><p>申明：本人有一台macbook pro 和一台macbook air 。所以，我是支持苹果产品的。也建议有条件的尽量买白苹果的。因为黑苹果也是有很多缺点的下面有说。但是下面的原因也是我觉得安装一台黑苹果是很有必要的。</p>
+<h2 id="黑苹果相对白苹果的硬件扩展性好"><a href="#黑苹果相对白苹果的硬件扩展性好" class="headerlink" title="黑苹果相对白苹果的硬件扩展性好"></a>黑苹果相对白苹果的硬件扩展性好</h2><p>大家从我上面的硬件配置表也能看出来。我16年的时候连独显都没有买，用的还是I3的集显。内存16G。我这台黑苹果主要是用来做软件开发，还有平时做一些设计的，这几年用下来其实也还好。但是，最近开始觉得16G的内存不够用了。chrome、xcode、android studio 还有虚拟机这些都是内存大户。而且最近买多了两块屏幕，想组个三屏，才发现用集显只能显示一个屏幕，网上的教程试了个遍都不行。索性就买了一块黑苹果免驱的显卡，插上去就能三屏了，省了很多功夫。16G内存加一个显卡一共也是加了几百块。而且升级这些硬件都是不需要重装系统的。只要买对硬件，升级很简单也很便宜。但是，如果是白苹果你想升级硬件真的很难。当然你可以选择卖了旧的再买一台新的。但是无论如何升级成本都很高。</p>
+<h2 id="需要尝鲜或者开发苹果软件"><a href="#需要尝鲜或者开发苹果软件" class="headerlink" title="需要尝鲜或者开发苹果软件"></a>需要尝鲜或者开发苹果软件</h2><p>如果只是尝鲜，建议可以先用虚拟机体验下先。不建议直接买硬件装黑苹果。虽然成本不高，而且大不了以后装windows。但是黑苹果基本上只支持Inter平台。大家都知道同等配置下Amd平台还是比Inter平台要便宜的。所以，我建议大家是真的有确切的需求再装黑苹果。像需要开发IOS App、MacOS App的或者是用一些只有macOS系统才能安装的软件时，而且一时半会还没有白苹果的情况下再考虑黑苹果。</p>
+<h1 id="不装黑苹果的原因"><a href="#不装黑苹果的原因" class="headerlink" title="不装黑苹果的原因"></a>不装黑苹果的原因</h1><h2 id="装黑苹果折腾耗时也耗钱"><a href="#装黑苹果折腾耗时也耗钱" class="headerlink" title="装黑苹果折腾耗时也耗钱"></a>装黑苹果折腾耗时也耗钱</h2><p>安装黑苹果不是说你把系统装上去就可以了。其实安装苹果系统是最简单的步骤。你安装了系统之后还需要针对系统硬件对系统进行配置，如果配置不到位可能就出现网卡驱动装不上、花屏、死机等各种问题。而且不是什么硬件都能装黑苹果的。像AMD的CPU就基本上装不上，当然有极个别的是可以的。还有无线网卡和蓝牙都是要特定的才行。主板也是有要求的，反正除了内存和硬盘之外，其他硬件都是要选对兼容苹果系统的才行。所以，如果你现有的电脑硬件不兼容就需要买兼容的硬件才行。而且即使是所有的硬件都是兼容的安装好黑苹果后还是可能会出现一些小毛病的。像我的这台黑苹果就是什么问题没有，唯一一个小问题就是睡眠后时间不同步了。需要手动修改时间。这个问题我找遍全网都没有找到解决办法，只好自己写个脚本，每次休眠启动后帮它同步时间。需要的可以看这个工具（<a target="_blank" rel="noopener" href="https://blog.csdn.net/sugoods/article/details/109268454">1024送给广大程序员的礼物-mac提高效率工具Hammerspoon,深度使用脚本</a>）</p>
+<h2 id="需要承担系统升级的风险"><a href="#需要承担系统升级的风险" class="headerlink" title="需要承担系统升级的风险"></a>需要承担系统升级的风险</h2><p>黑苹果安装好之后并不是一劳永逸的。苹果更新系统后，建议不要第一时间升级，特别是不能用苹果自带的升级功能进行升级。这样很容易导致系统升级后就不能正常使用了。最好是等网上的大神发布了最新版本的升级镜像后再下载镜像进行升级，这样升级比较可靠。平时要定时做系统备份或者是对关键文件进行备份。升级前也需要备份。</p>
+<h2 id="可靠性的问题"><a href="#可靠性的问题" class="headerlink" title="可靠性的问题"></a>可靠性的问题</h2><p>由于是自己配置的硬件和自己安装的系统。所以可靠性肯定是没有白苹果那么好的。不过，就我个人感觉，可靠性还挺好的，感觉和自己装的windows差不多，极少出现死机或卡死的情况。但是风险是不能排除的。所以，还是建议大家使用时定时备份比较好。</p>
+<h1 id="如何安装黑苹果"><a href="#如何安装黑苹果" class="headerlink" title="如何安装黑苹果"></a>如何安装黑苹果</h1><p>相信看到这里的朋友都是能接受黑苹果的问题和风险了。我们这里提供一个安装思路给大家。并介绍下需要用到的工具。因为，黑苹果的安装流程也是在不断的更新的。具体的流程我会推荐一些网站给大家。</p>
+<h2 id="一些基本知识"><a href="#一些基本知识" class="headerlink" title="一些基本知识"></a>一些基本知识</h2><h3 id="EFI文件"><a href="#EFI文件" class="headerlink" title="EFI文件"></a>EFI文件</h3><p>苹果中有个很重要的文件就是EFI文件。EFI是 Extensible Firmware Interface File（可扩展固件接口文件） 的缩写。用于定义固件和操作系统之间的接口的数据。在后面我们安装好苹果系统然后进行配置的时候，就是要修改这个文件。所以，我们如果要快速的组建一个黑苹果系统，最好是有别人配置好的现成的EFI文件。那就能事半功倍，我们挑选硬件的时候最好就参考别人的配置来买是最好的。因为别人已经帮你趟过坑了。</p>
+<h2 id="首先，确保硬件的兼容"><a href="#首先，确保硬件的兼容" class="headerlink" title="首先，确保硬件的兼容"></a>首先，确保硬件的兼容</h2><h3 id="硬件选择"><a href="#硬件选择" class="headerlink" title="硬件选择"></a>硬件选择</h3><ol>
+<li>CPU选择<br>选择Inter平台的酷睿系列的CPU，就是平时我们说的 i3、i5、 i7。反正看个人需求来买，最好是带集显的。</li>
+<li>主板选择<br>打开<a target="_blank" rel="noopener" href="https://www.tonymacx86.com/buyersguide/building-a-customac-hackintosh-the-ultimate-buyers-guide/">tonymacx86</a>这个网站，选择对应的主板规格，就能看到支持黑苹果的主板型号了。不过上面推荐的都是国外在售的主板型号，所以，在挑到自己合适的主板后最好到国内的购物网站看看能不能买的到。<br><img src="https://img-blog.csdnimg.cn/20201107201915814.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><blockquote>
+<p><strong>重点：我们在github 上或者是在搜索引擎上搜索一下挑中的主板有没有现成的EFI文件，没有的话最好再找找，原因上面有说了</strong><br><a target="_blank" rel="noopener" href="https://github.com/daliansky/Hackintosh">国内的大佬整理好的EFI文件列表</a></p>
+</blockquote>
+</li>
+<li>独显选择<br>一般使用是可以不装独显的，到真的需要用到再买也不迟。这里我是推荐AMD的显卡。因为现在新的mac使用的独显都是AMD的。下面是一些推荐文章。<br><a target="_blank" rel="noopener" href="https://www.mfpud.com/topics/413/">【2020】macOS Catalina 黑苹果系统10.15显卡选购支持列表</a><br><a target="_blank" rel="noopener" href="https://blog.daliansky.net/Mojave-Hardware-Support-List.html">黑苹果显卡免驱列表 10.15 Catalina 2018-2019 GTX and AMD</a></li>
+<li>无线网卡<br>淘宝直接搜索黑苹果免驱无线网卡，有很多，货比三家买合适自己的就好。基本都是博通的网卡，一般都是无线蓝牙二合一的。</li>
+<li>其他<br>内存、硬盘看自己的需求来买。一般没有兼容问题。以上硬件组装好电脑后就能进行系统安装了</li>
+</ol>
+<h3 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h3><p>推荐<a target="_blank" rel="noopener" href="https://blog.daliansky.net/">黑果小兵</a>，上面有很多详细的教程。我就不重复说了。无非就是下载镜像，制作U盘系统。然后安装系统。只要选对了硬件，一切都好说。有些镜像需要关注公众号发红包才能下载。自己看着下载吧。或者可以找一些其他的网站的安装步骤。因为，工具会不断的更新。我这里就不写详细教程了。</p>
+<h1 id="一些小技巧和说明"><a href="#一些小技巧和说明" class="headerlink" title="一些小技巧和说明"></a>一些小技巧和说明</h1><ol>
+<li>除了准备一个U盘做黑苹果的U盘系统外，最好再准备一个U盘做一个winPE。需要格式化硬盘和分区</li>
+<li>在使用Clover Configurator 和Hackintool 修改配置文件前最好先备份Clover文件</li>
+<li>现在的黑苹果可以使用最新的OpenCore引导方式，不过目前配置还比Clover繁琐。所以，还是先推荐Clover的方式。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/5c934d1e.html" rel="prev" title="【NAS】使用家庭宽带搭建服务器(含个人网盘) [一]-为什么要搭建自己的服务器?能实现公网访问?能实现NAS功能?能在线播放视频？">
+                  <i class="fa fa-chevron-left"></i> 【NAS】使用家庭宽带搭建服务器(含个人网盘) [一]-为什么要搭建自己的服务器?能实现公网访问?能实现NAS功能?能在线播放视频？
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/4c3e0d02.html" rel="next" title="【MacOS】效率工具IQuickLook-多合一Quick Look快速预览与右键扩展信息工具">
+                  【MacOS】效率工具IQuickLook-多合一Quick Look快速预览与右键扩展信息工具 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">ICP备19070416号-3号 </a>
+  </div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sugood</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+<div class="cdn">
+  Powerful CDN service provided by
+  <span class="post-meta-divider">|</span>
+  <a target="_blank" rel="noopener" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">
+    <img src="/images/upyun_logo.png" style="display:inline-block;text-decoration:none;height:30px;" />
+  </a>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//unpkg.zhimg.com/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/utils.js"></script><script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/motion.js"></script><script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","app_key":"r26uvBWOfgqwX3flwdJo0G2M","server_url":"nt1d1lor.api.lncldglobal.com","security":false};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//unpkg.zhimg.com/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","appKey":"r26uvBWOfgqwX3flwdJo0G2M","serverURLs":null,"placeholder":"免费的评论不发一条吗~","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":false,"enableQQ":true,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/post/4d8d2320.html",
+      serverURLs: "https://nt1d1lor.api.lncldglobal.com"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

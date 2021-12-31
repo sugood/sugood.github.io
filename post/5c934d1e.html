@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<meta name="baidu-site-verification" content="code-wJEQq36kpK" />
+<meta name="google-site-verification" content="XOX3FCdQJrpQZ-CjiyZCtp_4vkOPWZ0AZbl5DEPby78" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//unpkg.zhimg.com/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//unpkg.zhimg.com/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"i.sugood.xyz","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="实际效果 路由器硬件与参数型号：网件R7800-千兆路由器17年左右买的（现在大家可以考虑购买wifi6的路由了）。刷了openwrt的系统。为了稳定性，每天凌晨定时重启下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【NAS】使用家庭宽带搭建服务器(含个人网盘) [一]-为什么要搭建自己的服务器?能实现公网访问?能实现NAS功能?能在线播放视频？">
+<meta property="og:url" content="https://i.sugood.xyz/post/5c934d1e.html">
+<meta property="og:site_name" content="Sugood">
+<meta property="og:description" content="实际效果 路由器硬件与参数型号：网件R7800-千兆路由器17年左右买的（现在大家可以考虑购买wifi6的路由了）。刷了openwrt的系统。为了稳定性，每天凌晨定时重启下">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201114200611488.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201114193618680.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201114192407257.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201114194224177.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201114195032689.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201114194716999.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020111419475379.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2021-12-29T07:45:00.000Z">
+<meta property="article:modified_time" content="2021-12-30T12:21:53.896Z">
+<meta property="article:author" content="sugood">
+<meta property="article:tag" content="NAS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201114200611488.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+
+
+<link rel="canonical" href="https://i.sugood.xyz/post/5c934d1e.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【NAS】使用家庭宽带搭建服务器(含个人网盘) [一]-为什么要搭建自己的服务器?能实现公网访问?能实现NAS功能?能在线播放视频？ | Sugood</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?125e718c08b661e0c3ceec32d67c1ce5";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Sugood</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E6%95%88%E6%9E%9C"><span class="nav-number">1.</span> <span class="nav-text">实际效果</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E7%A1%AC%E4%BB%B6%E4%B8%8E%E5%8F%82%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">路由器硬件与参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%A1%AC%E4%BB%B6%E4%B8%8E%E5%8F%82%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">服务器硬件与参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BB%B7%E6%A0%BC"><span class="nav-number">1.2.1.</span> <span class="nav-text">配置与价格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E8%B4%AD%E4%B9%B0%E8%AE%A2%E5%8D%95%E6%88%AA%E5%9B%BE"><span class="nav-number">1.2.2.</span> <span class="nav-text">硬件购买订单截图</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%B6%E5%BA%AD%E5%AE%BD%E5%B8%A6%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E6%B1%82"><span class="nav-number">2.</span> <span class="nav-text">家庭宽带搭建服务器的一些要求</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%BD%E5%B8%A6%E8%A6%81%E6%B1%82"><span class="nav-number">2.1.</span> <span class="nav-text">宽带要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%A1%AC%E4%BB%B6%E8%A6%81%E6%B1%82"><span class="nav-number">2.2.</span> <span class="nav-text">服务器硬件要求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E7%9A%84%E4%B8%BB%E6%9C%BA"><span class="nav-number">2.2.1.</span> <span class="nav-text">独立的主机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8E%E5%8A%9F%E8%80%97%E3%80%81%E9%9D%99%E9%9F%B3%E3%80%81%E4%BD%93%E7%A7%AF%E5%B0%8F"><span class="nav-number">2.2.2.</span> <span class="nav-text">低功耗、静音、体积小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E8%B4%A8%E7%9A%84%E7%94%B5%E6%BA%90"><span class="nav-number">2.2.3.</span> <span class="nav-text">优质的电源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E7%A3%81%E7%9B%98%E9%98%B5%E5%88%97"><span class="nav-number">2.2.4.</span> <span class="nav-text">无磁盘阵列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%B3%BB%E7%BB%9F%E9%80%89%E6%8B%A9"><span class="nav-number">2.3.</span> <span class="nav-text">服务器系统选择</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%B6%E5%BA%AD%E5%AE%BD%E5%B8%A6%E6%90%AD%E5%BB%BA%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%83%BD%E5%B9%B2%E4%BB%80%E4%B9%88"><span class="nav-number">3.</span> <span class="nav-text">家庭宽带搭建的服务器能干什么</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AC%E7%BD%91%E8%AE%BF%E9%97%AE"><span class="nav-number">3.1.</span> <span class="nav-text">公网访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nextcloud%E7%A7%81%E6%9C%89%E7%BD%91%E7%9B%98"><span class="nav-number">3.2.</span> <span class="nav-text">Nextcloud私有网盘</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%87%AA%E5%B7%B1%E5%AE%9E%E7%8E%B0%E7%A7%81%E6%9C%89%E7%BD%91%E7%9B%98"><span class="nav-number">3.2.1.</span> <span class="nav-text">为什么要自己实现私有网盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8Nextcloud"><span class="nav-number">3.2.2.</span> <span class="nav-text">为什么用Nextcloud</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">3.3.</span> <span class="nav-text">网站服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Aria2%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD"><span class="nav-number">3.4.</span> <span class="nav-text">Aria2离线下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NAS-%E8%A7%86%E9%A2%91%E5%9C%A8%E7%BA%BF%E6%92%AD%E6%94%BE"><span class="nav-number">3.5.</span> <span class="nav-text">NAS 视频在线播放</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sugood</p>
+  <div class="site-description" itemprop="description">这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://i.sugood.xyz/post/5c934d1e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sugood">
+      <meta itemprop="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugood">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【NAS】使用家庭宽带搭建服务器(含个人网盘) [一]-为什么要搭建自己的服务器?能实现公网访问?能实现NAS功能?能在线播放视频？
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-29 15:45:00" itemprop="dateCreated datePublished" datetime="2021-12-29T15:45:00+08:00">2021-12-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-12-30 20:21:53" itemprop="dateModified" datetime="2021-12-30T20:21:53+08:00">2021-12-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/NAS/" itemprop="url" rel="index"><span itemprop="name">NAS</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/post/5c934d1e.html" class="post-meta-item leancloud_visitors" data-flag-title="【NAS】使用家庭宽带搭建服务器(含个人网盘) [一]-为什么要搭建自己的服务器?能实现公网访问?能实现NAS功能?能在线播放视频？" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/5c934d1e.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/5c934d1e.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="实际效果"><a href="#实际效果" class="headerlink" title="实际效果"></a>实际效果</h1><p><img src="https://img-blog.csdnimg.cn/20201114200611488.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="路由器硬件与参数"><a href="#路由器硬件与参数" class="headerlink" title="路由器硬件与参数"></a>路由器硬件与参数</h2><p>型号：网件R7800-千兆路由器<br>17年左右买的（现在大家可以考虑购买wifi6的路由了）。刷了openwrt的系统。为了稳定性，每天凌晨定时重启下<br><img src="https://img-blog.csdnimg.cn/20201114193618680.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<span id="more"></span>
+
+<h2 id="服务器硬件与参数"><a href="#服务器硬件与参数" class="headerlink" title="服务器硬件与参数"></a>服务器硬件与参数</h2><h3 id="配置与价格"><a href="#配置与价格" class="headerlink" title="配置与价格"></a>配置与价格</h3><ol>
+<li>2016年的配置表</li>
+</ol>
+<ul>
+<li>CPU:  J3710 ——————————————————————— 0元</li>
+<li>主板：华擎 J3710-ITX主板含CPU —————————————– 699元</li>
+<li>内存：十铨 DDR3 1600 8G 内存 ——————————————- 219元</li>
+<li>SSD：影驰（Galaxy）铁甲战将系列 120G SATA3 固态硬盘 ——- 249元</li>
+<li>电源：安钛克(Antec) 额定300W VP300 电脑电源 ——————— 199元</li>
+<li>机箱：乔思伯（JONSBO）V4 银色 MINI-MATX机箱 —————– 239元</li>
+<li>小计 ——————————————————————————————- 1605元</li>
+</ul>
+<ol start="2">
+<li>升级硬盘后增加的配置表</li>
+</ol>
+<ul>
+<li>硬盘1：17年 希捷 酷鱼 4TB 5400转 256M台式机机械硬盘———– 749元</li>
+<li>硬盘2：19年 希捷(Seagate)4TB 256MB 5400RPM 机械硬盘——– 588.94元</li>
+<li>小计 ——————————————————————————————- 1337.94元</li>
+<li>合计 ——————————————————————————————- 2942.94元</li>
+</ul>
+<h3 id="硬件购买订单截图"><a href="#硬件购买订单截图" class="headerlink" title="硬件购买订单截图"></a>硬件购买订单截图</h3><p><img src="https://img-blog.csdnimg.cn/20201114192407257.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201114194224177.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201114195032689.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20201114194716999.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/2020111419475379.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="家庭宽带搭建服务器的一些要求"><a href="#家庭宽带搭建服务器的一些要求" class="headerlink" title="家庭宽带搭建服务器的一些要求"></a>家庭宽带搭建服务器的一些要求</h1><h2 id="宽带要求"><a href="#宽带要求" class="headerlink" title="宽带要求"></a>宽带要求</h2><p>我们知道国内一般的家用宽带都是没有固定IP也不能公网访问的。申请固定IP的成本太高，不划算。所以，我们不用固定的IP。但是最好能申请到公网IP。一般都是打电话到宽带供应商申请就好。有公网IP就能通过公网访问我们的服务器。否者就要用内网穿透的方式实现公网访问。所以，最好能够申请到公网IP。宽带速度越快越好，特别是上传速度最好能达到10M及以上（约1.25MB/秒）。</p>
+<h2 id="服务器硬件要求"><a href="#服务器硬件要求" class="headerlink" title="服务器硬件要求"></a>服务器硬件要求</h2><h3 id="独立的主机"><a href="#独立的主机" class="headerlink" title="独立的主机"></a>独立的主机</h3><p>因为是7*24小时不间断运行的，所以最好是用一台独立的主机来做服务器。主机的网口最好是千兆网口，通过网线连接路由器的千兆网口。网线最好用 六类千兆网线。这样能最大化的利用宽带资源。</p>
+<h3 id="低功耗、静音、体积小"><a href="#低功耗、静音、体积小" class="headerlink" title="低功耗、静音、体积小"></a>低功耗、静音、体积小</h3><p>我用华擎j3710主板，2块4T硬盘，一块SSD。平均功耗在25w左右。一天的功耗是25<em>24小时=600w，转换成一天的电量是0.6度。一个月电费大概是 0.6</em>30天*0.6元=10.8元。所以，电费真的没有想象中的那么高。大家可以购买集成英特尔低功耗CPU的一体式ITX主板。CPU散热都是被动式的没有风扇。所以很静音，机箱可以用ITX机箱。占用位置也小</p>
+<h3 id="优质的电源"><a href="#优质的电源" class="headerlink" title="优质的电源"></a>优质的电源</h3><p>购买一个高品质稳定静音的电源是很有必要的。整个主机中最贵的部分就是大容量的硬盘了，不好的电源容易损坏硬盘。而且由于CPU是被动扇热的，所以，整个机箱噪音最大的就是电源风扇的噪音了。品质不好的电源风扇也容易制造噪音。</p>
+<h3 id="无磁盘阵列"><a href="#无磁盘阵列" class="headerlink" title="无磁盘阵列"></a>无磁盘阵列</h3><p>没有看错，就是无磁盘阵列。不使用磁盘阵列的理由如下：</p>
+<ul>
+<li>各种raid方案都是存在一定概率损坏后无法恢复数据的风险的。而且，个人使用的硬盘不会很多，那就直接用更好。</li>
+<li>普通硬盘损坏后的数据恢复成本也更低</li>
+<li>好的磁盘阵列都是需要专业的磁盘阵列卡来支持的。而这些专业的磁盘阵列卡往往都很贵。对于系统自带的软磁盘阵列功能。大家真的要谨慎使用。</li>
+<li>在数据量不大的前提下，不管用什么磁盘阵列都不如多设备异地备份来的更安全</li>
+</ul>
+<p>如果不用磁盘阵列如果保证数据的安全性？</p>
+<ol>
+<li>重要文件要多设备保存。这就是我们搭配私有网盘的意义所在了，除了能共享文件。因为有同步盘功能，所以，可以在多台设备中同步重要的文件。</li>
+<li>对于一些服务器中的网站或系统要定时做备份，确保在硬盘数据不可恢复的损坏后能还原最新的数据。</li>
+<li>对于一些大的电影视频文件。我的建议是不用刻意备份。真的坏了再重新下载就好。</li>
+</ol>
+<h2 id="服务器系统选择"><a href="#服务器系统选择" class="headerlink" title="服务器系统选择"></a>服务器系统选择</h2><table>
+<thead>
+<tr>
+<th>系统</th>
+<th>资源占用</th>
+<th>安装难度</th>
+<th>操作难度</th>
+<th>功能限制</th>
+<th>长期运行系统故障率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>linux</td>
+<td>低</td>
+<td>低</td>
+<td>中</td>
+<td>低</td>
+<td>低</td>
+</tr>
+<tr>
+<td>黑群辉</td>
+<td>低</td>
+<td>中</td>
+<td>低</td>
+<td>中</td>
+<td>低</td>
+</tr>
+<tr>
+<td>windows</td>
+<td>高</td>
+<td>低</td>
+<td>低</td>
+<td>低</td>
+<td>中</td>
+</tr>
+<tr>
+<td>上面比较了三种系统的特性，其实，三种系统都能满足我们的需求，不过LIinux相对来说更稳定，系统更开放一点。所以，建议使用Linux系统(centos ubuntu 等)。Linux需要一定的基础，上手难度会大一点。但是，我们可以通过安装服务器运维管理面板来简化很多操作。大家根据实际情况选择吧。</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="家庭宽带搭建的服务器能干什么"><a href="#家庭宽带搭建的服务器能干什么" class="headerlink" title="家庭宽带搭建的服务器能干什么"></a>家庭宽带搭建的服务器能干什么</h1><p>使用家庭宽带搭建的服务器和普通的服务器本质上没有什么区别。主要区别是宽带和硬件性能。所以，一般服务器能实现的功能，我们自己配的服务器也能完成。下面主要介绍一下我自己的服务器已经实现的功能。</p>
+<ul>
+<li>公网访问</li>
+<li>私有网盘</li>
+<li>网站服务器</li>
+<li>离线下载</li>
+<li>NAS</li>
+<li>文件自动增量备份服务</li>
+</ul>
+<h2 id="公网访问"><a href="#公网访问" class="headerlink" title="公网访问"></a>公网访问</h2><p>公网访问无非有以下两种方式</p>
+<ol>
+<li>通过动态域名解析技术（DDNS）实现公网访问（需要通过宽带服务器申请公网IP）</li>
+<li>使用内网穿透技术实现公网访问</li>
+</ol>
+<p>对于能申请到公网IP的朋友，推荐使用第一种方式。第一种方式成本最低。而且没有流量限制。只要申请一个域名。然后通过脚本动态的解析最新的IP就好。访问的时候一般都是 域名+端口号</p>
+<p>第二种方式，适用于无法申请到公网IP的朋友。或者需要通过域名直接访问服务器的朋友（例如小程序开发要求服务器地址不能带端口号）。相比第一种方式，优点是能通过域名或子域名直接访问服务器无需加端口号。缺点是，需要购买额外的云服务器。同时云服务器的流量和速度也限制了你的流量和速度。当然，本服务器同时使用了这两种方式。</p>
+<h2 id="Nextcloud私有网盘"><a href="#Nextcloud私有网盘" class="headerlink" title="Nextcloud私有网盘"></a>Nextcloud私有网盘</h2><h3 id="为什么要自己实现私有网盘"><a href="#为什么要自己实现私有网盘" class="headerlink" title="为什么要自己实现私有网盘"></a>为什么要自己实现私有网盘</h3><ol>
+<li>现有网盘限速严重<br>我搭建个人服务器的一个很重要的目的就是要实现网盘功能。因为现在的网盘不氪金根本没法用。百度网盘限速严重，导致我现在只要看到是百度网盘的分享链接都懒得点击下载了。360云盘早已经没有了。115网盘和百度网盘差不多。还有个天翼网盘，现在的免费用户下载速度还能接受，不过感觉以后也要步百度的后尘。当然，我也是理解网盘的运营成本真的很高。不收费，真的很难维持的。</li>
+<li>文件还是保存在自己的服务器中更安全可靠<br>记得多年以前，各大网盘动不动就送几T甚至几十T的空间，吸引了很多人去使用网盘。后来经过了多起风波后导致了很多网盘的倒闭和很多用户的文件丢失。现在免费用户的下载速度又很慢。那么上传到网盘上的大文件基本上不充值根本下载不回来。关键是文件在别人的手里，主动权在别人手里。人家的规则说变就变，你一点办法都没有。</li>
+<li>最基本的同步盘功能被各大网盘阉割掉了<br>现在我使用的免费网盘中只有天翼网盘还保留同步盘功能。而且只有windows版本有同步盘功能。所以，对于需要在windows 和macOS同时同步文件的朋友就很难受了。</li>
+</ol>
+<h3 id="为什么用Nextcloud"><a href="#为什么用Nextcloud" class="headerlink" title="为什么用Nextcloud"></a>为什么用Nextcloud</h3><ul>
+<li>优点：开源软件，全平台都有客户端，支持多种插件功能，有同步盘，客户端可自动上传图片</li>
+<li>缺点：安装复杂<h2 id="网站服务器"><a href="#网站服务器" class="headerlink" title="网站服务器"></a>网站服务器</h2></li>
+<li>禅道</li>
+<li>gitlab</li>
+<li>remind</li>
+<li>各种开发中或测试中的网站</li>
+</ul>
+<p>反正自己的服务器，怎么折腾都行</p>
+<h2 id="Aria2离线下载"><a href="#Aria2离线下载" class="headerlink" title="Aria2离线下载"></a>Aria2离线下载</h2><p>使用Aria2 实现离线下载功能。有网页端，还有浏览器插件。配合起来使用还是挺好的。</p>
+<ul>
+<li>优点：比较全能，HTTP 下载和 BT 下载都有，性能也相当不错，速度不比迅雷慢</li>
+<li>缺点：无 UI，需要自备；配置麻烦，上手较难。</li>
+</ul>
+<p>Tips:直接安装后往往下载速度有时候也不是很好。最好更新下Tracker列表。</p>
+<h2 id="NAS-视频在线播放"><a href="#NAS-视频在线播放" class="headerlink" title="NAS 视频在线播放"></a>NAS 视频在线播放</h2><p>通过开通sanba或者是webdav服务。提供网络文件存储服务。配合手机端客户端和电视客户端实现在线播放视频。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本文主要是介绍一下自己搭配服务器的一些基础的条件，还有搭配了服务器后可以做什么。下一篇文件将会介绍基于Linux Ubuntu的系统下，如何配置自己的服务器，实现上面的功能。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/NAS/" rel="tag"># NAS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/62bbdc9e.html" rel="prev" title="【心路历程】创业开花店一年多的感想-逐步完成了一套完整的鲜花商城系统，包含前端、后端、移动端、小程序、公众号">
+                  <i class="fa fa-chevron-left"></i> 【心路历程】创业开花店一年多的感想-逐步完成了一套完整的鲜花商城系统，包含前端、后端、移动端、小程序、公众号
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/4d8d2320.html" rel="next" title="【MacOS】黑苹果使用心得和安装思路，完美三屏">
+                  【MacOS】黑苹果使用心得和安装思路，完美三屏 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">ICP备19070416号-3号 </a>
+  </div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sugood</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+<div class="cdn">
+  Powerful CDN service provided by
+  <span class="post-meta-divider">|</span>
+  <a target="_blank" rel="noopener" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">
+    <img src="/images/upyun_logo.png" style="display:inline-block;text-decoration:none;height:30px;" />
+  </a>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//unpkg.zhimg.com/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/utils.js"></script><script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/motion.js"></script><script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","app_key":"r26uvBWOfgqwX3flwdJo0G2M","server_url":"nt1d1lor.api.lncldglobal.com","security":false};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//unpkg.zhimg.com/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","appKey":"r26uvBWOfgqwX3flwdJo0G2M","serverURLs":null,"placeholder":"免费的评论不发一条吗~","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":false,"enableQQ":true,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/post/5c934d1e.html",
+      serverURLs: "https://nt1d1lor.api.lncldglobal.com"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

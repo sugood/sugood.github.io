@@ -26,19 +26,28 @@
     var CONFIG = {"hostname":"i.sugood.xyz","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sugood">
-<meta property="og:url" content="https://i.sugood.xyz/tags/MacOS/index.html">
+  <meta name="description" content="系统：OpenWrt R20.6.18 路由型号：网件R7800  注意事项：在OpenWrt环境下，一定要先安装frpc客户端再安装图形操作界面 luci-app-frpc，要不就会出问题。不要问我怎么知道的，反正按着我的步骤装就好。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Frp第二篇】Frp内网穿透安装教程#Frpc OpenWrt客户端安装#图形化管理">
+<meta property="og:url" content="https://i.sugood.xyz/post/2c038815.html">
 <meta property="og:site_name" content="Sugood">
-<meta property="og:description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
+<meta property="og:description" content="系统：OpenWrt R20.6.18 路由型号：网件R7800  注意事项：在OpenWrt环境下，一定要先安装frpc客户端再安装图形操作界面 luci-app-frpc，要不就会出问题。不要问我怎么知道的，反正按着我的步骤装就好。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://imgs.sugood.xyz/1640766274238ao7z8lx2.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1640766321167kgqnxtxu.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1640766400033wam8oiy3.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1640766426790foids6iy.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1640766460698furxbc1c.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1640766480148kfriecow.png?imageslim">
+<meta property="article:published_time" content="2021-12-29T08:22:00.000Z">
+<meta property="article:modified_time" content="2021-12-30T10:20:41.960Z">
 <meta property="article:author" content="sugood">
-<meta property="article:tag" content="Android,iOS,Flutter,程序员,移动开发,软件开发,技术文章">
+<meta property="article:tag" content="Frp">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://imgs.sugood.xyz/1640766274238ao7z8lx2.png?imageslim">
 
 
-<link rel="canonical" href="https://i.sugood.xyz/tags/MacOS/">
+<link rel="canonical" href="https://i.sugood.xyz/post/2c038815.html">
 
 
 <script class="page-configurations">
@@ -46,12 +55,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: MacOS | Sugood</title>
+  <title>【Frp第二篇】Frp内网穿透安装教程#Frpc OpenWrt客户端安装#图形化管理 | Sugood</title>
   
 
 
@@ -236,178 +245,151 @@
 </noscript>
 
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
       
 
       
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h2 class="collection-header">MacOS
-          <small>标签</small>
-        </h2>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://i.sugood.xyz/post/2c038815.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sugood">
+      <meta itemprop="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugood">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Frp第二篇】Frp内网穿透安装教程#Frpc OpenWrt客户端安装#图形化管理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-29 16:22:00" itemprop="dateCreated datePublished" datetime="2021-12-29T16:22:00+08:00">2021-12-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-12-30 18:20:41" itemprop="dateModified" datetime="2021-12-30T18:20:41+08:00">2021-12-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Frp/" itemprop="url" rel="index"><span itemprop="name">Frp</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/post/2c038815.html" class="post-meta-item leancloud_visitors" data-flag-title="【Frp第二篇】Frp内网穿透安装教程#Frpc OpenWrt客户端安装#图形化管理" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/2c038815.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/2c038815.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <ul>
+<li>系统：OpenWrt R20.6.18</li>
+<li>路由型号：网件R7800</li>
+</ul>
+<p>注意事项：在OpenWrt环境下，一定要先安装frpc客户端再安装图形操作界面 luci-app-frpc，要不就会出问题。不要问我怎么知道的，反正按着我的步骤装就好。</p>
+<span id="more"></span>
+
+<p>一、路由器安装Frp客户端Frpc，按下面的操作步骤。目前最新版本是0.33.0-1<img src="http://imgs.sugood.xyz/1640766274238ao7z8lx2.png?imageslim" alt="paste image"><br>二、路由器安装Frp图形操作界面 luci-app-frpc</p>
+<p>1、通过ssh 登录路由器后台。并下载文件到路由器中</p>
+<p>项目下载地址：<a target="_blank" rel="noopener" href="https://github.com/kuoruan/luci-app-frpc/releases">https://github.com/kuoruan/luci-app-frpc/releases</a><br><img src="http://imgs.sugood.xyz/1640766321167kgqnxtxu.png?imageslim" alt="paste image"><br>2、安装软件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#安装 luci-app-frpc</span><br><span class="line">opkg install luci-app-frpc_1.2.1-1_all.ipk</span><br><span class="line">#安装中文语言包</span><br><span class="line">opkg install luci-i18n-frpc-zh-cn_1.2.1-1_all.ipk</span><br></pre></td></tr></table></figure>
+
+<p>3、安装成功后Frpc图形管理界面就能在路由器的管理界面看到了。位置：路由器管理界面 -&gt; 服务 -&gt; Frpc<img src="http://imgs.sugood.xyz/1640766400033wam8oiy3.png?imageslim" alt="paste image"></p>
+<p>4、设置frp服务端配置<br><img src="http://imgs.sugood.xyz/1640766426790foids6iy.png?imageslim" alt="paste image"><br>5、常规设置，按照如下配置即可。<br><img src="http://imgs.sugood.xyz/1640766460698furxbc1c.png?imageslim" alt="paste image"><br>6、最后设置内网穿透的规则即可。贴个我自己的配置，如果累心是http或者是https就不需要配置远程端口，因为在配置服务端的时候就指定好了。如果类型是TCP或UDP就要设置远程端口。<br><img src="http://imgs.sugood.xyz/1640766480148kfriecow.png?imageslim" alt="paste image"></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-12-29T18:26:00+08:00"
-              content="2021-12-29">
-          12-29
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/post/9279f7bf.html" itemprop="url">
-            <span itemprop="name">【MacOS】1024送给广大程序员的礼物-mac提高效率工具Hammerspoon,深度使用脚本-更新v0.1.2</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Frp/" rel="tag"># Frp</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/6e92786f.html" rel="prev" title="【Frp第一篇】Frp内网穿透安装教程#Frps服务端一键安装脚本#">
+                  <i class="fa fa-chevron-left"></i> 【Frp第一篇】Frp内网穿透安装教程#Frps服务端一键安装脚本#
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/9279f7bf.html" rel="next" title="【MacOS】1024送给广大程序员的礼物-mac提高效率工具Hammerspoon,深度使用脚本-更新v0.1.2">
+                  【MacOS】1024送给广大程序员的礼物-mac提高效率工具Hammerspoon,深度使用脚本-更新v0.1.2 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-12-29T16:07:00+08:00"
-              content="2021-12-29">
-          12-29
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/post/df92f13a.html" itemprop="url">
-            <span itemprop="name">【MacOS】Mac 10.15 使用brew安装mysql教程</span>
-          </a>
-      </div>
 
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-12-29T16:06:00+08:00"
-              content="2021-12-29">
-          12-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/14a1b985.html" itemprop="url">
-            <span itemprop="name">【MacOS】Mac环境配置-安装Java并查看java默认安装路径</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-12-29T16:05:00+08:00"
-              content="2021-12-29">
-          12-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/8c9a01a9.html" itemprop="url">
-            <span itemprop="name">【MacOS】Mac使用技巧-Hammerspoon自动化功能#实现多屏快速切换，窗口缩放,自定义应用启动快捷键，添加片段和备忘录</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-12-29T16:04:00+08:00"
-              content="2021-12-29">
-          12-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/4d770fdf.html" itemprop="url">
-            <span itemprop="name">【MacOS】Lua 快速入门并完成一个基于Hammerspoon的备忘录项目</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-12-29T16:03:00+08:00"
-              content="2021-12-29">
-          12-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/d4a07c58.html" itemprop="url">
-            <span itemprop="name">【MacOS】网页自动化教程（下）- PySeTest网站自动登录到下单测试手脚架#Python3 + Selenium3+ HTMLTestRunner#工欲善其事</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-12-29T16:02:00+08:00"
-              content="2021-12-29">
-          12-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/32420ffc.html" itemprop="url">
-            <span itemprop="name">【MacOS】网页自动化测试（中）- PyCharm配置Python教程并执行一个简单的脚本#工欲善其事</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-    </div>
-  </div>
-  
-  
-  
-
-  
 
 
 
       
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -613,7 +595,7 @@ NexT.utils.loadComments('#valine-comments', () => {
   NexT.utils.getScript('//unpkg.zhimg.com/valine@1.4.14/dist/Valine.min.js', () => {
     new Valine(Object.assign({"enable":true,"appId":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","appKey":"r26uvBWOfgqwX3flwdJo0G2M","serverURLs":null,"placeholder":"免费的评论不发一条吗~","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":false,"enableQQ":true,"requiredFields":[]}, {
       el: '#valine-comments',
-      path: "/tags/MacOS/",
+      path: "/post/2c038815.html",
       serverURLs: "https://nt1d1lor.api.lncldglobal.com"
     }));
   }, window.Valine);

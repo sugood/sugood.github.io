@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<meta name="baidu-site-verification" content="code-wJEQq36kpK" />
+<meta name="google-site-verification" content="XOX3FCdQJrpQZ-CjiyZCtp_4vkOPWZ0AZbl5DEPby78" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//unpkg.zhimg.com/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//unpkg.zhimg.com/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"i.sugood.xyz","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="@[TOC](PySeTest网站自动登录到下单测试手脚架#Python3 + Selenium3+ HTMLTestRunner) 系统说明123系统版本：MacOS 10.15.7Python: 3.8.0Selenium: 3.141.0 如何使用 项目地址：PySeTest 下载项目文件。修改testIndex.py中以下几个全局变量1234home_url &#x3D; &amp;#x27;http:&#x2F;&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【MacOS】网页自动化教程（下）- PySeTest网站自动登录到下单测试手脚架#Python3 + Selenium3+ HTMLTestRunner#工欲善其事">
+<meta property="og:url" content="https://i.sugood.xyz/post/d4a07c58.html">
+<meta property="og:site_name" content="Sugood">
+<meta property="og:description" content="@[TOC](PySeTest网站自动登录到下单测试手脚架#Python3 + Selenium3+ HTMLTestRunner) 系统说明123系统版本：MacOS 10.15.7Python: 3.8.0Selenium: 3.141.0 如何使用 项目地址：PySeTest 下载项目文件。修改testIndex.py中以下几个全局变量1234home_url &#x3D; &amp;#x27;http:&#x2F;&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201013160445883.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201013160705393.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201013161518650.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201013170354514.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2021-12-29T08:03:00.000Z">
+<meta property="article:modified_time" content="2021-12-30T10:24:06.016Z">
+<meta property="article:author" content="sugood">
+<meta property="article:tag" content="MacOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201013160445883.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+
+
+<link rel="canonical" href="https://i.sugood.xyz/post/d4a07c58.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【MacOS】网页自动化教程（下）- PySeTest网站自动登录到下单测试手脚架#Python3 + Selenium3+ HTMLTestRunner#工欲善其事 | Sugood</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?125e718c08b661e0c3ceec32d67c1ce5";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Sugood</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">系统说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">如何使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E8%AF%B4%E6%98%8E"><span class="nav-number">3.</span> <span class="nav-text">功能说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4"><span class="nav-number">4.</span> <span class="nav-text">实现步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E8%B7%AF%E5%BE%84"><span class="nav-number">4.1.</span> <span class="nav-text">测试路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E8%84%9A%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.2.</span> <span class="nav-text">测试脚本代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%B0%81%E8%A3%85"><span class="nav-number">4.3.</span> <span class="nav-text">常用方法封装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Selenium%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">Selenium基础用法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Selenium-%E4%B8%AD%E6%96%87%E6%96%87%E6%A1%A3"><span class="nav-number">5.1.</span> <span class="nav-text">Selenium 中文文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selenium3-%E5%AE%9A%E4%BD%8D%E6%96%B9%E6%B3%95"><span class="nav-number">5.2.</span> <span class="nav-text">Selenium3 定位方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Selenium%E7%9A%84%E7%AD%89%E5%BE%85"><span class="nav-number">5.3.</span> <span class="nav-text">Selenium的等待</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90Html%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A"><span class="nav-number">6.</span> <span class="nav-text">自动生成Html测试报告</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTMLTestRunner-%E5%85%BC%E5%AE%B9Python3"><span class="nav-number">6.1.</span> <span class="nav-text">HTMLTestRunner 兼容Python3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-1"><span class="nav-number">6.2.</span> <span class="nav-text">如何使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0"><span class="nav-number">8.</span> <span class="nav-text">系列文章</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sugood</p>
+  <div class="site-description" itemprop="description">这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://i.sugood.xyz/post/d4a07c58.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sugood">
+      <meta itemprop="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugood">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【MacOS】网页自动化教程（下）- PySeTest网站自动登录到下单测试手脚架#Python3 + Selenium3+ HTMLTestRunner#工欲善其事
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-29 16:03:00" itemprop="dateCreated datePublished" datetime="2021-12-29T16:03:00+08:00">2021-12-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-12-30 18:24:06" itemprop="dateModified" datetime="2021-12-30T18:24:06+08:00">2021-12-30</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MacOS/" itemprop="url" rel="index"><span itemprop="name">MacOS</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/post/d4a07c58.html" class="post-meta-item leancloud_visitors" data-flag-title="【MacOS】网页自动化教程（下）- PySeTest网站自动登录到下单测试手脚架#Python3 + Selenium3+ HTMLTestRunner#工欲善其事" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/d4a07c58.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/d4a07c58.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>@[TOC](PySeTest网站自动登录到下单测试手脚架#Python3 + Selenium3+ HTMLTestRunner)</p>
+<h1 id="系统说明"><a href="#系统说明" class="headerlink" title="系统说明"></a>系统说明</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">系统版本：MacOS 10.15.7</span><br><span class="line">Python: 3.8.0</span><br><span class="line">Selenium: 3.141.0</span><br></pre></td></tr></table></figure>
+<h1 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h1><ol>
+<li>项目地址：<a target="_blank" rel="noopener" href="https://github.com/sugood/PySeTest">PySeTest</a></li>
+<li>下载项目文件。修改testIndex.py中以下几个全局变量<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">home_url = <span class="string">&#x27;http://www.mi.com/&#x27;</span></span><br><span class="line">login_name = <span class="string">&#x27;输入登录名&#x27;</span></span><br><span class="line">login_pass = <span class="string">&#x27;输入登录密码&#x27;</span></span><br><span class="line">test_product = <span class="string">&quot;小米10 pro&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>如果需要自动登录操作，需要修改auto_login方法。否者注释掉auto_login方法将testMain方法中的脚本改成合适自己的测试流程即可。<span id="more"></span></li>
+</ol>
+<h1 id="功能说明"><a href="#功能说明" class="headerlink" title="功能说明"></a>功能说明</h1><p>实现网页自动化的手脚架项目PySeTest。目前是根据小米商城自动化测试流程来做的。其他的网站可根据实际情况修改。通过该项目实现以下功能</p>
+<ul>
+<li>自动登录网页并保持Cookie</li>
+<li>根据需求自动填写预设的文本</li>
+<li>根据Xpath定位列表并选中或点击某一项</li>
+<li>可点击弹出窗口确认按钮</li>
+<li>显示等待，通过Xpath和文本内容定位后并点击</li>
+<li>显示等待，通过标签ID定位</li>
+<li>测试结果自动输出Html测试报告</li>
+</ul>
+<h1 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h1><h2 id="测试路径"><a href="#测试路径" class="headerlink" title="测试路径"></a>测试路径</h2><p>根据我对小米商城网页的分析，通过以下路径就能走完整个从登陆到下单的流程。</p>
+<ol>
+<li>打开首页</li>
+<li>跳转登录页，并自动登录，登录成功后返回首页</li>
+<li>输入搜索关键字测试</li>
+<li>点击搜索</li>
+<li>打开搜索结果的第一个产品</li>
+<li>点击 <strong>加入购物车</strong> 按钮</li>
+<li>点击 <strong>去购物车结算</strong> 按钮</li>
+<li>填写商品数量</li>
+<li>点击 <strong>去结算</strong> 按钮，起订单确认页面</li>
+<li>选择第一个地址</li>
+<li>点击立即下单</li>
+<li>判断是否下单成功</li>
+</ol>
+<h2 id="测试脚本代码实现"><a href="#测试脚本代码实现" class="headerlink" title="测试脚本代码实现"></a>测试脚本代码实现</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">logger(<span class="string">&#x27;开始自动化测试,首页测试...&#x27;</span>)</span><br><span class="line">driver.get(home_url)</span><br><span class="line">webWaitById(driver, <span class="string">&#x27;J_siteUserInfo&#x27;</span>, <span class="number">10</span>, <span class="string">&quot;自动化测试失败:首页打开超时&quot;</span>)</span><br><span class="line">logger(<span class="string">&#x27;开始登录...&#x27;</span>)</span><br><span class="line">auto_login(driver, login_name, login_pass)</span><br><span class="line">webWaitById(driver, <span class="string">&#x27;J_siteUserInfo&#x27;</span>, <span class="number">10</span>, <span class="string">&quot;自动化测试失败:返回首页超时&quot;</span>)</span><br><span class="line">logger(<span class="string">&#x27;输入搜索关键字测试&#x27;</span>)</span><br><span class="line">driver.find_element_by_id(<span class="string">&#x27;search&#x27;</span>).send_keys(test_product)</span><br><span class="line">logger(<span class="string">&#x27;点击搜索&#x27;</span>)</span><br><span class="line">driver.find_element_by_xpath(<span class="string">&#x27;//*[@id=&quot;J_submitBtn&quot;]/input&#x27;</span>).click()</span><br><span class="line">webWaitById(driver, <span class="string">&#x27;J_navCategory&#x27;</span>, <span class="number">10</span>, <span class="string">&quot;自动化测试失败:打开搜索列表超时&quot;</span>)</span><br><span class="line">findListAndOpen(driver,<span class="string">&quot;//div[@class=&#x27;goods-item&#x27;]/div/a&quot;</span>,<span class="number">0</span>)</span><br><span class="line">waitByTextAndClick(driver, <span class="string">&quot;//a[@class=&#x27;btn btn-primary&#x27;]&quot;</span>, <span class="string">&#x27;加入购物车&#x27;</span>, <span class="number">10</span>, <span class="string">&quot;自动化测试失败:打开产品失败&quot;</span>,<span class="number">1</span>, <span class="literal">True</span>)</span><br><span class="line">waitByTextAndClick(driver, <span class="string">&quot;//a[@class=&#x27;btn btn-primary&#x27;]&quot;</span>, <span class="string">&#x27;去购物车结算&#x27;</span>, <span class="number">10</span>, <span class="string">&quot;自动化测试失败:加入购物车失败&quot;</span>,<span class="number">1</span>, <span class="literal">True</span>)</span><br><span class="line">waitByTextAndClick(driver, <span class="string">&quot;//a[@class=&#x27;btn btn-a btn-primary&#x27;]&quot;</span>, <span class="string">&#x27;去结算&#x27;</span>, <span class="number">10</span>, <span class="string">&quot;自动化测试失败:去购物车结算失败&quot;</span>,<span class="number">1</span>)</span><br><span class="line">logger(<span class="string">&#x27;输入商品数量&#x27;</span>)</span><br><span class="line">auto_fill(driver, <span class="string">&#x27;//input[@class=&quot;goods-num&quot;]&#x27;</span>, <span class="number">1</span>)</span><br><span class="line">driver.find_element_by_xpath(<span class="string">&quot;//a[@class=&#x27;btn btn-a btn-primary&#x27;]&quot;</span>).click()</span><br><span class="line">waitByTextAndClick(driver, <span class="string">&quot;//a[@class=&#x27;btn btn-primary&#x27;]&quot;</span>, <span class="string">&#x27;去结算&#x27;</span>, <span class="number">10</span>, <span class="string">&quot;自动化测试失败:去结算失败&quot;</span>,<span class="number">1</span>)</span><br><span class="line">logger(<span class="string">&#x27;选择第1个收货地址&#x27;</span>)</span><br><span class="line">driver.find_elements_by_xpath(<span class="string">&quot;//div[@class=&#x27;address-item&#x27;]&quot;</span>)[<span class="number">0</span>].click()</span><br><span class="line">waitByTextAndClick(driver, <span class="string">&quot;//a[@class=&#x27;btn btn-primary&#x27;]&quot;</span>, <span class="string">&#x27;立即下单&#x27;</span>, <span class="number">10</span>, <span class="string">&quot;自动化测试失败:选中地址失败&quot;</span>,<span class="number">1</span>, <span class="literal">True</span>)</span><br><span class="line">waitByTextAndClick(driver, <span class="string">&quot;//*[@class=&#x27;fl&#x27;]&quot;</span>, <span class="string">&#x27;订单提交成功！去付款咯～&#x27;</span>, <span class="number">10</span>, <span class="string">&quot;自动化测试失败:下单失败&quot;</span>,<span class="number">1</span>)</span><br><span class="line">logger(<span class="string">&#x27;自动化测试成功&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>通过使用我们手脚架封装的一些方法后，整个代码其实是挺简单的了、大家主要是要找到定位标签的Xpath就好。</p>
+<h2 id="常用方法封装"><a href="#常用方法封装" class="headerlink" title="常用方法封装"></a>常用方法封装</h2><ol>
+<li><p>自动登录代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">auto_login</span>(<span class="params">driver, username, password</span>):</span></span><br><span class="line">	<span class="comment">#定位首页登录按钮</span></span><br><span class="line">    el = driver.find_element_by_xpath(<span class="string">&#x27;//*[@id=&quot;J_siteUserInfo&quot;]/a[1]&#x27;</span>)</span><br><span class="line">    <span class="comment">#获取data-href属性值该值包含登录路径的跳转位置</span></span><br><span class="line">    url=el.get_attribute(<span class="string">&quot;data-href&quot;</span>)</span><br><span class="line">    <span class="comment">#跳转登录界面</span></span><br><span class="line">    driver.get(<span class="string">&quot;https://&quot;</span>+url)</span><br><span class="line">    <span class="comment">#验证是否正确的跳转到登录界面</span></span><br><span class="line">    webWaitById(driver, <span class="string">&#x27;main-content&#x27;</span>, <span class="number">5</span>, <span class="string">&quot;自动化测试失败:登录页打开超时&quot;</span>)</span><br><span class="line">    auto_fill(driver, <span class="string">&#x27;//input[@class=&quot;item_account&quot; and @name=&quot;user&quot;]&#x27;</span>, username)</span><br><span class="line">    auto_fill(driver, <span class="string">&#x27;//input[@class=&quot;item_account&quot; and @name=&quot;password&quot;]&#x27;</span>, password)</span><br><span class="line">    <span class="comment">#定位登录按钮并点击登录按钮</span></span><br><span class="line">    driver.find_element_by_xpath(<span class="string">&#x27;//input[@id=&quot;login-button&quot; and @class=&quot;btnadpt&quot;]&#x27;</span>).click()</span><br><span class="line">    webWaitById(driver, <span class="string">&#x27;J_siteUserInfo&#x27;</span>, <span class="number">5</span>, <span class="string">&quot;自动化测试失败:登录超时&quot;</span>)</span><br><span class="line">    cookie_items = driver.get_cookies()  <span class="comment"># 獲取cookie值</span></span><br><span class="line">    <span class="comment"># 传入cookies</span></span><br><span class="line">    <span class="keyword">for</span> cookie <span class="keyword">in</span> cookie_items:</span><br><span class="line">        driver.add_cookie(cookie)</span><br></pre></td></tr></table></figure>
+<p>其实很多网站的登录界面都大同小异。只要针对性的修改下代码就好。目前还未实现需要图形验证码登录的情况。</p>
+</li>
+<li><p>显示等待，通过Xpath和文本内容定位后并点击</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 显示等待，通过Xpath和文本内容定位后并点击</span></span><br><span class="line"><span class="comment"># param _driver: driver</span></span><br><span class="line"><span class="comment"># param xpath: xpath</span></span><br><span class="line"><span class="comment"># param text: 查找的文本</span></span><br><span class="line"><span class="comment"># param timeout: 等待几秒</span></span><br><span class="line"><span class="comment"># param err_msg: 错误信息</span></span><br><span class="line"><span class="comment"># param finally_sleep: 有时候等待的结果显示已经找到元素了。但实际上使用的时候还是报错。所以，强制延时几秒</span></span><br><span class="line"><span class="comment"># param is_click: 是否点击找到的文本</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">waitByTextAndClick</span>(<span class="params">_driver, xpath, text, timeout, err_msg, finally_sleep=<span class="number">0</span>, is_click = <span class="literal">False</span></span>):</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">    	<span class="comment">#显示等待，通过Xpath和文本内容定位</span></span><br><span class="line">        WebDriverWait(_driver, timeout).until( EC.text_to_be_present_in_element((By.XPATH, xpath), text))</span><br><span class="line">    <span class="keyword">except</span> TimeoutException:</span><br><span class="line">    	<span class="comment">#等待超时后打印错误信息</span></span><br><span class="line">        sys.exit(err_msg)</span><br><span class="line">    <span class="keyword">finally</span>:</span><br><span class="line">        time.sleep(finally_sleep)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> is_click:</span><br><span class="line">        logger(<span class="string">&quot;点击：&quot;</span>+text)</span><br><span class="line">        _driver.find_element_by_xpath(xpath).click()</span><br></pre></td></tr></table></figure>
+<p>显示等待，隐式等待、强制等待。是selenium很重要的概念。下面我们会说的。理解了什么是显示等待就能理解上面的封装了。<br><em>其他方法就不一一介绍了。大家自己看代码吧</em></p>
+<h1 id="Selenium基础用法"><a href="#Selenium基础用法" class="headerlink" title="Selenium基础用法"></a>Selenium基础用法</h1><h2 id="Selenium-中文文档"><a href="#Selenium-中文文档" class="headerlink" title="Selenium 中文文档"></a>Selenium 中文文档</h2><p>第一手资料: <a target="_blank" rel="noopener" href="https://www.selenium.dev/documentation/zh-cn/">Selenium官方文档</a></p>
+<h2 id="Selenium3-定位方法"><a href="#Selenium3-定位方法" class="headerlink" title="Selenium3 定位方法"></a>Selenium3 定位方法</h2><ul>
+<li><p>Selenium提供了8种定位方式。<br>id<br>name<br>class name<br>tag name<br>link text<br>partial link text<br>xpath<br>css selector</p>
+</li>
+<li><p>这8种定位方式在Python selenium中所对应的方法为：</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">find_element_by_id()</span><br><span class="line">find_element_by_name()</span><br><span class="line">find_element_by_class_name()</span><br><span class="line">find_element_by_tag_name()</span><br><span class="line">find_element_by_link_text()</span><br><span class="line">find_element_by_partial_link_text()</span><br><span class="line">find_element_by_xpath()</span><br><span class="line">find_element_by_css_selector()</span><br><span class="line"><span class="comment">#定位列表或者是有多个结果的可以使用下面的方法</span></span><br><span class="line">find_elements_by_id()</span><br><span class="line">find_elements_by_name()</span><br><span class="line">find_elements_by_class_name()</span><br><span class="line">find_elements_by_tag_name()</span><br><span class="line">find_elements_by_link_text()</span><br><span class="line">find_elements_by_partial_link_text()</span><br><span class="line">find_elements_by_xpath()</span><br><span class="line">find_elements_by_css_selector()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在Selenium3 中还可以使用find_element(By.ID, “id”)这种方式。以下是8中方法对应关系</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">find_element(By.ID, <span class="string">&quot;id&quot;</span>)</span><br><span class="line">find_element(By.NAME, <span class="string">&quot;name&quot;</span>)</span><br><span class="line">find_element(By.CLASS_NAME, <span class="string">&quot;class name&quot;</span>)</span><br><span class="line">find_element(By.TAG_NAME, <span class="string">&quot;tag name&quot;</span>)</span><br><span class="line">find_element(By.LINK_TEXT, <span class="string">&quot;link text&quot;</span>)</span><br><span class="line">find_element(By.PARTIAL_LINK_TEXT, <span class="string">&quot;partial link text&quot;</span>)</span><br><span class="line">find_element(By.XPATH, <span class="string">&quot;xpath&quot;</span>)</span><br><span class="line">find_element(By.CSS_SELECTOR, <span class="string">&quot;css selector&quot;</span>)</span><br><span class="line"><span class="comment">#定位列表或者是有多个结果的可以使用下面的方法</span></span><br><span class="line">find_elements(By.ID, <span class="string">&quot;id&quot;</span>)</span><br><span class="line">find_elements(By.NAME, <span class="string">&quot;name&quot;</span>)</span><br><span class="line">find_elements(By.CLASS_NAME, <span class="string">&quot;class name&quot;</span>)</span><br><span class="line">find_elements(By.TAG_NAME, <span class="string">&quot;tag name&quot;</span>)</span><br><span class="line">find_elements(By.LINK_TEXT, <span class="string">&quot;link text&quot;</span>)</span><br><span class="line">find_elements(By.PARTIAL_LINK_TEXT, <span class="string">&quot;partial link text&quot;</span>)</span><br><span class="line">find_elements(By.XPATH, <span class="string">&quot;xpath&quot;</span>)</span><br><span class="line">find_elements(By.CSS_SELECTOR, <span class="string">&quot;css selector&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如何快速的通过chrome找到元素的xpath值。</li>
+</ul>
+<ol>
+<li>打开chrome的开发者工具。选中你要定位的元素<br><img src="https://img-blog.csdnimg.cn/20201013160445883.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></li>
+<li>右键选中部分，copy -&gt; Copy XPath<br><img src="https://img-blog.csdnimg.cn/20201013160705393.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></li>
+<li>验证XPath的值是否能定位到对应的元素。可以使用快捷键cmd+F调出查找功能。然后粘贴刚刚复制的XPath值。如果能选中需要定位的内容那么证明XPath是符合预期的<br><img src="https://img-blog.csdnimg.cn/20201013161518650.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></li>
+<li>小技巧<br>我们如果要自己手写XPath的时候，最好先通过chrome验证一下XPath再去跑脚本。这样比较省时间</li>
+</ol>
+<h2 id="Selenium的等待"><a href="#Selenium的等待" class="headerlink" title="Selenium的等待"></a>Selenium的等待</h2><p>等待是非常关键的，很多时候定位不到都是由于等待的时间不够导致的。因为代码的运算速度是很快的，但是Selenium需要等浏览器元素加载出来后才能定位到。如果我们不延时代码的执行，就可能出现代码跑完了界面还没加载出来，就抛出异常了。<br>所以，我们这里详细的说一下等待的使用，权威的内容请仔细查看官方文档，我自己总结的内容可能有些许偏差，希望大家谅解<br><a target="_blank" rel="noopener" href="https://www.selenium.dev/documentation/zh-cn/webdriver/waits/">Selenium等待部分的官方说明文档</a></p>
+<ol>
+<li><p>强制等待<br>强制等待就是只要不死机或者脚本奔溃，就要强制等待完时间才能下一步。代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"></span><br><span class="line">driver = webdriver.Chrome()</span><br><span class="line">driver.get(<span class="string">&#x27;https://github.com/sugood&#x27;</span>)</span><br><span class="line">sleep(<span class="number">3</span>)  <span class="comment"># 强制等待3秒再执行下一步</span></span><br><span class="line"><span class="built_in">print</span> driver.current_url</span><br><span class="line">driver.quit()</span><br></pre></td></tr></table></figure></li>
+<li><p>隐式等待<br>隐式等待是设置一个最长时间，如果在规定时间内网页加载完成（就是浏览器标签栏那个小圈不再转），则执行下一步，否则一直等到时间截止，然后执行下一步。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"></span><br><span class="line">driver = webdriver.Chrome()</span><br><span class="line">driver.implicitly_wait(<span class="number">10</span>)  <span class="comment"># 隐性等待，最长等10秒</span></span><br><span class="line">driver.get(<span class="string">&#x27;https://github.com/sugood&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> driver.current_url</span><br><span class="line">driver.quit()</span><br></pre></td></tr></table></figure></li>
+<li><p>显式等待<br>WebDriverWait，配合该类的until()和until_not()方法，就能够根据判断条件而进行灵活地等待了。它主要的意思就是：程序每隔xx秒看一眼，如果条件成立了，则执行下一步，否则继续等待，直到超过设置的最长时间，然后抛出TimeoutException。</p>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.wait <span class="keyword">import</span> WebDriverWait</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line"></span><br><span class="line">driver = webdriver.Chrome()</span><br><span class="line">driver.implicitly_wait(<span class="number">10</span>)  <span class="comment"># 隐性等待和显性等待可以同时用，但要注意：等待的最长时间取两者之中的大者</span></span><br><span class="line">driver.get(<span class="string">&#x27;https://github.com/sugood&#x27;</span>)</span><br><span class="line">locator = (By.LINK_TEXT, <span class="string">&#x27;github&#x27;</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    WebDriverWait(driver, <span class="number">20</span>,).until(EC.presence_of_element_located(locator))</span><br><span class="line">    <span class="built_in">print</span> driver.find_element_by_link_text(<span class="string">&#x27;github&#x27;</span>).get_attribute(<span class="string">&#x27;href&#x27;</span>)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    driver.close()</span><br></pre></td></tr></table></figure>
+
+<h1 id="自动生成Html测试报告"><a href="#自动生成Html测试报告" class="headerlink" title="自动生成Html测试报告"></a>自动生成Html测试报告</h1><h2 id="HTMLTestRunner-兼容Python3"><a href="#HTMLTestRunner-兼容Python3" class="headerlink" title="HTMLTestRunner 兼容Python3"></a>HTMLTestRunner 兼容Python3</h2><p>本项目已经集成了HTMLTestRunner，具体代码可以自行查看HTMLTestRunner.py文件，已经兼容Python3</p>
+<h2 id="如何使用-1"><a href="#如何使用-1" class="headerlink" title="如何使用"></a>如何使用</h2><p>执行report.py会自动查找当前文件夹内所有test*.py并一一执行。同时在执行完所有的测试脚本后，自动生成测试结果（Html文件）在当前目录中。测试结果如下：<br><img src="https://img-blog.csdnimg.cn/20201013170354514.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>一些小技巧。</p>
+<ul>
+<li>遇到定位不到的情况，很可能是延时有问题。可以使用强制等待先测试没问题再换成显式等待。</li>
+<li>显示等待成功后并不是所有操作都能执行的。显示操作成功只能说明元素加载出来了，但是，想要点击或者是跳转页面的时候。可能还不一定成功。因为这些操作可能还会涉及到其他的资源。需要等到所有相关的资源加载完才能操作。这个时候有个笨方法就是稍微加个强制等待再等以下。我们项目中的waitByTextAndClick方法就包含这种控制操作。</li>
+<li>有时候遇到Max retries exceeded with url 报错很有可能是哪里脚本还未结束就执行了driver.quit()操作导致的</li>
+</ul>
+<h1 id="系列文章"><a href="#系列文章" class="headerlink" title="系列文章"></a>系列文章</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sugoods/article/details/109014410">MacOS网页自动化教程（上）- Python3 + Selenium3 + Chrome 环境安装#工欲善其事</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/sugoods/article/details/109024441">MacOS网页自动化测试（中）- PyCharm配置Python教程并执行一个简单的脚本#工欲善其事</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/sugoods/article/details/109046674">MacOS网页自动化教程（下）- PySeTest网站自动登录到下单测试手脚架#Python3 + Selenium3+ HTMLTestRunner#工欲善其事</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MacOS/" rel="tag"># MacOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/32420ffc.html" rel="prev" title="【MacOS】网页自动化测试（中）- PyCharm配置Python教程并执行一个简单的脚本#工欲善其事">
+                  <i class="fa fa-chevron-left"></i> 【MacOS】网页自动化测试（中）- PyCharm配置Python教程并执行一个简单的脚本#工欲善其事
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/4d770fdf.html" rel="next" title="【MacOS】Lua 快速入门并完成一个基于Hammerspoon的备忘录项目">
+                  【MacOS】Lua 快速入门并完成一个基于Hammerspoon的备忘录项目 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">ICP备19070416号-3号 </a>
+  </div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sugood</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+<div class="cdn">
+  Powerful CDN service provided by
+  <span class="post-meta-divider">|</span>
+  <a target="_blank" rel="noopener" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">
+    <img src="/images/upyun_logo.png" style="display:inline-block;text-decoration:none;height:30px;" />
+  </a>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//unpkg.zhimg.com/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/utils.js"></script><script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/motion.js"></script><script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","app_key":"r26uvBWOfgqwX3flwdJo0G2M","server_url":"nt1d1lor.api.lncldglobal.com","security":false};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//unpkg.zhimg.com/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","appKey":"r26uvBWOfgqwX3flwdJo0G2M","serverURLs":null,"placeholder":"免费的评论不发一条吗~","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":false,"enableQQ":true,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/post/d4a07c58.html",
+      serverURLs: "https://nt1d1lor.api.lncldglobal.com"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

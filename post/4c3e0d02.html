@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<meta name="baidu-site-verification" content="code-wJEQq36kpK" />
+<meta name="google-site-verification" content="XOX3FCdQJrpQZ-CjiyZCtp_4vkOPWZ0AZbl5DEPby78" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//unpkg.zhimg.com/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//unpkg.zhimg.com/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"i.sugood.xyz","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="@[TOC](MacOS效率工具IQuickLook-多合一Quick Look快速预览与右键扩展信息工具) 系统说明系统：macOS 10.15或以上 Quick Look说明什么是Quick LookQuick Look 是 Mac上超方便的功能，用户可以在不打开外部软件的情况下按下空格键快速预览文件。 对于常见文件，例如jpg、png、gif等图片格式，doc、txt、ppt等文档格式，sk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【MacOS】效率工具IQuickLook-多合一Quick Look快速预览与右键扩展信息工具">
+<meta property="og:url" content="https://i.sugood.xyz/post/4c3e0d02.html">
+<meta property="og:site_name" content="Sugood">
+<meta property="og:description" content="@[TOC](MacOS效率工具IQuickLook-多合一Quick Look快速预览与右键扩展信息工具) 系统说明系统：macOS 10.15或以上 Quick Look说明什么是Quick LookQuick Look 是 Mac上超方便的功能，用户可以在不打开外部软件的情况下按下空格键快速预览文件。 对于常见文件，例如jpg、png、gif等图片格式，doc、txt、ppt等文档格式，sk">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201101151951395.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201101154730522.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201101161450610.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201101161752340.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201101162044869.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="article:published_time" content="2021-12-29T07:58:59.000Z">
+<meta property="article:modified_time" content="2021-12-29T10:23:46.825Z">
+<meta property="article:author" content="sugood">
+<meta property="article:tag" content="Android,iOS,Flutter,程序员,移动开发,软件开发,技术文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201101151951395.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center">
+
+
+<link rel="canonical" href="https://i.sugood.xyz/post/4c3e0d02.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【MacOS】效率工具IQuickLook-多合一Quick Look快速预览与右键扩展信息工具 | Sugood</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?125e718c08b661e0c3ceec32d67c1ce5";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Sugood</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%AF%B4%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">系统说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Quick-Look%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">Quick Look说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFQuick-Look"><span class="nav-number">2.1.</span> <span class="nav-text">什么是Quick Look</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Look%E7%9A%84%E5%B1%80%E9%99%90"><span class="nav-number">2.2.</span> <span class="nav-text">Quick Look的局限</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%80%9CIQuickLook%E2%80%9D%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">“IQuickLook”应用程序的功能介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E4%B8%80-Quick-Look%E6%8F%92%E4%BB%B6%E6%89%A9%E5%B1%95%E6%94%AF%E6%8C%81%E6%9B%B4%E5%A4%9A%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">功能一:Quick Look插件扩展支持更多文件格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E4%BA%8C-%E5%8F%B3%E9%94%AE%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%E3%80%81%E9%9F%B3%E9%A2%91%E3%80%81%E8%A7%86%E9%A2%91%E4%BF%A1%E6%81%AF"><span class="nav-number">3.2.</span> <span class="nav-text">功能二:右键显示图片、音频、视频信息</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E2%80%9CIQuickLook%E2%80%9D%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">“IQuickLook”应用程序安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6"><span class="nav-number">4.1.</span> <span class="nav-text">下载文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90%E5%90%8E%E9%9C%80%E8%A6%81%E6%89%93%E5%BC%80%E4%B8%A4%E4%B8%AA%E6%89%A9%E5%B1%95%E6%9D%83%E9%99%90"><span class="nav-number">4.2.</span> <span class="nav-text">安装完成后需要打开两个扩展权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEFinder%E6%89%A9%E5%B1%95%E7%9A%84%E6%89%A7%E8%A1%8C%E8%B7%AF%E5%BE%84"><span class="nav-number">4.3.</span> <span class="nav-text">设置Finder扩展的执行路径</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">5.</span> <span class="nav-text">注意事项</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sugood</p>
+  <div class="site-description" itemprop="description">这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://i.sugood.xyz/post/4c3e0d02.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sugood">
+      <meta itemprop="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugood">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【MacOS】效率工具IQuickLook-多合一Quick Look快速预览与右键扩展信息工具
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-12-29 15:58:59 / 修改时间：18:23:46" itemprop="dateCreated datePublished" datetime="2021-12-29T15:58:59+08:00">2021-12-29</time>
+    </span>
+
+  
+    <span id="/post/4c3e0d02.html" class="post-meta-item leancloud_visitors" data-flag-title="【MacOS】效率工具IQuickLook-多合一Quick Look快速预览与右键扩展信息工具" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/4c3e0d02.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/4c3e0d02.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>@[TOC](MacOS效率工具IQuickLook-多合一Quick Look快速预览与右键扩展信息工具)</p>
+<h1 id="系统说明"><a href="#系统说明" class="headerlink" title="系统说明"></a>系统说明</h1><p>系统：macOS 10.15或以上</p>
+<h1 id="Quick-Look说明"><a href="#Quick-Look说明" class="headerlink" title="Quick Look说明"></a>Quick Look说明</h1><h2 id="什么是Quick-Look"><a href="#什么是Quick-Look" class="headerlink" title="什么是Quick Look"></a>什么是Quick Look</h2><p>Quick Look 是 Mac上超方便的功能，用户可以在不打开外部软件的情况下按下空格键快速预览文件。</p>
+<p>对于常见文件，例如jpg、png、gif等图片格式，doc、txt、ppt等文档格式，sketch、ps、ai等设计师常用的源文件格式，都可以直接空格键实现即时预览，而不像 Windows 系统要双击打开应用后才能查看。在平时繁忙的工作中，这个功能无疑极大地提升了我们的工作效率。</p>
+<span id="more"></span>
+<h2 id="Quick-Look的局限"><a href="#Quick-Look的局限" class="headerlink" title="Quick Look的局限"></a>Quick Look的局限</h2><p>Quick Look 目前的局限是系统能识别的文件格式预览的结果过于简单，很多时候不能满足用户的需求。这时就要安装quicklook插件来补充这些功能。而QuickLook的插件很多，每个的功能比较单一。需要安装很多个插件。而且macOS 10.15之后苹果删除了一些旧的API。新的API不允许QuickLook插件修改一些常用格式的预览界面。例如。png 、jpg、gif 等文件，从而导致了一些插件已经不能在新系统中使用</p>
+<h1 id="“IQuickLook”应用程序的功能介绍"><a href="#“IQuickLook”应用程序的功能介绍" class="headerlink" title="“IQuickLook”应用程序的功能介绍"></a>“IQuickLook”应用程序的功能介绍</h1><p>知道了Quick Look的目前的问题后。我们开发了一个名为“IQuickLook” 的macOS应用来扩展原来的功能同时解决现在这些问题。也就是说只要安装一个应用就能实现 QLImageSize、QLMarkdown、QLColorCode、QuickLookJSON等多个插件的功能。</p>
+<p>本应用主要实现两个功能。功能一：Quick Look插件扩展支持更多文件格式；功能二:右键显示图片、音频、视频信息</p>
+<h2 id="功能一-Quick-Look插件扩展支持更多文件格式"><a href="#功能一-Quick-Look插件扩展支持更多文件格式" class="headerlink" title="功能一:Quick Look插件扩展支持更多文件格式"></a>功能一:Quick Look插件扩展支持更多文件格式</h2><ul>
+<li>源代码高亮(.cpp .c .h .c# .php .java .js .py .swift .css .vue .yml .dart .sh .go 等)</li>
+<li>Markdown(.md .markdown .mdown .mkdn .mkd .rmd 等)</li>
+<li>压缩文件(.tar .tar.gz .zip)</li>
+<li>数据交换文件(.json)</li>
+<li>数据库脚本(.sql )<br><img src="https://img-blog.csdnimg.cn/20201101151951395.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"><br>实际上我们这个工具支持的格式远不止上面例举的，以后还会支持更多的语言</li>
+</ul>
+<h2 id="功能二-右键显示图片、音频、视频信息"><a href="#功能二-右键显示图片、音频、视频信息" class="headerlink" title="功能二:右键显示图片、音频、视频信息"></a>功能二:右键显示图片、音频、视频信息</h2><p><em>由于一些图片、音频、视频文件在新版macOS中使用Quick Look插件已经无法自定义界面。所以我们通过扩展Finder（访达）的右键功能来显示图片、音频、视频的信息。</em></p>
+<p>图片支持格式(.jpg .png .gif .psd .bmp .tif .svg 等)<br>视频支持格式(.mp4 .3gp )<br>音频支持格式(.mp3)<br><img src="https://img-blog.csdnimg.cn/20201101154730522.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="“IQuickLook”应用程序安装"><a href="#“IQuickLook”应用程序安装" class="headerlink" title="“IQuickLook”应用程序安装"></a>“IQuickLook”应用程序安装</h1><h2 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件"></a>下载文件</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/sugood/IQuickLook/releases">IQuickLook安装包下载</a></li>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/sugood/iquick-look/releases">IQuickLook国内安装包地址</a></li>
+<li><a target="_blank" rel="noopener" href="https://apps.apple.com/cn/app/iquicklook/id1538108301?mt=12">App Store 下载</a>（由于苹果审核机制的原因，导致app store上的功能不完整，建议在上面的连接下载）</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20201101161450610.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="安装完成后需要打开两个扩展权限"><a href="#安装完成后需要打开两个扩展权限" class="headerlink" title="安装完成后需要打开两个扩展权限"></a>安装完成后需要打开两个扩展权限</h2><p><img src="https://img-blog.csdnimg.cn/20201101161752340.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h2 id="设置Finder扩展的执行路径"><a href="#设置Finder扩展的执行路径" class="headerlink" title="设置Finder扩展的执行路径"></a>设置Finder扩展的执行路径</h2><p><em>一般设置为根目录（ / ）即可。如果文件不在设置的目录下，右键无法显示文件信息</em><br><img src="https://img-blog.csdnimg.cn/20201101162044869.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1Z29vZHM=,size_16,color_FFFFFF,t_70#pic_center" alt="在这里插入图片描述"></p>
+<h1 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h1><ol>
+<li>右键显示图片、音频、视频信息功能目前只支持本地SSD。扩展硬盘或者外接硬盘暂不支持</li>
+<li>由于最近才完成应用开发，所以，可能会存在一些BUG。希望大家多多包涵。有任何问题都可以留言或者提交到我们<a target="_blank" rel="noopener" href="https://github.com/sugood/IQuickLook">github</a>的<a target="_blank" rel="noopener" href="https://github.com/sugood/IQuickLook/issues">issues</a>中。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/4d8d2320.html" rel="prev" title="【MacOS】黑苹果使用心得和安装思路，完美三屏">
+                  <i class="fa fa-chevron-left"></i> 【MacOS】黑苹果使用心得和安装思路，完美三屏
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/55400a42.html" rel="next" title="【MacOS】网页自动化教程（上）- Python3 + Selenium3 + Chrome 环境安装#工欲善其事">
+                  【MacOS】网页自动化教程（上）- Python3 + Selenium3 + Chrome 环境安装#工欲善其事 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">ICP备19070416号-3号 </a>
+  </div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sugood</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+<div class="cdn">
+  Powerful CDN service provided by
+  <span class="post-meta-divider">|</span>
+  <a target="_blank" rel="noopener" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">
+    <img src="/images/upyun_logo.png" style="display:inline-block;text-decoration:none;height:30px;" />
+  </a>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//unpkg.zhimg.com/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/utils.js"></script><script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/motion.js"></script><script src="//unpkg.zhimg.com/hexo-theme-next@8.0.2/source/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","app_key":"r26uvBWOfgqwX3flwdJo0G2M","server_url":"nt1d1lor.api.lncldglobal.com","security":false};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//unpkg.zhimg.com/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","appKey":"r26uvBWOfgqwX3flwdJo0G2M","serverURLs":null,"placeholder":"免费的评论不发一条吗~","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":false,"enableQQ":true,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/post/4c3e0d02.html",
+      serverURLs: "https://nt1d1lor.api.lncldglobal.com"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
