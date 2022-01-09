@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://i.sugood.xyz/jsonweb.html</loc>
+    
+    <lastmod>2022-01-09</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://i.sugood.xyz/post/327c8829.html</loc>
     
     <lastmod>2022-01-07</lastmod>
