@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<meta name="baidu-site-verification" content="code-wJEQq36kpK" />
+<meta name="google-site-verification" content="XOX3FCdQJrpQZ-CjiyZCtp_4vkOPWZ0AZbl5DEPby78" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"i.sugood.xyz","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+
+  <meta name="description" content="前提硬件要求 一台MacOS电脑，最好系统是最新的 一台Android手机 一台iOS手机 宽带至少百兆  硬件参考 黑苹果: MacOS 12.3 华为Mata 30 pro: 鸿蒙 2.0 苹果 Iphone x : 15.4 Android Studio: bumblebee|2020.1.1  XCODE: 13.3  简单说明今天给2016年组装的老台式机重新安装了最新的黑苹果系统 —">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Flutter】保姆级一小时Flutter开发环境搭建到Demo跑通教程">
+<meta property="og:url" content="https://i.sugood.xyz/post/ce098ed2.html">
+<meta property="og:site_name" content="Sugood">
+<meta property="og:description" content="前提硬件要求 一台MacOS电脑，最好系统是最新的 一台Android手机 一台iOS手机 宽带至少百兆  硬件参考 黑苹果: MacOS 12.3 华为Mata 30 pro: 鸿蒙 2.0 苹果 Iphone x : 15.4 Android Studio: bumblebee|2020.1.1  XCODE: 13.3  简单说明今天给2016年组装的老台式机重新安装了最新的黑苹果系统 —">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650081521140wimr0cu0.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/16500818727718g3a6g5t.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650082347411akzro75f.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/16500827878189gjcplag.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650082964475i44gc1pr.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/16500832718108g9ey3sn.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/16500896819730lngnz3a.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650090065380w3hfxmgp.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650090384152g74kosba.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650090584673qi5ljsyk.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650090783064k0w2zxid.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650091748676am4hggj0.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650091889927ect4yn6h.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650091971120ran1qnay.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650092147211f95d29z5.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650092340797jjjzu2v4.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650092513600zjjprs2m.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650092796441fghogkwz.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650093100242i5s0uxb9.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/16500935017323dgt5bpq.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650098507949in4asdjf.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650094879741jgec5w1y.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650094700023lhpwk08s.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650096450947wpan2xw5.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/16500965922731z1pc4oh.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650096799238o2knp1hh.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/16500968992782e19qozn.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650097203654gk99qu3h.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/165009758099797ge3x6u.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650097892673sf27472c.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650098038933w80z719y.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1650098141100fkcpj9mn.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/16500983752752ji3gzsh.png?imageslim">
+<meta property="article:published_time" content="2022-02-25T03:31:58.000Z">
+<meta property="article:modified_time" content="2022-04-16T09:25:58.857Z">
+<meta property="article:author" content="sugood">
+<meta property="article:tag" content="Android,iOS,Flutter,程序员,移动开发,软件开发,技术文章">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://imgs.sugood.xyz/1650081521140wimr0cu0.png?imageslim">
+
+
+<link rel="canonical" href="https://i.sugood.xyz/post/ce098ed2.html">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【Flutter】保姆级一小时Flutter开发环境搭建到Demo跑通教程 | Sugood</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?125e718c08b661e0c3ceec32d67c1ce5";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Sugood</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E6%8F%90"><span class="nav-number">1.</span> <span class="nav-text">前提</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E8%A6%81%E6%B1%82"><span class="nav-number">1.1.</span> <span class="nav-text">硬件要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AC%E4%BB%B6%E5%8F%82%E8%80%83"><span class="nav-number">1.2.</span> <span class="nav-text">硬件参考</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%AF%B4%E6%98%8E"><span class="nav-number">2.</span> <span class="nav-text">简单说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E7%9A%84%E4%BA%8B%E6%83%85%E8%AF%B4%E4%B8%89%E9%81%8D%EF%BC%8C%E9%9C%80%E8%A6%81FQ%E3%80%81%E9%9C%80%E8%A6%81FQ%E3%80%81%E9%9C%80%E8%A6%81FQ"><span class="nav-number">3.</span> <span class="nav-text">重要的事情说三遍，需要FQ、需要FQ、需要FQ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%85%E8%A6%81%E8%BD%AF%E4%BB%B6%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">必要软件下载与安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#XCODE-%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="nav-number">4.1.</span> <span class="nav-text">XCODE 下载与安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Android-Studio-%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="nav-number">4.2.</span> <span class="nav-text">Android Studio 下载与安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flutter-SDK-%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">4.3.</span> <span class="nav-text">Flutter SDK 下载与配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">软件配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81Android-Studio%E6%89%93%E5%BC%80%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="nav-number">5.1.</span> <span class="nav-text">一、Android Studio打开与配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%88%9B%E5%BB%BAFlutter-%E9%A1%B9%E7%9B%AE%E5%B9%B6%E8%B7%91%E9%80%9AAndroid-DEMO"><span class="nav-number">5.2.</span> <span class="nav-text">二、创建Flutter 项目并跑通Android DEMO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%B7%91%E9%80%9AiOS-DEMO"><span class="nav-number">5.3.</span> <span class="nav-text">三、跑通iOS DEMO</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">sugood</p>
+  <div class="site-description" itemprop="description">这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+      
+
+      
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://i.sugood.xyz/post/ce098ed2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sugood">
+      <meta itemprop="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugood">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Flutter】保姆级一小时Flutter开发环境搭建到Demo跑通教程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-25 11:31:58" itemprop="dateCreated datePublished" datetime="2022-02-25T11:31:58+08:00">2022-02-25</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2022-04-16 17:25:58" itemprop="dateModified" datetime="2022-04-16T17:25:58+08:00">2022-04-16</time>
+      </span>
+
+  
+    <span id="/post/ce098ed2.html" class="post-meta-item leancloud_visitors" data-flag-title="【Flutter】保姆级一小时Flutter开发环境搭建到Demo跑通教程" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/ce098ed2.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/ce098ed2.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><h4 id="硬件要求"><a href="#硬件要求" class="headerlink" title="硬件要求"></a>硬件要求</h4><ul>
+<li>一台MacOS电脑，最好系统是最新的</li>
+<li>一台Android手机</li>
+<li>一台iOS手机</li>
+<li>宽带至少百兆</li>
+</ul>
+<h4 id="硬件参考"><a href="#硬件参考" class="headerlink" title="硬件参考"></a>硬件参考</h4><ul>
+<li>黑苹果: MacOS 12.3</li>
+<li>华为Mata 30 pro: 鸿蒙 2.0</li>
+<li>苹果 Iphone x : 15.4</li>
+<li>Android Studio: bumblebee|2020.1.1 </li>
+<li>XCODE: 13.3</li>
+</ul>
+<h3 id="简单说明"><a href="#简单说明" class="headerlink" title="简单说明"></a>简单说明</h3><p>今天给2016年组装的老台式机重新安装了最新的黑苹果系统 — Monterey 12.3，装完后试了下还挺流畅的😂，所以决定装个Flutter开发环境，也算是发挥它最后的余热吧！毕竟随着苹果自己的M1芯片越来越成熟，以后Macos系统可能就和手机一样封闭了，能玩黑苹果的日子不多了。</p>
+<p>完成了Flutter开发环境搭建与iOS&amp;Android Demo跑通全过程后。令人意外地发现全程只用了一个多小时。也许是我现在的网络环境比较好/也许是有点经验了/也许是现在的配置工具便利了。相比第一次配置Flutter开发环境时的辛酸。现在配置个环境真的舒服多了。最后不管怎样，反正我想把教程写的简单一点，但是又尽量详细一点，让零基础的朋友也能看得懂。</p>
+<h3 id="重要的事情说三遍，需要FQ、需要FQ、需要FQ"><a href="#重要的事情说三遍，需要FQ、需要FQ、需要FQ" class="headerlink" title="重要的事情说三遍，需要FQ、需要FQ、需要FQ"></a>重要的事情说三遍，需要FQ、需要FQ、需要FQ</h3><p>Flutter 开发离不开Google环境，很多时候更新资源或者打包的时候都需要外网，而且Flutter技术文档、各种资料、还有问题的解决办法还是墙外比较多一点，所以FQ是必不可少的。</p>
+<p>网上很多通过配置国内镜像或者是修改host的方式来下载资源的，有时候确实有用，有时候纯粹是浪费时间。所以还是花点时间找个靠谱的FQ工具吧🤷，还有按我个人的经验来说，移动开发还真的离不开外网，FQ基本已经是个必备的技能了😂。</p>
+<p>因此，整个教程的前提是你有个良好的访问外网的环境，否者下载资源就要花费大量的时间了，一个小时基本没戏。</p>
+<h3 id="必要软件下载与安装"><a href="#必要软件下载与安装" class="headerlink" title="必要软件下载与安装"></a>必要软件下载与安装</h3><h4 id="XCODE-下载与安装"><a href="#XCODE-下载与安装" class="headerlink" title="XCODE 下载与安装"></a>XCODE 下载与安装</h4><p>在APP STORE 上搜XCODE,点击安装就好。就是这么简单，不过也是最耗时的，一共十几G,就下载都花了十几分钟。不过其他软件的下载也是同步进行的，其他软件不是很大下载都挺快的。</p>
+<h4 id="Android-Studio-下载与安装"><a href="#Android-Studio-下载与安装" class="headerlink" title="Android Studio 下载与安装"></a>Android Studio 下载与安装</h4><ul>
+<li>在官网下载地址下载，<a target="_blank" rel="noopener" href="https://developer.android.com/studio?hl=zh-cn">https://developer.android.com/studio?hl=zh-cn</a></li>
+</ul>
+<p><img src="http://imgs.sugood.xyz/1650081521140wimr0cu0.png?imageslim" alt="paste image"></p>
+<ul>
+<li>下载完双击安装文件安装好就可以了</li>
+</ul>
+<h4 id="Flutter-SDK-下载与配置"><a href="#Flutter-SDK-下载与配置" class="headerlink" title="Flutter SDK 下载与配置"></a>Flutter SDK 下载与配置</h4><ul>
+<li>在Flutter官网下载：<a target="_blank" rel="noopener" href="https://flutter.cn/docs/development/tools/sdk/releases?tab=macos">https://flutter.cn/docs/development/tools/sdk/releases?tab=macos</a></li>
+</ul>
+<p> <img src="http://imgs.sugood.xyz/16500818727718g3a6g5t.png?imageslim" alt="paste image"></p>
+<ul>
+<li>解压缩文件，我这里解压到 /Users/sugood/devlibs/flutter 文件夹下，这个路径是自己定义的，等会需要用到</li>
+</ul>
+<p> <img src="http://imgs.sugood.xyz/1650082347411akzro75f.png?imageslim" alt="paste image"></p>
+<ul>
+<li>配置环境变量</li>
+</ul>
+<ol>
+<li>在终端输入指令 sudo vi ~/.bash_profile ,进入配置，需要输入密码。</li>
+<li>输入i,进入vim的编辑模式，在任意一行添加Flutter SDK的路径</li>
+</ol>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># flutter sdk</span><br><span class="line">export PATH=$PATH:$HOME/devlibs/flutter/bin</span><br></pre></td></tr></table></figure>
+<p>  <br><strong>这里的 $HOME 是用户文件夹的意思。$HOME/devlibs/flutter/bin 就是/Users/sugood/devlibs/flutter 的路径（我电脑的用户是sugood）</strong></p>
+<ol start="3">
+<li>按ESC键退出编辑模式，再输入:qw 保存。如下图：</li>
+</ol>
+<p> <img src="http://imgs.sugood.xyz/16500827878189gjcplag.png?imageslim" alt="paste image"></p>
+<ol start="4">
+<li>然后在终端上执行 source ~/.bash_profile ，刷新环境变量 <img src="http://imgs.sugood.xyz/1650082964475i44gc1pr.png?imageslim" alt="paste image"></li>
+<li>最后在终端上执行 flutter –version 指令查看版本号，打印以下信息就是成功了 <img src="http://imgs.sugood.xyz/16500832718108g9ey3sn.png?imageslim" alt="paste image">
+ </li>
+</ol>
+<p><strong>注意：如果提示zsh: command not found: flutter</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#第一步，在终端执行</span><br><span class="line">vim ~/.zshrc</span><br><span class="line">#第二步，找到 “# User configuration” 在其下面添加下面内容</span><br><span class="line">source ~/.bash_profile</span><br><span class="line">#如果没有’# User configuration’，就直接把上面内容添加到 ~/.zshrc 里面</span><br><span class="line">#第三步，在终端里执行 </span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
+<h3 id="软件配置"><a href="#软件配置" class="headerlink" title="软件配置"></a>软件配置</h3><h4 id="一、Android-Studio打开与配置"><a href="#一、Android-Studio打开与配置" class="headerlink" title="一、Android Studio打开与配置"></a>一、Android Studio打开与配置</h4><ul>
+<li>运行Android Studio </li>
+</ul>
+<p><img src="http://imgs.sugood.xyz/16500896819730lngnz3a.png?imageslim" alt="paste image"></p>
+<ul>
+<li>设置代理（Setup Proxy）根据自己的FQ软件来设置</li>
+</ul>
+<p><img src="http://imgs.sugood.xyz/1650090065380w3hfxmgp.png?imageslim" alt="paste image"></p>
+<ul>
+<li>设置好后就等到下载最新的安卓SDK还有一些资源，当然点击Cancel也行，网络情况理想也是能下载到最新的SDK和资源的。下载好之后我们打开Android Studio 的Tools-&gt;SDK Manager(SDK管理)</li>
+</ul>
+<p> <img src="http://imgs.sugood.xyz/1650090384152g74kosba.png?imageslim" alt="paste image"></p>
+<p> <img src="http://imgs.sugood.xyz/1650090584673qi5ljsyk.png?imageslim" alt="paste image"></p>
+<ul>
+<li>下载Flutter 需要用到的SDK工具，点击Apple 按钮后会下载选中的工具。</li>
+</ul>
+<p> <img src="http://imgs.sugood.xyz/1650090783064k0w2zxid.png?imageslim" alt="paste image"></p>
+<ul>
+<li>下载Flutter 和Dart 插件<br><img src="http://imgs.sugood.xyz/1650091748676am4hggj0.png?imageslim" alt="paste image"></li>
+</ul>
+<p> <img src="http://imgs.sugood.xyz/1650091889927ect4yn6h.png?imageslim" alt="paste image"></p>
+<p> <img src="http://imgs.sugood.xyz/1650091971120ran1qnay.png?imageslim" alt="paste image"></p>
+<p> 我这里展示了Flutter 插件的安装，Dart一样道理，两个插件都安装好之后，在插件中心显示如下：</p>
+<p> <img src="http://imgs.sugood.xyz/1650092147211f95d29z5.png?imageslim" alt="paste image"></p>
+<ul>
+<li>在终端界面执行 flutter doctor –android-licenses，这一个操作是安卓许可证授权 ，全部选yes就好。完成这一步安卓的配置基本完成了，下面先创建一个demo最后再配置xcode</li>
+</ul>
+<h4 id="二、创建Flutter-项目并跑通Android-DEMO"><a href="#二、创建Flutter-项目并跑通Android-DEMO" class="headerlink" title="二、创建Flutter 项目并跑通Android DEMO"></a>二、创建Flutter 项目并跑通Android DEMO</h4><ul>
+<li>先在终端执行一次指令： flutter doctor –verbose ，看看安卓和Android Studio的配置有没有问题。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">sugood@sugooddeiMac ~ % flutter doctor --verbose</span><br><span class="line">[✓] Flutter (Channel stable, 2.10.4, on macOS 12.3 21E230 darwin-x64, locale</span><br><span class="line">    zh-Hans-CN)</span><br><span class="line">    • Flutter version 2.10.4 at /Users/sugood/devlibs/flutter</span><br><span class="line">    • Upstream repository https://github.com/flutter/flutter.git</span><br><span class="line">    • Framework revision c860cba910 (3 weeks ago), 2022-03-25 00:23:12 -0500</span><br><span class="line">    • Engine revision 57d3bac3dd</span><br><span class="line">    • Dart version 2.16.2</span><br><span class="line">    • DevTools version 2.9.2</span><br><span class="line">    • Pub download mirror https://pub.flutter-io.cn</span><br><span class="line">    • Flutter download mirror https://storage.flutter-io.cn</span><br><span class="line"></span><br><span class="line">[✓] Android toolchain - develop for Android devices (Android SDK version</span><br><span class="line">    32.1.0-rc1)</span><br><span class="line">    • Android SDK at /Users/sugood/Library/Android/sdk</span><br><span class="line">    • Platform android-32, build-tools 32.1.0-rc1</span><br><span class="line">    • Java binary at: /Applications/Android</span><br><span class="line">      Studio.app/Contents/jre/Contents/Home/bin/java</span><br><span class="line">    • Java version OpenJDK Runtime Environment (build 11.0.11+0-b60-7590822)</span><br><span class="line">    • All Android licenses accepted.</span><br><span class="line"></span><br><span class="line">[✗] Xcode - develop for iOS and macOS (Xcode 13.3.1)</span><br><span class="line">    • Xcode at /Applications/Xcode.app/Contents/Developer</span><br><span class="line">    ✗ CocoaPods not installed.</span><br><span class="line">      CocoaPods is used to retrieve the iOS and macOS platform side&#x27;s plugin code that responds to your plugin usage on the Dart side.</span><br><span class="line">      Without CocoaPods, plugins will not work on iOS or macOS.</span><br><span class="line">      For more info, see https://flutter.dev/platform-plugins</span><br><span class="line">      To install:</span><br><span class="line">        sudo gem install cocoapods</span><br><span class="line"></span><br><span class="line">[✓] Chrome - develop for the web</span><br><span class="line">    • Chrome at /Applications/Google Chrome.app/Contents/MacOS/Google Chrome</span><br><span class="line"></span><br><span class="line">[✓] Android Studio (version 2021.1)</span><br><span class="line">    • Android Studio at /Applications/Android Studio.app/Contents</span><br><span class="line">    • Flutter plugin can be installed from:</span><br><span class="line">      🔨 https://plugins.jetbrains.com/plugin/9212-flutter</span><br><span class="line">    • Dart plugin can be installed from:</span><br><span class="line">      🔨 https://plugins.jetbrains.com/plugin/6351-dart</span><br><span class="line">    • Java version OpenJDK Runtime Environment (build 11.0.11+0-b60-7590822)</span><br></pre></td></tr></table></figure>
+
+<p>** 理论上除了XCODE会有问题，其他的应该不会有问题了，如果有问题就需要针对问题修复好才能进行下一步**</p>
+<ul>
+<li>打开Android stuido并创建Flutter 项目,项目名称是ftest</li>
+</ul>
+<p><img src="http://imgs.sugood.xyz/1650092340797jjjzu2v4.png?imageslim" alt="paste image"></p>
+<p><img src="http://imgs.sugood.xyz/1650092513600zjjprs2m.png?imageslim" alt="paste image"></p>
+<p><img src="http://imgs.sugood.xyz/1650092796441fghogkwz.png?imageslim" alt="paste image"></p>
+<ul>
+<li>这样我们在/Volumes/Works/sourceCode/flutter/ftest路径下就得到一个Flutter项目。</li>
+</ul>
+<p><img src="http://imgs.sugood.xyz/1650093100242i5s0uxb9.png?imageslim" alt="paste image"></p>
+<ul>
+<li><p>这个时候拿出安卓手机打开开发这模式，连上电脑后，信任这台电脑，并选择文件传输模式。就能在Android studio 界面看到这台手机了<br><img src="http://imgs.sugood.xyz/16500935017323dgt5bpq.png?imageslim" alt="paste image"></p>
+</li>
+<li><p>点击运行按钮，等到编译，没什么意外手机上就能看到如下界面<br><img src="http://imgs.sugood.xyz/1650098507949in4asdjf.png?imageslim" alt="paste image"></p>
+</li>
+</ul>
+<p><strong>如果你顺利地走到这一步，那么恭喜你，你已经完成了80%了，理论上应该还没超过一个小时😂，你可以先休息下☕️</strong></p>
+<h4 id="三、跑通iOS-DEMO"><a href="#三、跑通iOS-DEMO" class="headerlink" title="三、跑通iOS DEMO"></a>三、跑通iOS DEMO</h4><ul>
+<li><p>针对前面flutter doctor –verbose的xcode的错误提示，在终端上执行 sudo gem install cocoapods 安装 cocoapods</p>
+</li>
+<li><p>在终端上执行flutter doctor –verbose ,可以看到cocoapods版本，也没有其他报错了</p>
+</li>
+</ul>
+<p><img src="http://imgs.sugood.xyz/1650094879741jgec5w1y.png?imageslim" alt="paste image"></p>
+<ul>
+<li>在Flutter 项目中打开xcode</li>
+</ul>
+<p><img src="http://imgs.sugood.xyz/1650094700023lhpwk08s.png?imageslim" alt="paste image"></p>
+<p>** 第一次打开，必然有报错的，因为我们需要登录自己的苹果账号并生成证书才能进行调试 **</p>
+<p><img src="http://imgs.sugood.xyz/1650096450947wpan2xw5.png?imageslim" alt="paste image"></p>
+<ul>
+<li>添加苹果账户<br><img src="http://imgs.sugood.xyz/16500965922731z1pc4oh.png?imageslim" alt="paste image"></li>
+</ul>
+<ol>
+<li>添加账号</li>
+</ol>
+<p><img src="http://imgs.sugood.xyz/1650096799238o2knp1hh.png?imageslim" alt="paste image"></p>
+<ol start="2">
+<li>输入账号密码</li>
+</ol>
+<p><img src="http://imgs.sugood.xyz/16500968992782e19qozn.png?imageslim" alt="paste image"></p>
+<ol start="3">
+<li><p>生成证书操作<br><img src="http://imgs.sugood.xyz/1650097203654gk99qu3h.png?imageslim" alt="paste image"></p>
+</li>
+<li><p>生成证书成功，Team名称如图，记住一会要用。<br><img src="http://imgs.sugood.xyz/165009758099797ge3x6u.png?imageslim" alt="paste image"></p>
+</li>
+<li><p>回到xcode 给项目选择上面生成的Team就没有报错了</p>
+</li>
+</ol>
+<p><img src="http://imgs.sugood.xyz/1650097892673sf27472c.png?imageslim" alt="paste image"></p>
+<ul>
+<li><p>xcode连接苹果手机并运行,第一次需要用xcdoe 信任手机设备<br><img src="http://imgs.sugood.xyz/1650098038933w80z719y.png?imageslim" alt="paste image"></p>
+</li>
+<li><p>回到Android studio ，选择苹果手机，并点击运行按钮</p>
+</li>
+</ul>
+<p><img src="http://imgs.sugood.xyz/1650098141100fkcpj9mn.png?imageslim" alt="paste image"></p>
+<ul>
+<li>编译成功后，我相信你也能在手机上看到以下demo</li>
+</ul>
+<p><img src="http://imgs.sugood.xyz/16500983752752ji3gzsh.png?imageslim" alt="paste image"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>至此，从开发环境搭建到Demo跑通都已经完成了，基本上没有什么很复杂的操作，基本上都是图形化操作界面，只有极个别没有图形化才用指令。而且很多指令也都是查看指令，只有设置环境变量的指令稍微复杂点。相信零基础也是能很好上手的。</p>
+<p>最后，如果你的配置的过程中有遇到其他的问题，可以多执行下flutter doctor –verbose 指令看看有没有其他的错误，一般情况下这个指令没有报错的话，运行demo都是不会有什么问题的。如果遇到其他问题，请善用搜索引擎~</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/71ea59e5.html" rel="prev" title="【MacOS】Hammerspoon-sugood多合一效率工具，新增状态栏显示系统信息（CPU/内存/硬盘/网速）-v0.1.7">
+                  <i class="fa fa-chevron-left"></i> 【MacOS】Hammerspoon-sugood多合一效率工具，新增状态栏显示系统信息（CPU/内存/硬盘/网速）-v0.1.7
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/9464aba0.html" rel="next" title="【Flutter】从安卓与iOS包体优化到一键自动打包脚本的一条龙服务">
+                  【Flutter】从安卓与iOS包体优化到一键自动打包脚本的一条龙服务 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+      
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      
+
+      
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">ICP备19070416号-3号 </a>
+  </div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sugood</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+<div class="cdn">
+  Powerful CDN service provided by
+  <span class="post-meta-divider">|</span>
+  <a target="_blank" rel="noopener" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">
+    <img src="/images/upyun_logo.png" style="display:inline-block;text-decoration:none;height:30px;" />
+  </a>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-next@8.0.2/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-next@8.0.2/source/js/motion.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-next@8.0.2/source/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","app_key":"r26uvBWOfgqwX3flwdJo0G2M","server_url":"nt1d1lor.api.lncldglobal.com","security":false};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","appKey":"r26uvBWOfgqwX3flwdJo0G2M","serverURLs":null,"placeholder":"免费的评论不发一条吗~","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":false,"enableQQ":true,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/post/ce098ed2.html",
+      serverURLs: "https://nt1d1lor.api.lncldglobal.com"
+    }));
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

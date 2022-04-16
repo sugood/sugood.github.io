@@ -195,7 +195,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -240,6 +240,117 @@
       
 
       
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://i.sugood.xyz/post/4d770fdf.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sugood">
+      <meta itemprop="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugood">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/post/4d770fdf.html" class="post-title-link" itemprop="url">【MacOS】Lua 快速入门并完成一个基于Hammerspoon的备忘录项目</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-29 16:04:00" itemprop="dateCreated datePublished" datetime="2021-12-29T16:04:00+08:00">2021-12-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-12-31 18:16:00" itemprop="dateModified" datetime="2021-12-31T18:16:00+08:00">2021-12-31</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MacOS/" itemprop="url" rel="index"><span itemprop="name">MacOS</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/post/4d770fdf.html" class="post-meta-item leancloud_visitors" data-flag-title="【MacOS】Lua 快速入门并完成一个基于Hammerspoon的备忘录项目" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/4d770fdf.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/4d770fdf.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>@[TOC](Lua 快速入门并完成一个基于Hammerspoon的备忘录项目)</p>
+<h1 id="环境说明"><a href="#环境说明" class="headerlink" title="环境说明"></a>环境说明</h1><p>系统版本：macOS 10.15.7<br>Hammerspoon版本：0.9.81<br>Lua版本：5.4.0</p>
+<h1 id="需求整理"><a href="#需求整理" class="headerlink" title="需求整理"></a>需求整理</h1><h2 id="需求由来"><a href="#需求由来" class="headerlink" title="需求由来"></a>需求由来</h2><p>   用了一段时间的macOS后发现。有很多终端的指令需要记。常用的指令一般都不会忘。但是，一些不常用的指令，例如scp指令。所以就想要一个功能帮我记录这些常用指令的。后来引申到了想要记录一些常用的注释代码片段。<br>    当然，我是知道这些备忘完全可以随便记录在macOS提供的备忘录中或者是写在博客里，但是，操作了一段时间后就发现了一个很大的弊端：记录、查找、修改备忘都要先打开某个应用后才能操作，往往要经过很多步骤。同时我在用的另外一个macOS神级应用Alfred里也有一个片段功能。似乎也能满足我的需求。但是，我不满意的地方是新增修改删除备忘的时候，不是很方便。需要进入设置界面才能操作。第二个问题是多台mac数据同步的问题，官方推荐Dropbox，网络问题就不说了，真心不想装多一个没用的软件。理论上是能通过git来同步配置文件的，不过不想试了，就想自己手动写一个:-)。控制权在自己手上，想怎么改就怎么改。<br>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/post/4d770fdf.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
 
@@ -1206,116 +1317,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/post/53934315.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://i.sugood.xyz/post/bd3bcc8a.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="sugood">
-      <meta itemprop="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Sugood">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/post/bd3bcc8a.html" class="post-title-link" itemprop="url">【Flutter】我为什么用Flutter开发-2年开发心得</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-12-29 15:35:00" itemprop="dateCreated datePublished" datetime="2021-12-29T15:35:00+08:00">2021-12-29</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-12-31 18:16:00" itemprop="dateModified" datetime="2021-12-31T18:16:00+08:00">2021-12-31</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Flutter/" itemprop="url" rel="index"><span itemprop="name">Flutter</span></a>
-        </span>
-    </span>
-
-  
-    <span id="/post/bd3bcc8a.html" class="post-meta-item leancloud_visitors" data-flag-title="【Flutter】我为什么用Flutter开发-2年开发心得" title="阅读次数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">阅读次数：</span>
-      <span class="leancloud-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/post/bd3bcc8a.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/post/bd3bcc8a.html" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><strong>为什么是Flutter</strong></p>
-<p>在19年初的时候，因为需要一个人完成一套鲜花o2o的系统。包含前端、后端、移动端还有小程序。考虑到时间成本，所以在移动端开发平台选型的时候，主要是考虑跨平台技术。当时并没有怎么犹豫就选了Flutter，期间也考虑过React Native 和uni-app等。之所以很快的选了Flutter，主要是有谷歌的背书，还有闲鱼App的实践证明，同时开发工具和开发逻辑比较接近原生App开发的那一套。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/post/bd3bcc8a.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
