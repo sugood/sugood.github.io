@@ -396,7 +396,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-04-16 17:25:58" itemprop="dateModified" datetime="2022-04-16T17:25:58+08:00">2022-04-16</time>
+        <time title="修改时间：2022-04-16 17:27:17" itemprop="dateModified" datetime="2022-04-16T17:27:17+08:00">2022-04-16</time>
       </span>
 
   
@@ -445,142 +445,14 @@
 </ul>
 <h3 id="简单说明"><a href="#简单说明" class="headerlink" title="简单说明"></a>简单说明</h3><p>今天给2016年组装的老台式机重新安装了最新的黑苹果系统 — Monterey 12.3，装完后试了下还挺流畅的😂，所以决定装个Flutter开发环境，也算是发挥它最后的余热吧！毕竟随着苹果自己的M1芯片越来越成熟，以后Macos系统可能就和手机一样封闭了，能玩黑苹果的日子不多了。</p>
 <p>完成了Flutter开发环境搭建与iOS&amp;Android Demo跑通全过程后。令人意外地发现全程只用了一个多小时。也许是我现在的网络环境比较好/也许是有点经验了/也许是现在的配置工具便利了。相比第一次配置Flutter开发环境时的辛酸。现在配置个环境真的舒服多了。最后不管怎样，反正我想把教程写的简单一点，但是又尽量详细一点，让零基础的朋友也能看得懂。</p>
-<h3 id="重要的事情说三遍，需要FQ、需要FQ、需要FQ"><a href="#重要的事情说三遍，需要FQ、需要FQ、需要FQ" class="headerlink" title="重要的事情说三遍，需要FQ、需要FQ、需要FQ"></a>重要的事情说三遍，需要FQ、需要FQ、需要FQ</h3><p>Flutter 开发离不开Google环境，很多时候更新资源或者打包的时候都需要外网，而且Flutter技术文档、各种资料、还有问题的解决办法还是墙外比较多一点，所以FQ是必不可少的。</p>
-<p>网上很多通过配置国内镜像或者是修改host的方式来下载资源的，有时候确实有用，有时候纯粹是浪费时间。所以还是花点时间找个靠谱的FQ工具吧🤷，还有按我个人的经验来说，移动开发还真的离不开外网，FQ基本已经是个必备的技能了😂。</p>
-<p>因此，整个教程的前提是你有个良好的访问外网的环境，否者下载资源就要花费大量的时间了，一个小时基本没戏。</p>
-<h3 id="必要软件下载与安装"><a href="#必要软件下载与安装" class="headerlink" title="必要软件下载与安装"></a>必要软件下载与安装</h3><h4 id="XCODE-下载与安装"><a href="#XCODE-下载与安装" class="headerlink" title="XCODE 下载与安装"></a>XCODE 下载与安装</h4><p>在APP STORE 上搜XCODE,点击安装就好。就是这么简单，不过也是最耗时的，一共十几G,就下载都花了十几分钟。不过其他软件的下载也是同步进行的，其他软件不是很大下载都挺快的。</p>
-<h4 id="Android-Studio-下载与安装"><a href="#Android-Studio-下载与安装" class="headerlink" title="Android Studio 下载与安装"></a>Android Studio 下载与安装</h4><ul>
-<li>在官网下载地址下载，<a target="_blank" rel="noopener" href="https://developer.android.com/studio?hl=zh-cn">https://developer.android.com/studio?hl=zh-cn</a></li>
-</ul>
-<p><img src="http://imgs.sugood.xyz/1650081521140wimr0cu0.png?imageslim" alt="paste image"></p>
-<ul>
-<li>下载完双击安装文件安装好就可以了</li>
-</ul>
-<h4 id="Flutter-SDK-下载与配置"><a href="#Flutter-SDK-下载与配置" class="headerlink" title="Flutter SDK 下载与配置"></a>Flutter SDK 下载与配置</h4><ul>
-<li>在Flutter官网下载：<a target="_blank" rel="noopener" href="https://flutter.cn/docs/development/tools/sdk/releases?tab=macos">https://flutter.cn/docs/development/tools/sdk/releases?tab=macos</a></li>
-</ul>
-<p> <img src="http://imgs.sugood.xyz/16500818727718g3a6g5t.png?imageslim" alt="paste image"></p>
-<ul>
-<li>解压缩文件，我这里解压到 /Users/sugood/devlibs/flutter 文件夹下，这个路径是自己定义的，等会需要用到</li>
-</ul>
-<p> <img src="http://imgs.sugood.xyz/1650082347411akzro75f.png?imageslim" alt="paste image"></p>
-<ul>
-<li>配置环境变量</li>
-</ul>
-<ol>
-<li>在终端输入指令 sudo vi ~/.bash_profile ,进入配置，需要输入密码。</li>
-<li>输入i,进入vim的编辑模式，在任意一行添加Flutter SDK的路径</li>
-</ol>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># flutter sdk</span><br><span class="line">export PATH=$PATH:$HOME/devlibs/flutter/bin</span><br></pre></td></tr></table></figure>
-<p>  <br><strong>这里的 $HOME 是用户文件夹的意思。$HOME/devlibs/flutter/bin 就是/Users/sugood/devlibs/flutter 的路径（我电脑的用户是sugood）</strong></p>
-<ol start="3">
-<li>按ESC键退出编辑模式，再输入:qw 保存。如下图：</li>
-</ol>
-<p> <img src="http://imgs.sugood.xyz/16500827878189gjcplag.png?imageslim" alt="paste image"></p>
-<ol start="4">
-<li>然后在终端上执行 source ~/.bash_profile ，刷新环境变量 <img src="http://imgs.sugood.xyz/1650082964475i44gc1pr.png?imageslim" alt="paste image"></li>
-<li>最后在终端上执行 flutter –version 指令查看版本号，打印以下信息就是成功了 <img src="http://imgs.sugood.xyz/16500832718108g9ey3sn.png?imageslim" alt="paste image">
- </li>
-</ol>
-<p><strong>注意：如果提示zsh: command not found: flutter</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#第一步，在终端执行</span><br><span class="line">vim ~/.zshrc</span><br><span class="line">#第二步，找到 “# User configuration” 在其下面添加下面内容</span><br><span class="line">source ~/.bash_profile</span><br><span class="line">#如果没有’# User configuration’，就直接把上面内容添加到 ~/.zshrc 里面</span><br><span class="line">#第三步，在终端里执行 </span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
-<h3 id="软件配置"><a href="#软件配置" class="headerlink" title="软件配置"></a>软件配置</h3><h4 id="一、Android-Studio打开与配置"><a href="#一、Android-Studio打开与配置" class="headerlink" title="一、Android Studio打开与配置"></a>一、Android Studio打开与配置</h4><ul>
-<li>运行Android Studio </li>
-</ul>
-<p><img src="http://imgs.sugood.xyz/16500896819730lngnz3a.png?imageslim" alt="paste image"></p>
-<ul>
-<li>设置代理（Setup Proxy）根据自己的FQ软件来设置</li>
-</ul>
-<p><img src="http://imgs.sugood.xyz/1650090065380w3hfxmgp.png?imageslim" alt="paste image"></p>
-<ul>
-<li>设置好后就等到下载最新的安卓SDK还有一些资源，当然点击Cancel也行，网络情况理想也是能下载到最新的SDK和资源的。下载好之后我们打开Android Studio 的Tools-&gt;SDK Manager(SDK管理)</li>
-</ul>
-<p> <img src="http://imgs.sugood.xyz/1650090384152g74kosba.png?imageslim" alt="paste image"></p>
-<p> <img src="http://imgs.sugood.xyz/1650090584673qi5ljsyk.png?imageslim" alt="paste image"></p>
-<ul>
-<li>下载Flutter 需要用到的SDK工具，点击Apple 按钮后会下载选中的工具。</li>
-</ul>
-<p> <img src="http://imgs.sugood.xyz/1650090783064k0w2zxid.png?imageslim" alt="paste image"></p>
-<ul>
-<li>下载Flutter 和Dart 插件<br><img src="http://imgs.sugood.xyz/1650091748676am4hggj0.png?imageslim" alt="paste image"></li>
-</ul>
-<p> <img src="http://imgs.sugood.xyz/1650091889927ect4yn6h.png?imageslim" alt="paste image"></p>
-<p> <img src="http://imgs.sugood.xyz/1650091971120ran1qnay.png?imageslim" alt="paste image"></p>
-<p> 我这里展示了Flutter 插件的安装，Dart一样道理，两个插件都安装好之后，在插件中心显示如下：</p>
-<p> <img src="http://imgs.sugood.xyz/1650092147211f95d29z5.png?imageslim" alt="paste image"></p>
-<ul>
-<li>在终端界面执行 flutter doctor –android-licenses，这一个操作是安卓许可证授权 ，全部选yes就好。完成这一步安卓的配置基本完成了，下面先创建一个demo最后再配置xcode</li>
-</ul>
-<h4 id="二、创建Flutter-项目并跑通Android-DEMO"><a href="#二、创建Flutter-项目并跑通Android-DEMO" class="headerlink" title="二、创建Flutter 项目并跑通Android DEMO"></a>二、创建Flutter 项目并跑通Android DEMO</h4><ul>
-<li>先在终端执行一次指令： flutter doctor –verbose ，看看安卓和Android Studio的配置有没有问题。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">sugood@sugooddeiMac ~ % flutter doctor --verbose</span><br><span class="line">[✓] Flutter (Channel stable, 2.10.4, on macOS 12.3 21E230 darwin-x64, locale</span><br><span class="line">    zh-Hans-CN)</span><br><span class="line">    • Flutter version 2.10.4 at /Users/sugood/devlibs/flutter</span><br><span class="line">    • Upstream repository https://github.com/flutter/flutter.git</span><br><span class="line">    • Framework revision c860cba910 (3 weeks ago), 2022-03-25 00:23:12 -0500</span><br><span class="line">    • Engine revision 57d3bac3dd</span><br><span class="line">    • Dart version 2.16.2</span><br><span class="line">    • DevTools version 2.9.2</span><br><span class="line">    • Pub download mirror https://pub.flutter-io.cn</span><br><span class="line">    • Flutter download mirror https://storage.flutter-io.cn</span><br><span class="line"></span><br><span class="line">[✓] Android toolchain - develop for Android devices (Android SDK version</span><br><span class="line">    32.1.0-rc1)</span><br><span class="line">    • Android SDK at /Users/sugood/Library/Android/sdk</span><br><span class="line">    • Platform android-32, build-tools 32.1.0-rc1</span><br><span class="line">    • Java binary at: /Applications/Android</span><br><span class="line">      Studio.app/Contents/jre/Contents/Home/bin/java</span><br><span class="line">    • Java version OpenJDK Runtime Environment (build 11.0.11+0-b60-7590822)</span><br><span class="line">    • All Android licenses accepted.</span><br><span class="line"></span><br><span class="line">[✗] Xcode - develop for iOS and macOS (Xcode 13.3.1)</span><br><span class="line">    • Xcode at /Applications/Xcode.app/Contents/Developer</span><br><span class="line">    ✗ CocoaPods not installed.</span><br><span class="line">      CocoaPods is used to retrieve the iOS and macOS platform side&#x27;s plugin code that responds to your plugin usage on the Dart side.</span><br><span class="line">      Without CocoaPods, plugins will not work on iOS or macOS.</span><br><span class="line">      For more info, see https://flutter.dev/platform-plugins</span><br><span class="line">      To install:</span><br><span class="line">        sudo gem install cocoapods</span><br><span class="line"></span><br><span class="line">[✓] Chrome - develop for the web</span><br><span class="line">    • Chrome at /Applications/Google Chrome.app/Contents/MacOS/Google Chrome</span><br><span class="line"></span><br><span class="line">[✓] Android Studio (version 2021.1)</span><br><span class="line">    • Android Studio at /Applications/Android Studio.app/Contents</span><br><span class="line">    • Flutter plugin can be installed from:</span><br><span class="line">      🔨 https://plugins.jetbrains.com/plugin/9212-flutter</span><br><span class="line">    • Dart plugin can be installed from:</span><br><span class="line">      🔨 https://plugins.jetbrains.com/plugin/6351-dart</span><br><span class="line">    • Java version OpenJDK Runtime Environment (build 11.0.11+0-b60-7590822)</span><br></pre></td></tr></table></figure>
-
-<p>** 理论上除了XCODE会有问题，其他的应该不会有问题了，如果有问题就需要针对问题修复好才能进行下一步**</p>
-<ul>
-<li>打开Android stuido并创建Flutter 项目,项目名称是ftest</li>
-</ul>
-<p><img src="http://imgs.sugood.xyz/1650092340797jjjzu2v4.png?imageslim" alt="paste image"></p>
-<p><img src="http://imgs.sugood.xyz/1650092513600zjjprs2m.png?imageslim" alt="paste image"></p>
-<p><img src="http://imgs.sugood.xyz/1650092796441fghogkwz.png?imageslim" alt="paste image"></p>
-<ul>
-<li>这样我们在/Volumes/Works/sourceCode/flutter/ftest路径下就得到一个Flutter项目。</li>
-</ul>
-<p><img src="http://imgs.sugood.xyz/1650093100242i5s0uxb9.png?imageslim" alt="paste image"></p>
-<ul>
-<li><p>这个时候拿出安卓手机打开开发这模式，连上电脑后，信任这台电脑，并选择文件传输模式。就能在Android studio 界面看到这台手机了<br><img src="http://imgs.sugood.xyz/16500935017323dgt5bpq.png?imageslim" alt="paste image"></p>
-</li>
-<li><p>点击运行按钮，等到编译，没什么意外手机上就能看到如下界面<br><img src="http://imgs.sugood.xyz/1650098507949in4asdjf.png?imageslim" alt="paste image"></p>
-</li>
-</ul>
-<p><strong>如果你顺利地走到这一步，那么恭喜你，你已经完成了80%了，理论上应该还没超过一个小时😂，你可以先休息下☕️</strong></p>
-<h4 id="三、跑通iOS-DEMO"><a href="#三、跑通iOS-DEMO" class="headerlink" title="三、跑通iOS DEMO"></a>三、跑通iOS DEMO</h4><ul>
-<li><p>针对前面flutter doctor –verbose的xcode的错误提示，在终端上执行 sudo gem install cocoapods 安装 cocoapods</p>
-</li>
-<li><p>在终端上执行flutter doctor –verbose ,可以看到cocoapods版本，也没有其他报错了</p>
-</li>
-</ul>
-<p><img src="http://imgs.sugood.xyz/1650094879741jgec5w1y.png?imageslim" alt="paste image"></p>
-<ul>
-<li>在Flutter 项目中打开xcode</li>
-</ul>
-<p><img src="http://imgs.sugood.xyz/1650094700023lhpwk08s.png?imageslim" alt="paste image"></p>
-<p>** 第一次打开，必然有报错的，因为我们需要登录自己的苹果账号并生成证书才能进行调试 **</p>
-<p><img src="http://imgs.sugood.xyz/1650096450947wpan2xw5.png?imageslim" alt="paste image"></p>
-<ul>
-<li>添加苹果账户<br><img src="http://imgs.sugood.xyz/16500965922731z1pc4oh.png?imageslim" alt="paste image"></li>
-</ul>
-<ol>
-<li>添加账号</li>
-</ol>
-<p><img src="http://imgs.sugood.xyz/1650096799238o2knp1hh.png?imageslim" alt="paste image"></p>
-<ol start="2">
-<li>输入账号密码</li>
-</ol>
-<p><img src="http://imgs.sugood.xyz/16500968992782e19qozn.png?imageslim" alt="paste image"></p>
-<ol start="3">
-<li><p>生成证书操作<br><img src="http://imgs.sugood.xyz/1650097203654gk99qu3h.png?imageslim" alt="paste image"></p>
-</li>
-<li><p>生成证书成功，Team名称如图，记住一会要用。<br><img src="http://imgs.sugood.xyz/165009758099797ge3x6u.png?imageslim" alt="paste image"></p>
-</li>
-<li><p>回到xcode 给项目选择上面生成的Team就没有报错了</p>
-</li>
-</ol>
-<p><img src="http://imgs.sugood.xyz/1650097892673sf27472c.png?imageslim" alt="paste image"></p>
-<ul>
-<li><p>xcode连接苹果手机并运行,第一次需要用xcdoe 信任手机设备<br><img src="http://imgs.sugood.xyz/1650098038933w80z719y.png?imageslim" alt="paste image"></p>
-</li>
-<li><p>回到Android studio ，选择苹果手机，并点击运行按钮</p>
-</li>
-</ul>
-<p><img src="http://imgs.sugood.xyz/1650098141100fkcpj9mn.png?imageslim" alt="paste image"></p>
-<ul>
-<li>编译成功后，我相信你也能在手机上看到以下demo</li>
-</ul>
-<p><img src="http://imgs.sugood.xyz/16500983752752ji3gzsh.png?imageslim" alt="paste image"></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>至此，从开发环境搭建到Demo跑通都已经完成了，基本上没有什么很复杂的操作，基本上都是图形化操作界面，只有极个别没有图形化才用指令。而且很多指令也都是查看指令，只有设置环境变量的指令稍微复杂点。相信零基础也是能很好上手的。</p>
-<p>最后，如果你的配置的过程中有遇到其他的问题，可以多执行下flutter doctor –verbose 指令看看有没有其他的错误，一般情况下这个指令没有报错的话，运行demo都是不会有什么问题的。如果遇到其他问题，请善用搜索引擎~</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/post/ce098ed2.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
