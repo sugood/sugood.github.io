@@ -26,12 +26,12 @@
     var CONFIG = {"hostname":"i.sugood.xyz","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="前提硬件要求 一台MacOS电脑，最好系统是最新的 一台Android手机 一台iOS手机 宽带建议三百兆  硬件参考 黑苹果: MacOS 12.3 华为Mata 30 pro: 鸿蒙 2.0 苹果 Iphone x : 15.4 Android Studio: bumblebee|2020.1.1  XCODE: 13.3  不需要苹果开发者账号不需要苹果开发者账号，用有普通的苹果账号就好。不">
+  <meta name="description" content="前提硬件要求 一台MacOS电脑，最好系统是最新的 一台Android手机 一台iOS手机 宽带建议三百兆  硬件参考 黑苹果: MacOS 12.3 华为Mata 30 pro: 鸿蒙 2.0 苹果 Iphone x : 15.4 Android Studio: bumblebee|2020.1.1  XCODE: 13.3  不需要苹果开发者账号不需要苹果开发者账号，有普通的苹果账号就好。不过">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Flutter】保姆级一小时Flutter开发环境搭建到Demo跑通教程--无需开发者账号">
 <meta property="og:url" content="https://i.sugood.xyz/post/ce098ed2.html">
 <meta property="og:site_name" content="Sugood">
-<meta property="og:description" content="前提硬件要求 一台MacOS电脑，最好系统是最新的 一台Android手机 一台iOS手机 宽带建议三百兆  硬件参考 黑苹果: MacOS 12.3 华为Mata 30 pro: 鸿蒙 2.0 苹果 Iphone x : 15.4 Android Studio: bumblebee|2020.1.1  XCODE: 13.3  不需要苹果开发者账号不需要苹果开发者账号，用有普通的苹果账号就好。不">
+<meta property="og:description" content="前提硬件要求 一台MacOS电脑，最好系统是最新的 一台Android手机 一台iOS手机 宽带建议三百兆  硬件参考 黑苹果: MacOS 12.3 华为Mata 30 pro: 鸿蒙 2.0 苹果 Iphone x : 15.4 Android Studio: bumblebee|2020.1.1  XCODE: 13.3  不需要苹果开发者账号不需要苹果开发者账号，有普通的苹果账号就好。不过">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://imgs.sugood.xyz/1650081521140wimr0cu0.png?imageslim">
 <meta property="og:image" content="http://imgs.sugood.xyz/16500818727718g3a6g5t.png?imageslim">
@@ -71,7 +71,7 @@
 <meta property="og:image" content="http://imgs.sugood.xyz/1650098141100fkcpj9mn.png?imageslim">
 <meta property="og:image" content="http://imgs.sugood.xyz/16500983752752ji3gzsh.png?imageslim">
 <meta property="article:published_time" content="2022-02-25T03:31:58.000Z">
-<meta property="article:modified_time" content="2022-04-16T11:48:58.735Z">
+<meta property="article:modified_time" content="2022-04-16T11:57:19.791Z">
 <meta property="article:author" content="sugood">
 <meta property="article:tag" content="Android,iOS,Flutter,程序员,移动开发,软件开发,技术文章">
 <meta name="twitter:card" content="summary">
@@ -321,7 +321,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2022-04-16 19:48:58" itemprop="dateModified" datetime="2022-04-16T19:48:58+08:00">2022-04-16</time>
+        <time title="修改时间：2022-04-16 19:57:19" itemprop="dateModified" datetime="2022-04-16T19:57:19+08:00">2022-04-16</time>
       </span>
 
   
@@ -375,7 +375,7 @@
 <li>Android Studio: bumblebee|2020.1.1 </li>
 <li>XCODE: 13.3</li>
 </ul>
-<h4 id="不需要苹果开发者账号"><a href="#不需要苹果开发者账号" class="headerlink" title="不需要苹果开发者账号"></a>不需要苹果开发者账号</h4><p>不需要苹果开发者账号，用有普通的苹果账号就好。不过普通的苹果账号多一步信任的过程，下面的步骤有详细说明。</p>
+<h4 id="不需要苹果开发者账号"><a href="#不需要苹果开发者账号" class="headerlink" title="不需要苹果开发者账号"></a>不需要苹果开发者账号</h4><p>不需要苹果开发者账号，有普通的苹果账号就好。不过普通的苹果账号多一步信任的过程，下面的步骤有详细说明。</p>
 <h3 id="简单说明"><a href="#简单说明" class="headerlink" title="简单说明"></a>简单说明</h3><p>今天给2016年组装的老台式机重新安装了最新的黑苹果系统 — Monterey 12.3，装完后试了下还挺流畅的😂，所以决定装个Flutter开发环境，也算是发挥它最后的余热吧！毕竟随着苹果自己的M1芯片越来越成熟，以后Macos系统可能就和手机一样封闭了，能玩黑苹果的日子不多了。</p>
 <p>完成了Flutter开发环境搭建与iOS&amp;Android Demo跑通全过程后。令人意外地发现全程只用了一个多小时。也许是我现在的网络环境比较好/也许是有点经验了/也许是现在的配置工具便利了。相比第一次配置Flutter开发环境时的辛酸。现在配置个环境真的舒服多了。最后不管怎样，反正我想把教程写的简单一点，但是又尽量详细一点，让零基础的朋友也能看得懂。</p>
 <span id="more"></span>
