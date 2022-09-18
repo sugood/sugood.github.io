@@ -164,7 +164,8 @@
     //输入框获取焦点,并全选
     var inputTxt = document.getElementsByClassName('ace_text-input')[0]
     inputTxt.focus();
-    inputTxt.select();
+    //进来时先清空原始输入框内容
+    editor1.setText("");
     
     function beautify() {
         var content = editor1.getText();
