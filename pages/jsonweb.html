@@ -161,8 +161,10 @@
         editor1.setMode("code");
     })
     
-        //输入框获取焦点
-    document.getElementsByClassName('ace_text-input')[0].focus();
+    //输入框获取焦点,并全选
+    var inputTxt = document.getElementsByClassName('ace_text-input')[0]
+    inputTxt.focus();
+    inputTxt.select();
     
     function beautify() {
         var content = editor1.getText();
