@@ -26,19 +26,26 @@
     var CONFIG = {"hostname":"i.sugood.xyz","root":"/","scheme":"Gemini","version":"8.0.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
 
-  <meta name="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Sugood">
-<meta property="og:url" content="https://i.sugood.xyz/categories/MacOS/index.html">
+  <meta name="description" content="douyin-miniprogram-plugin基于JetBrains平台的抖音小程序插件主要功能介绍 ttml&#x2F;ttss&#x2F;wxs文件支持 语法解析 代码完成 代码高亮 ttml嵌入表达式支持 ttml 《sjs》 标签支持 ttml提取自定义组件   创建抖音小程序组件以及页面 相关文件导航 抖音小程序自定义组件支持 自动注册自定义组件 组件配置解析 重命名小程序自定义组件或页面 同时移动自定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="抖音小程序插件手册">
+<meta property="og:url" content="https://i.sugood.xyz/post/4037a27.html">
 <meta property="og:site_name" content="Sugood">
-<meta property="og:description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
+<meta property="og:description" content="douyin-miniprogram-plugin基于JetBrains平台的抖音小程序插件主要功能介绍 ttml&#x2F;ttss&#x2F;wxs文件支持 语法解析 代码完成 代码高亮 ttml嵌入表达式支持 ttml 《sjs》 标签支持 ttml提取自定义组件   创建抖音小程序组件以及页面 相关文件导航 抖音小程序自定义组件支持 自动注册自定义组件 组件配置解析 重命名小程序自定义组件或页面 同时移动自定">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://imgs.sugood.xyz/1688105482746iktsqey9.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1688105437140yb1f7r26.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/1688105608144ekc0n9w7.png?imageslim">
+<meta property="og:image" content="http://imgs.sugood.xyz/16881057534786e1jme3a.png?imageslim">
+<meta property="article:published_time" content="2023-06-30T04:24:09.000Z">
+<meta property="article:modified_time" content="2023-06-30T06:34:32.269Z">
 <meta property="article:author" content="sugood">
 <meta property="article:tag" content="Android,iOS,Flutter,程序员,移动开发,软件开发,技术文章">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://imgs.sugood.xyz/1688105482746iktsqey9.png?imageslim">
 
 
-<link rel="canonical" href="https://i.sugood.xyz/categories/MacOS/">
+<link rel="canonical" href="https://i.sugood.xyz/post/4037a27.html">
 
 
 <script class="page-configurations">
@@ -46,12 +53,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>分类: MacOS | Sugood</title>
+  <title>抖音小程序插件手册 | Sugood</title>
   
 
 
@@ -170,7 +177,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -183,6 +190,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#douyin-miniprogram-plugin"><span class="nav-number">1.</span> <span class="nav-text">douyin-miniprogram-plugin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EJetBrains%E5%B9%B3%E5%8F%B0%E7%9A%84%E6%8A%96%E9%9F%B3%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8F%92%E4%BB%B6"><span class="nav-number">1.0.1.</span> <span class="nav-text">基于JetBrains平台的抖音小程序插件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">主要功能介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E8%A7%88"><span class="nav-number">1.2.</span> <span class="nav-text">总览</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">说明</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%95%8C%E9%9D%A2"><span class="nav-number">1.3.</span> <span class="nav-text">创建界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6"><span class="nav-number">1.4.</span> <span class="nav-text">创建自定义组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8Ettml%E6%96%87%E4%BB%B6%E4%B8%AD%E5%88%9B%E5%BB%BAttss%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.5.</span> <span class="nav-text">从ttml文件中创建ttss类选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8Ettml%E5%88%9B%E5%BB%BAwxss-ID%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.6.</span> <span class="nav-text">从ttml创建wxss ID选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8Ettml%E4%B8%AD%E5%88%9B%E5%BB%BAjs%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0"><span class="nav-number">1.7.</span> <span class="nav-text">从ttml中创建js事件处理函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">1.8.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%92%E4%BB%B6%E5%9C%B0%E5%9D%80%EF%BC%9A-douyin-miniprogram-plugin"><span class="nav-number">1.8.0.1.</span> <span class="nav-text">插件地址： douyin-miniprogram-plugin</span></a></li></ol></li></ol></li></ol></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -236,201 +244,168 @@
 </noscript>
 
 
-    <div class="main-inner category posts-collapse">
+    <div class="main-inner post posts-expand">
       
 
       
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h2 class="collection-header">MacOS
-          <small>分类</small>
-        </h2>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://i.sugood.xyz/post/4037a27.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="sugood">
+      <meta itemprop="description" content="这里包含一些程序员生活、编程技巧的文章；目前专注移动开发，Android(安卓)开发,iOS开发,Flutter开发相关的文章会偏多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Sugood">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          抖音小程序插件手册
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+
+      <time title="创建时间：2023-06-30 12:24:09 / 修改时间：14:34:32" itemprop="dateCreated datePublished" datetime="2023-06-30T12:24:09+08:00">2023-06-30</time>
+    </span>
+
+  
+    <span id="/post/4037a27.html" class="post-meta-item leancloud_visitors" data-flag-title="抖音小程序插件手册" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/post/4037a27.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/post/4037a27.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="douyin-miniprogram-plugin"><a href="#douyin-miniprogram-plugin" class="headerlink" title="douyin-miniprogram-plugin"></a>douyin-miniprogram-plugin</h1><h3 id="基于JetBrains平台的抖音小程序插件"><a href="#基于JetBrains平台的抖音小程序插件" class="headerlink" title="基于JetBrains平台的抖音小程序插件"></a>基于JetBrains平台的抖音小程序插件</h3><h2 id="主要功能介绍"><a href="#主要功能介绍" class="headerlink" title="主要功能介绍"></a>主要功能介绍</h2><ul>
+<li>ttml/ttss/wxs文件支持<ul>
+<li>语法解析</li>
+<li>代码完成</li>
+<li>代码高亮</li>
+<li>ttml嵌入表达式支持</li>
+<li>ttml 《sjs》 标签支持</li>
+<li>ttml提取自定义组件</li>
+</ul>
+</li>
+<li>创建抖音小程序组件以及页面</li>
+<li>相关文件导航</li>
+<li>抖音小程序自定义组件支持<ul>
+<li>自动注册自定义组件</li>
+<li>组件配置解析</li>
+<li>重命名小程序自定义组件或页面</li>
+<li>同时移动自定义组件或页面的所有文件</li>
+</ul>
+</li>
+<li>抖音小程序配置文件支持</li>
+<li>代码检查以及自动修复</li>
+</ul>
+<h2 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h2><p>本插件致力于开发者在开发微信小程序时,能获得与开发web应用程序一致的开发体验</p>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ul>
+<li>TTSS的功能和配置几乎和CSS一致</li>
+<li>TTML的特殊标签,如sjs,import,include,template具有独立支持.</li>
+<li>TTML的功能和配置几乎和XML一致 </li>
+<li>通过Typescript的声明文件让js文件能够进行抖音API的代码完成，这些文件取自官方开发工具生成的typescript项目.</li>
+</ul>
+<h2 id="创建界面"><a href="#创建界面" class="headerlink" title="创建界面"></a>创建界面</h2><p>右键Project区域中的一项 New -&gt; Create Douyin Mini Program Page 在弹窗中输入页面名称,并选择js文件使用的API(Component|Page),即可新建一个页面,也可以通过搜索Action找到 页面添加完成之后会在app.json中自动注册这个页面</p>
+<p>js和json文件模板可以在File | Settings | Editor | File and Code Templates中修改</p>
+<p>对应的文件模板名称是</p>
+<ul>
+<li>Douyin mini program page js file(Component API)</li>
+<li>Douyin mini program page js file(Page API)</li>
+<li>Douyin mini program page json file(Component API)</li>
+<li>Douyin mini program page json file(Page API)</li>
+</ul>
+<p><img src="http://imgs.sugood.xyz/1688105482746iktsqey9.png?imageslim" alt="paste image"></p>
+<h2 id="创建自定义组件"><a href="#创建自定义组件" class="headerlink" title="创建自定义组件"></a>创建自定义组件</h2><p>右键Project区域中的一项 New -&gt; Create Douyin Mini Program Component<br>在弹窗中输入组件名称即可新建一个自定义组件,也可以通过搜索Action找到</p>
+<p>js和json文件模板可以在File | Settings | Editor | File and Code Templates中修改</p>
+<p>对应的文件模板名称是</p>
+<ul>
+<li>Douyin mini program component js file</li>
+<li>Douyin mini program component json file</li>
+</ul>
+<h2 id="从ttml文件中创建ttss类选择器"><a href="#从ttml文件中创建ttss类选择器" class="headerlink" title="从ttml文件中创建ttss类选择器"></a>从ttml文件中创建ttss类选择器</h2><p>在ttml文件中的元素的class属性中，输入一个新的class，将光标移动到class上，使用快捷键Alt + Enter，即可在当前组件的ttss文件或app.ttss中创建class</p>
+<p><img src="http://imgs.sugood.xyz/1688105437140yb1f7r26.png?imageslim" alt="paste image"></p>
+<h2 id="从ttml创建wxss-ID选择器"><a href="#从ttml创建wxss-ID选择器" class="headerlink" title="从ttml创建wxss ID选择器"></a>从ttml创建wxss ID选择器</h2><p>在ttml文件中的元素的id属性中，输入一个新的id，将光标移动到id上，使用快捷键Alt + Enter，即可在当前组件的ttss文件中创建id选择器</p>
+<p><img src="http://imgs.sugood.xyz/1688105608144ekc0n9w7.png?imageslim" alt="paste image"></p>
+<h2 id="从ttml中创建js事件处理函数"><a href="#从ttml中创建js事件处理函数" class="headerlink" title="从ttml中创建js事件处理函数"></a>从ttml中创建js事件处理函数</h2><p>在ttml中监听元素的事件，可在对应的js文件中创建事件处理函数</p>
+<p><img src="http://imgs.sugood.xyz/16881057534786e1jme3a.png?imageslim" alt="paste image"></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h4 id="插件地址：-douyin-miniprogram-plugin"><a href="#插件地址：-douyin-miniprogram-plugin" class="headerlink" title="插件地址： douyin-miniprogram-plugin"></a>插件地址： <a target="_blank" rel="noopener" href="https://github.com/sugood/douyin-miniprogram-plugin">douyin-miniprogram-plugin</a></h4>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-01-17T10:52:00+08:00"
-              content="2022-01-17">
-          01-17
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/post/71ea59e5.html" itemprop="url">
-            <span itemprop="name">【MacOS】Hammerspoon-sugood多合一效率工具，新增状态栏显示系统信息（CPU/内存/硬盘/网速）-v0.1.7</span>
-          </a>
-      </div>
+    <footer class="post-footer">
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/9464aba0.html" rel="prev" title="【Flutter】从安卓与iOS包体优化到一键自动打包脚本的一条龙服务">
+                  <i class="fa fa-chevron-left"></i> 【Flutter】从安卓与iOS包体优化到一键自动打包脚本的一条龙服务
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
-    </div>
+</div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-12-29T18:26:00+08:00"
-              content="2021-12-29">
-          12-29
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/post/9279f7bf.html" itemprop="url">
-            <span itemprop="name">【MacOS】1024送给广大程序员的礼物-mac提高效率工具Hammerspoon,深度使用脚本-更新v0.1.2</span>
-          </a>
-      </div>
 
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-12-29T16:07:00+08:00"
-              content="2021-12-29">
-          12-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/df92f13a.html" itemprop="url">
-            <span itemprop="name">【MacOS】Mac 10.15 使用brew安装mysql教程</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-12-29T16:06:00+08:00"
-              content="2021-12-29">
-          12-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/14a1b985.html" itemprop="url">
-            <span itemprop="name">【MacOS】Mac环境配置-安装Java并查看java默认安装路径</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-12-29T16:05:00+08:00"
-              content="2021-12-29">
-          12-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/8c9a01a9.html" itemprop="url">
-            <span itemprop="name">【MacOS】Mac使用技巧-Hammerspoon自动化功能#实现多屏快速切换，窗口缩放,自定义应用启动快捷键，添加片段和备忘录</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-12-29T16:04:00+08:00"
-              content="2021-12-29">
-          12-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/4d770fdf.html" itemprop="url">
-            <span itemprop="name">【MacOS】Lua 快速入门并完成一个基于Hammerspoon的备忘录项目</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-12-29T16:03:00+08:00"
-              content="2021-12-29">
-          12-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/d4a07c58.html" itemprop="url">
-            <span itemprop="name">【MacOS】网页自动化教程（下）- PySeTest网站自动登录到下单测试手脚架#Python3 + Selenium3+ HTMLTestRunner#工欲善其事</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-12-29T16:02:00+08:00"
-              content="2021-12-29">
-          12-29
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/post/32420ffc.html" itemprop="url">
-            <span itemprop="name">【MacOS】网页自动化测试（中）- PyCharm配置Python教程并执行一个简单的脚本#工欲善其事</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-    </div>
-  </div>
-  
-  
-  
-
-  
 
 
 
       
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -636,7 +611,7 @@ NexT.utils.loadComments('#valine-comments', () => {
   NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
     new Valine(Object.assign({"enable":true,"appId":"NT1D1LOrOJGCV4fCcaL84sCN-MdYXbMMI","appKey":"r26uvBWOfgqwX3flwdJo0G2M","serverURLs":null,"placeholder":"免费的评论不发一条吗~","avatar":"retro","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-cn","visitor":false,"comment_count":true,"recordIP":false,"enableQQ":true,"requiredFields":[]}, {
       el: '#valine-comments',
-      path: "/categories/MacOS/",
+      path: "/post/4037a27.html",
       serverURLs: "https://nt1d1lor.api.lncldglobal.com"
     }));
   }, window.Valine);
